@@ -9,43 +9,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.Booking;
-import com.practo.jedi.repository.BookingRepository;
+import com.practo.jedi.model.BookingModel;
+import com.practo.jedi.service.BookingService;
 
 @RestController
-@RequestMapping("/Bookings")
+@RequestMapping("/bookings")
 public class BookingController {
 
   @Autowired
-  private BookingRepository repository;
+  private BookingService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<Booking> list() {
-    return repository.findAll();
+  public Iterable<BookingModel> list() {
+    return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Booking> create(@RequestBody Booking Booking) {
-    Booking u = repository.save(Booking);
-    ResponseEntity<Booking> response = new ResponseEntity<Booking>(u, HttpStatus.CREATED);
+  public ResponseEntity<BookingModel> create(@RequestBody BookingModel booking) {
+    BookingModel m = service.create(booking);
+    ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Booking get(@PathVariable("id") int id) {
-    return repository.findOne(id);
+  public BookingModel get(@PathVariable("id") int id) {
+    return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<Booking> update(@PathVariable("id") int id, @RequestBody Booking Booking) {
-    Booking u = repository.save(Booking);
-    ResponseEntity<Booking> response = new ResponseEntity<Booking>(u, HttpStatus.OK);
+  public ResponseEntity<BookingModel> update(@PathVariable("id") int id,
+      @RequestBody BookingModel booking) {
+    BookingModel m = service.update(booking, id);
+    ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    repository.delete(id);
+    service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

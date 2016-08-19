@@ -1,4 +1,4 @@
-package com.practo.jedi.repository;
+package com.practo.jedi.data.repository;
 
 import org.springframework.data.repository.CrudRepository;
 

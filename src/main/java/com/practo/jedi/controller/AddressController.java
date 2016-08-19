@@ -9,43 +9,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.Address;
-import com.practo.jedi.repository.AddressRepository;
+import com.practo.jedi.model.AddressModel;
+import com.practo.jedi.service.AddressService;
 
 @RestController
-@RequestMapping("/Addresss")
+@RequestMapping("/addresses")
 public class AddressController {
 
   @Autowired
-  private AddressRepository repository;
+  private AddressService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<Address> list() {
-    return repository.findAll();
+  public Iterable<AddressModel> list() {
+    return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Address> create(@RequestBody Address Address) {
-    Address u = repository.save(Address);
-    ResponseEntity<Address> response = new ResponseEntity<Address>(u, HttpStatus.CREATED);
+  public ResponseEntity<AddressModel> create(@RequestBody AddressModel address) {
+    AddressModel m = service.create(address);
+    ResponseEntity<AddressModel> response = new ResponseEntity<AddressModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Address get(@PathVariable("id") int id) {
-    return repository.findOne(id);
+  public AddressModel get(@PathVariable("id") int id) {
+    return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<Address> update(@PathVariable("id") int id, @RequestBody Address Address) {
-    Address u = repository.save(Address);
-    ResponseEntity<Address> response = new ResponseEntity<Address>(u, HttpStatus.OK);
+  public ResponseEntity<AddressModel> update(@PathVariable("id") int id,
+      @RequestBody AddressModel address) {
+    AddressModel m = service.update(address, id);
+    ResponseEntity<AddressModel> response = new ResponseEntity<AddressModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    repository.delete(id);
+    service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

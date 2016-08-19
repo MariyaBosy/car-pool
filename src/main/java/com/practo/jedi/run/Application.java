@@ -7,8 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("com.practo.jedi.controller")
-@EnableJpaRepositories("com.practo.jedi.repository")
+@ComponentScan("com.practo.jedi")
+@EnableJpaRepositories("com.practo.jedi.data")
 @EntityScan("com.practo.jedi.data.entity")
 public class Application {
 

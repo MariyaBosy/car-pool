@@ -45,8 +45,8 @@ public class Address implements java.io.Serializable {
   private Date modifiedAt;
   private Date deletedAt;
   private boolean isDeleted;
-  private Set<Listing> listingses = new HashSet<Listing>(0);
-  private Set<Source> sourceses = new HashSet<Source>(0);
+  private Set<Listing> listings = new HashSet<Listing>(0);
+  private Set<Source> sources = new HashSet<Source>(0);
 
   public Address() {}
 
@@ -63,8 +63,8 @@ public class Address implements java.io.Serializable {
   public Address(BigDecimal latitude, BigDecimal longitude, String streetNumber, String route,
       String neighborhood, String sublocality, String administrativeAreaLevel2,
       String administrativeAreaLevel1, String country, String postalCode, Date createdAt,
-      Date modifiedAt, Date deletedAt, boolean isDeleted, Set<Listing> listingses,
-      Set<Source> sourceses) {
+      Date modifiedAt, Date deletedAt, boolean isDeleted, Set<Listing> listings,
+      Set<Source> sources) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.streetNumber = streetNumber;
@@ -79,8 +79,8 @@ public class Address implements java.io.Serializable {
     this.modifiedAt = modifiedAt;
     this.deletedAt = deletedAt;
     this.isDeleted = isDeleted;
-    this.listingses = listingses;
-    this.sourceses = sourceses;
+    this.listings = listings;
+    this.sources = sources;
   }
 
   @Id
@@ -228,7 +228,7 @@ public class Address implements java.io.Serializable {
 
 
   @Column(name = "is_deleted", nullable = false)
-  public boolean isIsDeleted() {
+  public boolean getIsDeleted() {
     return this.isDeleted;
   }
 
@@ -236,26 +236,24 @@ public class Address implements java.io.Serializable {
     this.isDeleted = isDeleted;
   }
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "addresses")
-  public Set<Listing> getListingses() {
-    return this.listingses;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+  public Set<Listing> getListings() {
+    return this.listings;
   }
 
-  public void setListingses(Set<Listing> listingses) {
-    this.listingses = listingses;
-  }
-
-
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "addresses")
-  public Set<Source> getSourceses() {
-    return this.sourceses;
-  }
-
-  public void setSourceses(Set<Source> sourceses) {
-    this.sourceses = sourceses;
+  public void setListings(Set<Listing> listings) {
+    this.listings = listings;
   }
 
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
+  public Set<Source> getSources() {
+    return this.sources;
+  }
+
+  public void setSources(Set<Source> sources) {
+    this.sources = sources;
+  }
 
 }
 

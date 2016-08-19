@@ -9,43 +9,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.Source;
-import com.practo.jedi.repository.SourceRepository;
+import com.practo.jedi.model.SourceModel;
+import com.practo.jedi.service.SourceService;
 
 @RestController
-@RequestMapping("/Sources")
+@RequestMapping("/sources")
 public class SourceController {
 
   @Autowired
-  private SourceRepository repository;
+  private SourceService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<Source> list() {
-    return repository.findAll();
+  public Iterable<SourceModel> list() {
+    return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Source> create(@RequestBody Source Source) {
-    Source u = repository.save(Source);
-    ResponseEntity<Source> response = new ResponseEntity<Source>(u, HttpStatus.CREATED);
+  public ResponseEntity<SourceModel> create(@RequestBody SourceModel source) {
+    SourceModel m = service.create(source);
+    ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Source get(@PathVariable("id") int id) {
-    return repository.findOne(id);
+  public SourceModel get(@PathVariable("id") int id) {
+    return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<Source> update(@PathVariable("id") int id, @RequestBody Source Source) {
-    Source u = repository.save(Source);
-    ResponseEntity<Source> response = new ResponseEntity<Source>(u, HttpStatus.OK);
+  public ResponseEntity<SourceModel> update(@PathVariable("id") int id,
+      @RequestBody SourceModel source) {
+    SourceModel m = service.update(source, id);
+    ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    repository.delete(id);
+    service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

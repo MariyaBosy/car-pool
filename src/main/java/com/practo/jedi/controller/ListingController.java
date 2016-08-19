@@ -9,43 +9,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.Listing;
-import com.practo.jedi.repository.ListingRepository;
+import com.practo.jedi.model.ListingModel;
+import com.practo.jedi.service.ListingService;
 
 @RestController
-@RequestMapping("/Listings")
+@RequestMapping("/listings")
 public class ListingController {
 
   @Autowired
-  private ListingRepository repository;
+  private ListingService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<Listing> list() {
-    return repository.findAll();
+  public Iterable<ListingModel> list() {
+    return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Listing> create(@RequestBody Listing Listing) {
-    Listing u = repository.save(Listing);
-    ResponseEntity<Listing> response = new ResponseEntity<Listing>(u, HttpStatus.CREATED);
+  public ResponseEntity<ListingModel> create(@RequestBody ListingModel listing) {
+    ListingModel m = service.create(listing);
+    ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Listing get(@PathVariable("id") int id) {
-    return repository.findOne(id);
+  public ListingModel get(@PathVariable("id") int id) {
+    return service.get(id);
   }
 
   @RequestMapping(method = RequestMethod.PUT)
-  public ResponseEntity<Listing> update(@PathVariable("id") int id, @RequestBody Listing Listing) {
-    Listing u = repository.save(Listing);
-    ResponseEntity<Listing> response = new ResponseEntity<Listing>(u, HttpStatus.OK);
+  public ResponseEntity<ListingModel> update(@PathVariable("id") int id,
+      @RequestBody ListingModel listing) {
+    ListingModel m = service.update(listing, id);
+    ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    repository.delete(id);
+    service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

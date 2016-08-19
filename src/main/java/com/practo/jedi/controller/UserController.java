@@ -9,47 +9,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.User;
 import com.practo.jedi.exceptions.UserNotFoundException;
-import com.practo.jedi.repository.UserRepository;
+import com.practo.jedi.model.UserModel;
+import com.practo.jedi.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
   @Autowired
-  private UserRepository repository;
+  private UserService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<User> list() {
-    return repository.findAll();
+  public Iterable<UserModel> list() throws UserNotFoundException {
+    return service.get();
   }
-
+  
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<User> create(@RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.CREATED);
+  public ResponseEntity<UserModel> create(@RequestBody UserModel user) {
+    UserModel m = service.create(user);
+    ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public User get(@PathVariable("id") int id) throws UserNotFoundException {
-    if (id == 1) {
-      throw new UserNotFoundException();
-    }
-    return repository.findOne(id);
+  public UserModel get(@PathVariable("id") int id) throws UserNotFoundException {
+    return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<User> update(@PathVariable("id") int id, @RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.OK);
+  public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user) {
+    UserModel m = service.update(user, id);
+    ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    repository.delete(id);
+    service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }
