@@ -9,41 +9,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.User;
-import com.practo.jedi.exceptions.UserNotFoundException;
-import com.practo.jedi.repository.UserRepository;
+import com.practo.jedi.data.entity.Listing;
+import com.practo.jedi.repository.ListingRepository;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/Listings")
+public class ListingController {
 
   @Autowired
-  private UserRepository repository;
+  private ListingRepository repository;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<User> list() {
+  public Iterable<Listing> list() {
     return repository.findAll();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<User> create(@RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.CREATED);
+  public ResponseEntity<Listing> create(@RequestBody Listing Listing) {
+    Listing u = repository.save(Listing);
+    ResponseEntity<Listing> response = new ResponseEntity<Listing>(u, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public User get(@PathVariable("id") int id) throws UserNotFoundException {
-    if (id == 1) {
-      throw new UserNotFoundException();
-    }
+  public Listing get(@PathVariable("id") int id) {
     return repository.findOne(id);
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<User> update(@PathVariable("id") int id, @RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.OK);
+  @RequestMapping(method = RequestMethod.PUT)
+  public ResponseEntity<Listing> update(@PathVariable("id") int id, @RequestBody Listing Listing) {
+    Listing u = repository.save(Listing);
+    ResponseEntity<Listing> response = new ResponseEntity<Listing>(u, HttpStatus.OK);
     return response;
   }
 

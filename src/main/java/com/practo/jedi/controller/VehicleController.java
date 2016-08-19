@@ -9,41 +9,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.data.entity.User;
-import com.practo.jedi.exceptions.UserNotFoundException;
-import com.practo.jedi.repository.UserRepository;
+import com.practo.jedi.data.entity.Vehicle;
+import com.practo.jedi.repository.VehicleRepository;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/vehicles")
+public class VehicleController {
 
   @Autowired
-  private UserRepository repository;
+  private VehicleRepository repository;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<User> list() {
+  public Iterable<Vehicle> list() {
     return repository.findAll();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<User> create(@RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.CREATED);
+  public ResponseEntity<Vehicle> create(@RequestBody Vehicle Vehicle) {
+    Vehicle u = repository.save(Vehicle);
+    ResponseEntity<Vehicle> response = new ResponseEntity<Vehicle>(u, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public User get(@PathVariable("id") int id) throws UserNotFoundException {
-    if (id == 1) {
-      throw new UserNotFoundException();
-    }
+  public Vehicle get(@PathVariable("id") int id) {
     return repository.findOne(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<User> update(@PathVariable("id") int id, @RequestBody User user) {
-    User u = repository.save(user);
-    ResponseEntity<User> response = new ResponseEntity<User>(u, HttpStatus.OK);
+  public ResponseEntity<Vehicle> update(@PathVariable("id") int id, @RequestBody Vehicle Vehicle) {
+    Vehicle u = repository.save(Vehicle);
+    ResponseEntity<Vehicle> response = new ResponseEntity<Vehicle>(u, HttpStatus.OK);
     return response;
   }
 

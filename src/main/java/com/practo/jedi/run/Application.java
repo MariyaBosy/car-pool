@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan("com.practo.jedi.controller")
 @EnableJpaRepositories("com.practo.jedi.repository")
-@EntityScan("com.practo.jedi.entity")
+@EntityScan("com.practo.jedi.data.entity")
 public class Application {
 
   public static void main(String[] args) {
