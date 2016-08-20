@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.data.dto.ListingFilterDTO;
 import com.practo.jedi.model.ListingModel;
 import com.practo.jedi.service.ListingService;
 
@@ -24,6 +25,12 @@ public class ListingController {
     return service.get();
   }
 
+  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  public Iterable<ListingModel> search(ListingFilterDTO filters) {
+    System.out.println(filters);
+    return service.filter(filters);
+  }
+
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<ListingModel> create(@RequestBody ListingModel listing) {
     ListingModel m = service.create(listing);
@@ -36,7 +43,7 @@ public class ListingController {
     return service.get(id);
   }
 
-  @RequestMapping(method = RequestMethod.PUT)
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<ListingModel> update(@PathVariable("id") int id,
       @RequestBody ListingModel listing) {
     ListingModel m = service.update(listing, id);
