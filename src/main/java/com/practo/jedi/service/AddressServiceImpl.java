@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class AddressServiceImpl implements AddressService {
 
   public AddressModel create(AddressModel address) {
     Address entity = address.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     address.fromEntity(entity);
     return address;
@@ -47,6 +49,7 @@ public class AddressServiceImpl implements AddressService {
   public AddressModel update(AddressModel address, Integer id) {
     address.setId(id);
     Address entity = address.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     address.fromEntity(entity);
     return address;
@@ -55,6 +58,7 @@ public class AddressServiceImpl implements AddressService {
   public void delete(Integer id) {
     Address entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 

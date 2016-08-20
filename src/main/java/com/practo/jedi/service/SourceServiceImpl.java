@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class SourceServiceImpl implements SourceService {
 
   public SourceModel create(SourceModel source) {
     Source entity = source.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     source.fromEntity(entity);
     return source;
@@ -47,6 +49,7 @@ public class SourceServiceImpl implements SourceService {
   public SourceModel update(SourceModel source, Integer id) {
     source.setId(id);
     Source entity = source.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     source.fromEntity(entity);
     return source;
@@ -55,6 +58,7 @@ public class SourceServiceImpl implements SourceService {
   public void delete(Integer id) {
     Source entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 

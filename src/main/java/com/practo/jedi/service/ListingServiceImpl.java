@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class ListingServiceImpl implements ListingService {
 
   public ListingModel create(ListingModel listing) {
     Listing entity = listing.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     listing.fromEntity(entity);
     return listing;
@@ -47,6 +49,7 @@ public class ListingServiceImpl implements ListingService {
   public ListingModel update(ListingModel listing, Integer id) {
     listing.setId(id);
     Listing entity = listing.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     listing.fromEntity(entity);
     return listing;
@@ -55,6 +58,7 @@ public class ListingServiceImpl implements ListingService {
   public void delete(Integer id) {
     Listing entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 

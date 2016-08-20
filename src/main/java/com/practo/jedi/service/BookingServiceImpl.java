@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class BookingServiceImpl implements BookingService {
 
   public BookingModel create(BookingModel booking) {
     Booking entity = booking.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     booking.fromEntity(entity);
     return booking;
@@ -47,6 +49,7 @@ public class BookingServiceImpl implements BookingService {
   public BookingModel update(BookingModel booking, Integer id) {
     booking.setId(id);
     Booking entity = booking.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     booking.fromEntity(entity);
     return booking;
@@ -55,6 +58,7 @@ public class BookingServiceImpl implements BookingService {
   public void delete(Integer id) {
     Booking entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 

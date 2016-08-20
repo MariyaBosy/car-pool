@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
   public UserModel create(UserModel user) {
     User entity = user.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     user.fromEntity(entity);
     return user;
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
   public UserModel update(UserModel user, Integer id) {
     user.setId(id);
     User entity = user.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     user.fromEntity(entity);
     return user;
@@ -55,6 +58,7 @@ public class UserServiceImpl implements UserService {
   public void delete(Integer id) {
     User entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 

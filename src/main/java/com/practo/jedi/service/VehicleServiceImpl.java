@@ -1,6 +1,7 @@
 package com.practo.jedi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class VehicleServiceImpl implements VehicleService {
 
   public VehicleModel create(VehicleModel vehicle) {
     Vehicle entity = vehicle.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     vehicle.fromEntity(entity);
     return vehicle;
@@ -47,6 +49,7 @@ public class VehicleServiceImpl implements VehicleService {
   public VehicleModel update(VehicleModel vehicle, Integer id) {
     vehicle.setId(id);
     Vehicle entity = vehicle.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     vehicle.fromEntity(entity);
     return vehicle;
@@ -55,6 +58,7 @@ public class VehicleServiceImpl implements VehicleService {
   public void delete(Integer id) {
     Vehicle entity = repository.findOne(id);
     entity.setIsDeleted(true);
+    entity.setDeletedAt(new Date());
     entity = repository.save(entity);
   }
 
