@@ -74,4 +74,10 @@ public class UserModel implements java.io.Serializable {
     }
   }
 
+
+  @Override
+  public String toString() {
+    return "UserModel [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
+  }
+
 }

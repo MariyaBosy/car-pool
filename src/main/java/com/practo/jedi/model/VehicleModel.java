@@ -91,6 +91,13 @@ public class VehicleModel implements java.io.Serializable {
     }
   }
 
+
+  @Override
+  public String toString() {
+    return "VehicleModel [id=" + id + ", capacity=" + capacity + ", model=" + model
+        + ", numberPlate=" + numberPlate + ", user=" + user + "]";
+  }
+
 }
 
 

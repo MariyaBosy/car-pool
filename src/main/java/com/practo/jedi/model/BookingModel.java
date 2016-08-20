@@ -46,8 +46,12 @@ public class BookingModel implements java.io.Serializable {
     if (this.getId() != null) {
       booking.setId(this.getId());
     }
-    booking.setListing(this.getListing().toEntity());
-    booking.setUser(this.getUser().toEntity());
+    if (this.getListing() != null) {
+      booking.setListing(this.getListing().toEntity());
+    }
+    if (this.getUser() != null) {
+      booking.setUser(this.getUser().toEntity());
+    }
     return booking;
   }
 
@@ -61,6 +65,12 @@ public class BookingModel implements java.io.Serializable {
       listing.fromEntity(entity.getListing());
       this.setListing(listing);
     }
+  }
+
+
+  @Override
+  public String toString() {
+    return "BookingModel [id=" + id + ", listing=" + listing + ", user=" + user + "]";
   }
 
 }

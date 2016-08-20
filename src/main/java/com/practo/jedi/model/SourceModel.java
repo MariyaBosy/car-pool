@@ -65,6 +65,12 @@ public class SourceModel implements java.io.Serializable {
   }
 
 
+  @Override
+  public String toString() {
+    return "SourceModel [id=" + id + ", address=" + address + ", name=" + name + "]";
+  }
+
+
 }
 
 

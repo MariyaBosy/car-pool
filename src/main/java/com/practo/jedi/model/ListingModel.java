@@ -91,10 +91,18 @@ public class ListingModel implements java.io.Serializable {
     if (this.getId() != null) {
       listing.setId(this.getId());
     }
-    listing.setAddress(this.getAddress().toEntity());
-    listing.setSource(this.getSource().toEntity());
-    listing.setUser(this.getUser().toEntity());
-    listing.setVehicle(this.getVehicle().toEntity());
+    if (this.getAddress() != null) {
+      listing.setAddress(this.getAddress().toEntity());
+    }
+    if (this.getSource() != null) {
+      listing.setSource(this.getSource().toEntity());
+    }
+    if (this.getUser() != null) {
+      listing.setUser(this.getUser().toEntity());
+    }
+    if (this.getVehicle() != null) {
+      listing.setVehicle(this.getVehicle().toEntity());
+    }
     listing.setDepartureTime(this.getDepartureTime());
     listing.setSeatsAvailable(this.getSeatsAvailable());
     return listing;
@@ -118,6 +126,14 @@ public class ListingModel implements java.io.Serializable {
       this.setDepartureTime(entity.getDepartureTime());
       this.setSeatsAvailable(entity.getSeatsAvailable());
     }
+  }
+
+
+  @Override
+  public String toString() {
+    return "ListingModel [id=" + id + ", address=" + address + ", source=" + source + ", user="
+        + user + ", vehicle=" + vehicle + ", departureTime=" + departureTime + ", seatsAvailable="
+        + seatsAvailable + "]";
   }
 
 
