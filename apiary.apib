@@ -9,10 +9,6 @@ Car pool is an API for a car pooling webapp.
 
 ### List All Listings [GET]
 
-+ Parameters
-    + listing_id (number,optional) - ID of the Listing in the form of an integer
-    
-
 + Response 200 (application/json)
 
         [
@@ -26,6 +22,23 @@ Car pool is an API for a car pooling webapp.
                 "status": "True"
             }
         ]
+
+### List One Listing [GET]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+
++ Response 200 (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 1,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 2,
+            "status": "True"
+        }
 
 ### Create a New Listing [POST]
 
@@ -95,6 +108,361 @@ Car pool is an API for a car pooling webapp.
                 "status": "True"
             }
 
-### Delete a listing [DELETE]
+### Delete a Listing [DELETE]
+
++ Response 204
+
+
+
+## Bookings Collection [/listings/{listing_id}/bookings/{booking_id}]
+
+### List All Bookings [GET]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### List One Booking [GET]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+    + booking_id (number, optional) - ID of the Booking in the form of an integer
+    
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### Create a New Booking [POST]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+
+### Update a Booking [PUT]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+    + booking_id (number, optional) - ID of the Booking in the form of an integer
+    
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+### Delete a Booking [DELETE]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+    + booking_id (number, optional) - ID of the Booking in the form of an integer
+
++ Response 204
+
+## Users Collection [/users/{user_id}]
+
+### List All Users [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### List One User [GET]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+
++ Response 200 (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 1,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 2,
+            "status": "True"
+        }
+
+### Create a New User [POST]
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+
+### Update a User [PUT]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+    
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+### Delete a User [DELETE]
+
++ Response 204
+
+
+
+## Vehicles Collection [/users/{user_id}/vehicles/{vehicle_id}]
+
+### List All Vehicles [GET]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### List One Vehicle [GET]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+    + vehicle_id (number, optional) - ID of the Vehicle in the form of an integer
+    
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### Create a New Vehicle [POST]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+
+### Update a Vehicle [PUT]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+    + vehicle_id (number, optional) - ID of the Vehicle in the form of an integer
+    
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+### Delete a Vehicle [DELETE]
+
++ Parameters
+    + user_id (number) - ID of the User in the form of an integer
+    + vehicle_id (number, optional) - ID of the Vehicle in the form of an integer
 
 + Response 204
