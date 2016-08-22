@@ -1,0 +1,100 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# car-pool
+
+Car pool is an API for a car pooling webapp.
+
+## Listings Collection [/listings/{listing_id}]
+
+### List All Listings [GET]
+
++ Parameters
+    + listing_id (number,optional) - ID of the Listing in the form of an integer
+    
+
++ Response 200 (application/json)
+
+        [
+            {
+                "user_id": 1,
+                "car_id": 1,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 2,
+                "status": "True"
+            }
+        ]
+
+### Create a New Listing [POST]
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+
+### Update a Listing [PUT]
+
++ Parameters
+    + listing_id (number) - ID of the Listing in the form of an integer
+    
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "car_id": 2,
+            "departure_time": "2015-08-05T08:40:51.620Z",
+            "source_id": 1,
+            "destination": "HSR Layout",
+            "seats_available": 3,
+            "status": "True"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /listings/2
+
+    + Body
+
+            {
+                "user_id": 1,
+                "car_id": 2,
+                "departure_time": "2015-08-05T08:40:51.620Z",
+                "source_id": 1,
+                "destination": "HSR Layout",
+                "seats_available": 3,
+                "status": "True"
+            }
+
+### Delete a listing [DELETE]
+
++ Response 204
