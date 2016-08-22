@@ -1,6 +1,7 @@
 package com.practo.jedi.model;
 
 import com.practo.jedi.data.entity.Vehicle;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class VehicleModel implements java.io.Serializable {
 
@@ -79,8 +80,8 @@ public class VehicleModel implements java.io.Serializable {
     return vehicle;
   }
 
-  public void fromEntity(Vehicle entity) {
-    if (entity != null) {
+  public void fromEntity(Vehicle entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       this.setCapacity(entity.getCapacity());
       this.setModel(entity.getModel());
@@ -88,6 +89,8 @@ public class VehicleModel implements java.io.Serializable {
       UserModel user = new UserModel();
       user.fromEntity(entity.getUser());
       this.setUser(user);
+    } else {
+      throw new EntityNotFoundException("No vehicle found with given Id");
     }
   }
 

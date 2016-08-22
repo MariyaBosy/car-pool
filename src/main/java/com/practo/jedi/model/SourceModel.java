@@ -1,6 +1,7 @@
 package com.practo.jedi.model;
 
 import com.practo.jedi.data.entity.Source;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class SourceModel implements java.io.Serializable {
   private static final long serialVersionUID = 5091525466783641440L;
@@ -54,13 +55,15 @@ public class SourceModel implements java.io.Serializable {
     return source;
   }
 
-  public void fromEntity(Source entity) {
-    if (entity != null) {
+  public void fromEntity(Source entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       this.setName(entity.getName());
       AddressModel address = new AddressModel();
       address.fromEntity(entity.getAddress());
       this.setAddress(address);
+    } else {
+      throw new EntityNotFoundException("No source found with given Id");
     }
   }
 

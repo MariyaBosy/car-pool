@@ -1,6 +1,7 @@
 package com.practo.jedi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practo.jedi.data.dto.ListingFilterDTO;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.ListingModel;
 import com.practo.jedi.service.ListingService;
 
@@ -21,8 +23,8 @@ public class ListingController {
   private ListingService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<ListingModel> list() {
-    return service.get();
+  public Iterable<ListingModel> list(Pageable pageable) {
+    return service.get(pageable);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -39,7 +41,7 @@ public class ListingController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ListingModel get(@PathVariable("id") int id) {
+  public ListingModel get(@PathVariable("id") int id) throws EntityNotFoundException {
     return service.get(id);
   }
 

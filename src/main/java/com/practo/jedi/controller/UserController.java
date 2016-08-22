@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.exceptions.UserNotFoundException;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.UserModel;
 import com.practo.jedi.service.UserService;
 
@@ -21,7 +21,7 @@ public class UserController {
   private UserService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<UserModel> list() throws UserNotFoundException {
+  public Iterable<UserModel> list() throws EntityNotFoundException {
     return service.get();
   }
   
@@ -33,7 +33,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public UserModel get(@PathVariable("id") int id) throws UserNotFoundException {
+  public UserModel get(@PathVariable("id") int id) throws EntityNotFoundException {
     return service.get(id);
   }
 

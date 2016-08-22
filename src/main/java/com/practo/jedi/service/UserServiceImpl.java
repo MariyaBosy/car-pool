@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.practo.jedi.data.entity.User;
 import com.practo.jedi.data.repository.UserRepository;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.UserModel;
 
 @Service
@@ -25,13 +26,18 @@ public class UserServiceImpl implements UserService {
     ArrayList<UserModel> models = new ArrayList<UserModel>();
     for (User entity : entities) {
       UserModel model = new UserModel();
-      model.fromEntity(entity);
-      models.add(model);
+      try {
+        model.fromEntity(entity);
+        models.add(model);
+
+      } catch (EntityNotFoundException e) {
+        e.printStackTrace();
+      }
     }
     return models;
   }
 
-  public UserModel get(Integer id) {
+  public UserModel get(Integer id) throws EntityNotFoundException {
     User entity = repository.findOne(id);
     UserModel model = new UserModel();
     model.fromEntity(entity);
@@ -42,7 +48,11 @@ public class UserServiceImpl implements UserService {
     User entity = user.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
-    user.fromEntity(entity);
+    try {
+      user.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
     return user;
   }
 
@@ -51,7 +61,11 @@ public class UserServiceImpl implements UserService {
     User entity = user.toEntity();
     entity.setModifiedAt(new Date());
     entity = repository.save(entity);
-    user.fromEntity(entity);
+    try {
+      user.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
     return user;
   }
 

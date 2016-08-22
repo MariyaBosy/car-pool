@@ -9,44 +9,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.VehicleModel;
 import com.practo.jedi.service.VehicleService;
 
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping("users/{user_id}/vehicles")
 public class VehicleController {
 
   @Autowired
   private VehicleService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<VehicleModel> list() {
-    return service.get();
+  public Iterable<VehicleModel> list(@PathVariable("user_id") int user_id) {
+    return service.get(user_id);
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<VehicleModel> create(@RequestBody VehicleModel vehicle) {
-    VehicleModel m = service.create(vehicle);
+  public ResponseEntity<VehicleModel> create(@PathVariable("user_id") int user_id, @RequestBody VehicleModel vehicle) {
+    VehicleModel m = service.create(user_id, vehicle);
     ResponseEntity<VehicleModel> response = new ResponseEntity<VehicleModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public VehicleModel get(@PathVariable("id") int id) {
-    return service.get(id);
+  public VehicleModel get(@PathVariable("user_id") int user_id, @PathVariable("id") int id) throws EntityNotFoundException {
+    return service.get(user_id, id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<VehicleModel> update(@PathVariable("id") int id,
+  public ResponseEntity<VehicleModel> update(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
       @RequestBody VehicleModel vehicle) {
-    VehicleModel m = service.update(vehicle, id);
+    VehicleModel m = service.update(user_id, vehicle, id);
     ResponseEntity<VehicleModel> response = new ResponseEntity<VehicleModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
-    service.delete(id);
+  public ResponseEntity<Boolean> delete(@PathVariable("user_id") int user_id, @PathVariable("id") int id) {
+    service.delete(user_id, id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

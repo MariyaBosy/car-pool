@@ -3,6 +3,7 @@ package com.practo.jedi.model;
 import java.util.Date;
 
 import com.practo.jedi.data.entity.Listing;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class ListingModel implements java.io.Serializable {
 
@@ -108,8 +109,8 @@ public class ListingModel implements java.io.Serializable {
     return listing;
   }
 
-  public void fromEntity(Listing entity) {
-    if (entity != null) {
+  public void fromEntity(Listing entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       AddressModel address = new AddressModel();
       address.fromEntity(entity.getAddress());
@@ -125,6 +126,8 @@ public class ListingModel implements java.io.Serializable {
       this.setVehicle(vehicle);
       this.setDepartureTime(entity.getDepartureTime());
       this.setSeatsAvailable(entity.getSeatsAvailable());
+    } else {
+      throw new EntityNotFoundException("No listing found with given Id");
     }
   }
 

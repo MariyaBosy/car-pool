@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.practo.jedi.data.entity.Source;
 import com.practo.jedi.data.repository.SourceRepository;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.SourceModel;
 
 @Service
@@ -25,13 +26,18 @@ public class SourceServiceImpl implements SourceService {
     ArrayList<SourceModel> models = new ArrayList<SourceModel>();
     for (Source entity : entities) {
       SourceModel model = new SourceModel();
-      model.fromEntity(entity);
-      models.add(model);
+      try {
+        model.fromEntity(entity);
+        models.add(model);
+
+      } catch (EntityNotFoundException e) {
+        e.printStackTrace();
+      }
     }
     return models;
   }
 
-  public SourceModel get(Integer id) {
+  public SourceModel get(Integer id) throws EntityNotFoundException {
     Source entity = repository.findOne(id);
     SourceModel model = new SourceModel();
     model.fromEntity(entity);
@@ -42,7 +48,11 @@ public class SourceServiceImpl implements SourceService {
     Source entity = source.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
-    source.fromEntity(entity);
+    try {
+      source.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
     return source;
   }
 
@@ -51,7 +61,11 @@ public class SourceServiceImpl implements SourceService {
     Source entity = source.toEntity();
     entity.setModifiedAt(new Date());
     entity = repository.save(entity);
-    source.fromEntity(entity);
+    try {
+      source.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
     return source;
   }
 

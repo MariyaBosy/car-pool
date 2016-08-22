@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.SourceModel;
 import com.practo.jedi.service.SourceService;
 
@@ -32,7 +33,7 @@ public class SourceController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public SourceModel get(@PathVariable("id") int id) {
+  public SourceModel get(@PathVariable("id") int id) throws EntityNotFoundException {
     return service.get(id);
   }
 

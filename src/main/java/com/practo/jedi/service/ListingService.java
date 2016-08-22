@@ -1,13 +1,16 @@
 package com.practo.jedi.service;
 
+import org.springframework.data.domain.Pageable;
+
 import com.practo.jedi.data.dto.ListingFilterDTO;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.ListingModel;
 
 public interface ListingService {
 
-  public Iterable<ListingModel> get();
+  public Iterable<ListingModel> get(Pageable pageable);
 
-  public ListingModel get(Integer id);
+  public ListingModel get(Integer id) throws EntityNotFoundException;
 
   public ListingModel create(ListingModel Listing);
 

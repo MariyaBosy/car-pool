@@ -3,6 +3,7 @@ package com.practo.jedi.model;
 import java.math.BigDecimal;
 
 import com.practo.jedi.data.entity.Address;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class AddressModel implements java.io.Serializable {
 
@@ -160,8 +161,8 @@ public class AddressModel implements java.io.Serializable {
     return address;
   }
 
-  public void fromEntity(Address entity) {
-    if (entity != null) {
+  public void fromEntity(Address entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       this.setLatitude(entity.getLatitude());
       this.setLongitude(entity.getLongitude());
@@ -173,7 +174,7 @@ public class AddressModel implements java.io.Serializable {
       this.setAdministrativeAreaLevel2(entity.getAdministrativeAreaLevel2());
       this.setCountry(entity.getCountry());
       this.setPostalCode(entity.getPostalCode());
-    }
+    } else {throw new EntityNotFoundException("No address found with given Id");}
   }
 
 

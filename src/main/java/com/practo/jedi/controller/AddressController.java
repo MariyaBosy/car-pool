@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.AddressModel;
 import com.practo.jedi.service.AddressService;
 
@@ -32,7 +33,7 @@ public class AddressController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public AddressModel get(@PathVariable("id") int id) {
+  public AddressModel get(@PathVariable("id") int id) throws EntityNotFoundException {
     return service.get(id);
   }
 

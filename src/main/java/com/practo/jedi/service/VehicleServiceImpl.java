@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.practo.jedi.data.entity.Vehicle;
 import com.practo.jedi.data.repository.VehicleRepository;
+import com.practo.jedi.exceptions.EntityNotFoundException;
+import com.practo.jedi.model.UserModel;
 import com.practo.jedi.model.VehicleModel;
 
 @Service
@@ -20,43 +22,61 @@ public class VehicleServiceImpl implements VehicleService {
     return repository;
   }
 
-  public Iterable<VehicleModel> get() {
-    Iterable<Vehicle> entities = repository.findAll();
+  public Iterable<VehicleModel> get(Integer user_id) {
+    Iterable<Vehicle> entities = repository.findByUserId(user_id);
     ArrayList<VehicleModel> models = new ArrayList<VehicleModel>();
     for (Vehicle entity : entities) {
       VehicleModel model = new VehicleModel();
-      model.fromEntity(entity);
-      models.add(model);
+      try {
+        model.fromEntity(entity);
+        models.add(model);
+      } catch (EntityNotFoundException e) {
+        e.printStackTrace();
+      }
+
     }
     return models;
   }
 
-  public VehicleModel get(Integer id) {
-    Vehicle entity = repository.findOne(id);
+  public VehicleModel get(Integer user_id, Integer id) throws EntityNotFoundException {
+    Vehicle entity = repository.findByUserIdAndId(user_id, id);
     VehicleModel model = new VehicleModel();
     model.fromEntity(entity);
     return model;
   }
 
-  public VehicleModel create(VehicleModel vehicle) {
+  public VehicleModel create(Integer user_id, VehicleModel vehicle) {
+    UserModel user = new UserModel();
+    user.setId(user_id);
+    vehicle.setUser(user);
     Vehicle entity = vehicle.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
-    vehicle.fromEntity(entity);
+    try {
+      vehicle.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
     return vehicle;
   }
 
-  public VehicleModel update(VehicleModel vehicle, Integer id) {
+  public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id) {
+    UserModel user = new UserModel();
+    user.setId(user_id);
+    vehicle.setUser(user);
     vehicle.setId(id);
     Vehicle entity = vehicle.toEntity();
     entity.setModifiedAt(new Date());
     entity = repository.save(entity);
-    vehicle.fromEntity(entity);
-    return vehicle;
+    try {
+      vehicle.fromEntity(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }    return vehicle;
   }
 
-  public void delete(Integer id) {
-    Vehicle entity = repository.findOne(id);
+  public void delete(Integer user_id, Integer id) {
+    Vehicle entity = repository.findByUserIdAndId(user_id, id);
     entity.setIsDeleted(true);
     entity.setDeletedAt(new Date());
     entity = repository.save(entity);

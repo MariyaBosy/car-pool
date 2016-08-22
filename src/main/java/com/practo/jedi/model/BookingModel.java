@@ -1,6 +1,7 @@
 package com.practo.jedi.model;
 
 import com.practo.jedi.data.entity.Booking;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class BookingModel implements java.io.Serializable {
 
@@ -55,8 +56,8 @@ public class BookingModel implements java.io.Serializable {
     return booking;
   }
 
-  public void fromEntity(Booking entity) {
-    if (entity != null) {
+  public void fromEntity(Booking entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       UserModel user = new UserModel();
       user.fromEntity(entity.getUser());
@@ -64,6 +65,8 @@ public class BookingModel implements java.io.Serializable {
       ListingModel listing = new ListingModel();
       listing.fromEntity(entity.getListing());
       this.setListing(listing);
+    }else {
+      throw new EntityNotFoundException("No booking found with given Id");
     }
   }
 

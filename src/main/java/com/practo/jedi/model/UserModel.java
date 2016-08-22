@@ -1,6 +1,7 @@
 package com.practo.jedi.model;
 
 import com.practo.jedi.data.entity.User;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
 public class UserModel implements java.io.Serializable {
 
@@ -65,13 +66,13 @@ public class UserModel implements java.io.Serializable {
     return user;
   }
 
-  public void fromEntity(User entity) {
-    if (entity != null) {
+  public void fromEntity(User entity) throws EntityNotFoundException {
+    if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
       this.setName(entity.getName());
       this.setEmail(entity.getEmail());
       this.setPhone(entity.getPhone());
-    }
+    } else {throw new EntityNotFoundException("No user found with given Id");}
   }
 
 
