@@ -10,6 +10,7 @@ import com.practo.jedi.data.entity.Booking;
 import com.practo.jedi.data.repository.BookingRepository;
 import com.practo.jedi.exceptions.EntityNotFoundException;
 import com.practo.jedi.model.BookingModel;
+import com.practo.jedi.model.ListingModel;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -45,6 +46,9 @@ public class BookingServiceImpl implements BookingService {
   }
 
   public BookingModel create(Integer listing_id, BookingModel booking) {
+    ListingModel listing = new ListingModel();
+    listing.setId(listing_id);
+    booking.setListing(listing);
     Booking entity = booking.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
@@ -57,6 +61,9 @@ public class BookingServiceImpl implements BookingService {
   }
 
   public BookingModel update(Integer listing_id, BookingModel booking, Integer id) {
+    ListingModel listing = new ListingModel();
+    listing.setId(listing_id);
+    booking.setListing(listing);
     booking.setId(id);
     Booking entity = booking.toEntity();
     entity.setModifiedAt(new Date());
