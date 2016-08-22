@@ -1,6 +1,7 @@
 package com.practo.jedi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,23 @@ import com.practo.jedi.service.ListingService;
 @RequestMapping("/listings")
 public class ListingController {
 
+  private int itemsPerPage = 2;
+
   @Autowired
   private ListingService service;
 
+  public static Pageable updatePageable(final Pageable source, final int size) {
+    return new PageRequest(source.getPageNumber(), size, source.getSort());
+  }
+
   @RequestMapping(method = RequestMethod.GET)
   public Iterable<ListingModel> list(Pageable pageable) {
-    return service.get(pageable);
+    return service.get(updatePageable(pageable, itemsPerPage));
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.GET)
-  public Iterable<ListingModel> search(ListingFilterDTO filters) {
-    System.out.println(filters);
-    return service.filter(filters);
+  public Iterable<ListingModel> search(ListingFilterDTO filters, Pageable pageable) {
+    return service.filter(filters, updatePageable(pageable, itemsPerPage));
   }
 
   @RequestMapping(method = RequestMethod.POST)

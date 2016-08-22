@@ -80,8 +80,8 @@ public class ListingServiceImpl implements ListingService {
     entity = repository.save(entity);
   }
 
-  public Iterable<ListingModel> filter(ListingFilterDTO filters) {
-    Iterable<Listing> entities = repository.findAll(filters.toPredicate());
+  public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable) {
+    Iterable<Listing> entities = repository.findAll(filters.toPredicate(), pageable);
     ArrayList<ListingModel> models = new ArrayList<ListingModel>();
     for (Listing entity : entities) {
       // Apply destination filter

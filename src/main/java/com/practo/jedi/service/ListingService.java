@@ -18,6 +18,6 @@ public interface ListingService {
 
   public void delete(Integer id);
   
-  public Iterable<ListingModel> filter(ListingFilterDTO filters);
+  public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable);
 
 }
