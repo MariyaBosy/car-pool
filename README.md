@@ -1,3 +1,5 @@
+[![Travis-ci Build Status](https://travis-ci.org/pbaisla/car-pool.svg?branch=master)](https://travis-ci.org/pbaisla/car-pool)
+
 # car-pool
 
 A webapp for making it easier to car pool. Built with Spring boot.
