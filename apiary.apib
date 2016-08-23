@@ -9,67 +9,131 @@ Car pool is an API for a car pooling webapp.
 
 ### List All Listings [GET]
 
-+ Response 200 (application/json)
-
-        [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
-        ]
-
-### List One Listing [GET]
-
 + Parameters
     + listing_id (number) - ID of the Listing in the form of an integer
 
 + Response 200 (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 1,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 2,
-            "status": "True"
-        }
+        [
+             {
+                "id": 2,
+                "address": {
+                  "id": 2,
+                  "latitude": 1.121,
+                  "longitude": -11.121,
+                  "streetNumber": "12",
+                  "route": "15 Main",
+                  "neighborhood": "JP Nagar",
+                  "sublocality": "Phase 2",
+                  "administrativeAreaLevel2": "Bengaluru",
+                  "administrativeAreaLevel1": "Karnataka",
+                  "country": "India",
+                  "postalCode": "560076"
+                },
+                "source": {
+                  "id": 2,
+                  "address": {
+                      "id": 2,
+                      "latitude": 1.121,
+                      "longitude": -11.121,
+                      "streetNumber": "12",
+                      "route": "15 Main",
+                      "neighborhood": "JP Nagar",
+                      "sublocality": "Phase 2",
+                      "administrativeAreaLevel2": "Bengaluru",
+                      "administrativeAreaLevel1": "Karnataka",
+                      "country": "India",
+                      "postalCode": "560076"
+                  },
+                  "name": "practo"
+                },
+                "user": {
+                  "id": 6,
+                  "name": "Poorna Teja",
+                  "email": "poorna@practo.com",
+                  "phone": "9965678867"
+                },
+                "vehicle": {
+                  "id": 2,
+                  "capacity": 2,
+                  "model": "BMW",
+                  "numberPlate": "KA22113390",
+                  "user": {
+                    "id": 6,
+                    "name": "Poorna Teja",
+                    "email": "poorna@practo.com",
+                    "phone": "65678867"
+                  }
+                },
+                "departureTime": 147160196000,
+                "seatsAvailable": 2
+              }
+        ]
 
 ### Create a New Listing [POST]
 
 + Request (application/json)
-
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+        
+          {
+                "address": {
+                      "id": 1
+                },
+                "source": {
+                      "id": 2
+                },
+                "user": {
+                      "id": 1
+                },
+                "vehicle": {
+                      "id": 1
+                },
+                "departureTime": 147150196100,
+                "seatsAvailable": 4
+          }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /listings/6
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                        "id": 6,
+                        "address": {
+                                    "id": 1,
+                                    "latitude": null,
+                                    "longitude": null,
+                                    "streetNumber": null,
+                                    "route": null,
+                                    "neighborhood": null,
+                                    "sublocality": null,
+                                    "administrativeAreaLevel2": null,
+                                    "administrativeAreaLevel1": null,
+                                    "country": null,
+                                    "postalCode": null
+                        },
+                        "source": {
+                                    "id": 2,
+                                    "address": null,
+                                    "name": null
+                        },
+                        "user": {
+                                    "id": 1,
+                                    "name": null,
+                                    "email": null,
+                                    "phone": null
+                        },
+                        "vehicle": {
+                                    "id": 1,
+                                    "capacity": 0,
+                                    "model": null,
+                                    "numberPlate": null,
+                                    "user": null
+                        },
+                        "departureTime": 147150196100,
+                        "seatsAvailable": 4
             }
 
 
@@ -80,15 +144,22 @@ Car pool is an API for a car pooling webapp.
     
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+          {
+                "address": {
+                      "id": 1
+                },
+                "source": {
+                      "id": 1
+                },
+                "user": {
+                      "id": 1
+                },
+                "vehicle": {
+                      "id": 2
+                },
+                "departureTime": 157150196100,
+                "seatsAvailable": 2
+          }
 
 + Response 200 (application/json)
 
@@ -99,13 +170,57 @@ Car pool is an API for a car pooling webapp.
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                "id": 1,
+                "address": {
+                  "id": 2,
+                  "latitude": 1.121,
+                  "longitude": -11.121,
+                  "streetNumber": "12",
+                  "route": "15 Main",
+                  "neighborhood": "JP Nagar",
+                  "sublocality": "Phase 2",
+                  "administrativeAreaLevel2": "Bengaluru",
+                  "administrativeAreaLevel1": "Karnataka",
+                  "country": "India",
+                  "postalCode": "560076"
+                },
+                "source": {
+                  "id": 1,
+                  "address": {
+                      "id": 2,
+                      "latitude": 1.121,
+                      "longitude": -11.121,
+                      "streetNumber": "12",
+                      "route": "15 Main",
+                      "neighborhood": "JP Nagar",
+                      "sublocality": "Phase 2",
+                      "administrativeAreaLevel2": "Bengaluru",
+                      "administrativeAreaLevel1": "Karnataka",
+                      "country": "India",
+                      "postalCode": "560076"
+                  },
+                  "name": "practo"
+                },
+                "user": {
+                  "id": 1,
+                  "name": "Poorna Teja",
+                  "email": "poorna@practo.com",
+                  "phone": "9965678867"
+                },
+                "vehicle": {
+                  "id": 2,
+                  "capacity": 2,
+                  "model": "BMW",
+                  "numberPlate": "KA22113390",
+                  "user": {
+                    "id": 6,
+                    "name": "Poorna Teja",
+                    "email": "poorna@practo.com",
+                    "phone": "65678867"
+                  }
+                },
+                "departureTime": 157160196000,
+                "seatsAvailable": 2
             }
 
 ### Delete a Listing [DELETE]
@@ -120,40 +235,74 @@ Car pool is an API for a car pooling webapp.
 
 + Parameters
     + listing_id (number) - ID of the Listing in the form of an integer
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
-        ]
-
-### List One Booking [GET]
-
-+ Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
     + booking_id (number, optional) - ID of the Booking in the form of an integer
     
-
 + Response 200 (application/json)
 
         [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
+              {
+                "id": 1,
+                "listing": {
+                  "id": 2,
+                  "address": {
+                    "id": 2,
+                    "latitude": 1.121,
+                    "longitude": -11.121,
+                    "streetNumber": "12",
+                    "route": "qwrwq",
+                    "neighborhood": "afasdA",
+                    "sublocality": "safasfsaF",
+                    "administrativeAreaLevel2": null,
+                    "administrativeAreaLevel1": null,
+                    "country": "sdfsdfsf",
+                    "postalCode": "dsfsdfs"
+                  },
+                  "source": {
+                    "id": 2,
+                    "address": {
+                      "id": 2,
+                      "latitude": 1.121,
+                      "longitude": -11.121,
+                      "streetNumber": "12",
+                      "route": "qwrwq",
+                      "neighborhood": "afasdA",
+                      "sublocality": "safasfsaF",
+                      "administrativeAreaLevel2": null,
+                      "administrativeAreaLevel1": null,
+                      "country": "sdfsdfsf",
+                      "postalCode": "dsfsdfs"
+                    },
+                    "name": "practo"
+                  },
+                  "user": {
+                    "id": 6,
+                    "name": "Poorna Teja",
+                    "email": "poorna@practo.com",
+                    "phone": "65678867"
+                  },
+                  "vehicle": {
+                    "id": 2,
+                    "capacity": 2,
+                    "model": "qwer",
+                    "numberPlate": "asdf",
+                    "user": {
+                      "id": 6,
+                      "name": "Poorna Teja",
+                      "email": "poorna@practo.com",
+                      "phone": "65678867"
+                    }
+                  },
+                  "departureTime": 147160196000,
+                  "seatsAvailable": 2
+                },
+                "user": {
+                  "id": 1,
+                  "name": "Prashant",
+                  "email": "prashant@practo.com",
+                  "phone": "9565067200"
+                }
+              }
+ 
         ]
 
 ### Create a New Booking [POST]
@@ -163,32 +312,37 @@ Car pool is an API for a car pooling webapp.
 
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            {
+                "user": {
+                    "id": 5
+                }
+            }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /listings/2/bookings/4
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                  "id": 4,
+                  "listing": {
+                    "id": 2,
+                    "address": null,
+                    "source": null,
+                    "user": null,
+                    "vehicle": null,
+                    "departureTime": null,
+                    "seatsAvailable": 0
+                  },
+                  "user": {
+                    "id": 5,
+                    "name": null,
+                    "email": null,
+                    "phone": null
+                  }
             }
 
 
@@ -200,32 +354,81 @@ Car pool is an API for a car pooling webapp.
     
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            {
+                "user": {
+                    "id": 1
+                }
+            }
 
 + Response 200 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /listings/2/bookings/4
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                  "id": 3,
+                  "listing": {
+                    "id": 2,
+                    "address": {
+                      "id": 2,
+                      "latitude": 1.121,
+                      "longitude": -11.121,
+                      "streetNumber": "12",
+                      "route": "qwrwq",
+                      "neighborhood": "afasdA",
+                      "sublocality": "safasfsaF",
+                      "administrativeAreaLevel2": null,
+                      "administrativeAreaLevel1": null,
+                      "country": "sdfsdfsf",
+                      "postalCode": "dsfsdfs"
+                    },
+                    "source": {
+                      "id": 2,
+                      "address": {
+                        "id": 2,
+                        "latitude": 1.121,
+                        "longitude": -11.121,
+                        "streetNumber": "12",
+                        "route": "qwrwq",
+                        "neighborhood": "afasdA",
+                        "sublocality": "safasfsaF",
+                        "administrativeAreaLevel2": null,
+                        "administrativeAreaLevel1": null,
+                        "country": "sdfsdfsf",
+                        "postalCode": "dsfsdfs"
+                      },
+                      "name": "practo"
+                    },
+                    "user": {
+                      "id": 6,
+                      "name": "Poorna Teja",
+                      "email": "poorna@practo.com",
+                      "phone": "65678867"
+                    },
+                    "vehicle": {
+                      "id": 2,
+                      "capacity": 2,
+                      "model": "qwer",
+                      "numberPlate": "asdf",
+                      "user": {
+                        "id": 6,
+                        "name": "Poorna Teja",
+                        "email": "poorna@practo.com",
+                        "phone": "65678867"
+                      }
+                    },
+                    "departureTime": 147160196000,
+                    "seatsAvailable": 2
+                  },
+                  "user": {
+                    "id": 1,
+                    "name": "Prashant",
+                    "email": "prashant@practo.com",
+                    "phone": "9565067200"
+                  }
             }
 
 ### Delete a Booking [DELETE]
@@ -240,67 +443,43 @@ Car pool is an API for a car pooling webapp.
 
 ### List All Users [GET]
 
-+ Response 200 (application/json)
-
-        [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
-        ]
-
-### List One User [GET]
-
 + Parameters
     + user_id (number) - ID of the User in the form of an integer
 
 + Response 200 (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 1,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 2,
-            "status": "True"
-        }
+        [
+              {
+                "id": 1,
+                "name": "Prashant",
+                "email": "prashant@practo.com",
+                "phone": "9565067200"
+              }
+        ]
 
 ### Create a New User [POST]
 
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            {
+                "email": "abdul@practo.com",
+                "name": "abdul",
+                "phone": "9901223334"
+            }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /users/9
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+              "id": 9,
+              "name": "abdul",
+              "email": "abdul@practo.com",
+              "phone": "9901223334"
             }
 
 
@@ -311,32 +490,25 @@ Car pool is an API for a car pooling webapp.
     
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            {
+                "email": "abdul@practo.com",
+                "name": "abdul",
+                "phone": "9999988888"
+            }
 
 + Response 200 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /users/9
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+              "id": 9,
+              "name": "abdul",
+              "email": "abdul@practo.com",
+              "phone": "9999988888"
             }
 
 ### Delete a User [DELETE]
@@ -349,24 +521,6 @@ Car pool is an API for a car pooling webapp.
 
 ### List All Vehicles [GET]
 
-+ Parameters
-    + user_id (number) - ID of the User in the form of an integer
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
-        ]
-
-### List One Vehicle [GET]
 
 + Parameters
     + user_id (number) - ID of the User in the form of an integer
@@ -376,15 +530,18 @@ Car pool is an API for a car pooling webapp.
 + Response 200 (application/json)
 
         [
-            {
-                "user_id": 1,
-                "car_id": 1,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 2,
-                "status": "True"
-            }
+              {
+                "id": 1,
+                "capacity": 4,
+                "model": "BMW",
+                "numberPlate": "dsfsdfsdfsd",
+                "user": {
+                  "id": 1,
+                  "name": "Prashant",
+                  "email": "prashant@practo.com",
+                  "phone": "9565067200"
+                }
+              }
         ]
 
 ### Create a New Vehicle [POST]
@@ -393,33 +550,32 @@ Car pool is an API for a car pooling webapp.
     + user_id (number) - ID of the User in the form of an integer
 
 + Request (application/json)
-
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            
+            {
+                "capacity": 3,
+                "model": "qaz",
+                "numberPlate": "xsw"
+            }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /users/5/vehicles/6
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                  "id": 6,
+                  "capacity": 3,
+                  "model": "qaz",
+                  "numberPlate": "xsw",
+                  "user": {
+                    "id": 5,
+                    "name": null,
+                    "email": null,
+                    "phone": null
+                  }
             }
 
 
@@ -431,32 +587,38 @@ Car pool is an API for a car pooling webapp.
     
 + Request (application/json)
 
-        {
-            "user_id": 1,
-            "car_id": 2,
-            "departure_time": "2015-08-05T08:40:51.620Z",
-            "source_id": 1,
-            "destination": "HSR Layout",
-            "seats_available": 3,
-            "status": "True"
-        }
+            {
+              "id": 6,
+              "capacity": 3,
+              "model": "qaz",
+              "numberPlate": "xsw",
+              "user": {
+                "id": 5,
+                "name": null,
+                "email": null,
+                "phone": null
+              }
+            }
 
 + Response 200 (application/json)
 
     + Headers
 
-            Location: /listings/2
+            Location: /users/5/vehicles/6
 
     + Body
 
             {
-                "user_id": 1,
-                "car_id": 2,
-                "departure_time": "2015-08-05T08:40:51.620Z",
-                "source_id": 1,
-                "destination": "HSR Layout",
-                "seats_available": 3,
-                "status": "True"
+                  "id": 6,
+                  "capacity": 3,
+                  "model": "qazedc",
+                  "numberPlate": "xsw",
+                  "user": {
+                    "id": 5,
+                    "name": "Chetan",
+                    "email": "chetan@practo.com",
+                    "phone": "1231231231"
+                  }
             }
 
 ### Delete a Vehicle [DELETE]
