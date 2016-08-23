@@ -14,3 +14,6 @@ A webapp for making it easier to car pool. Built with Spring boot.
 2. Run `mvn clean generate-sources package` to create a JAR
 3. Run `java -jar target/car-pool-0.0.1-SNAPSHOT.jar` to run the app.
 Or run `mvn spring-boot:run` to start application without the JAR
+
+
+For more information see [the wiki](https://github.com/pbaisla/car-pool/wiki).
