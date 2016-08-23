@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/
 
 # car-pool
 
@@ -10,11 +10,10 @@ Car pool is an API for a car pooling webapp.
 ### List All Listings [GET]
 
 + Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
+    + listing_id (number, optional) - ID of the Listing in the form of an integer
 
 + Response 200 (application/json)
 
-        [
              {
                 "id": 2,
                 "address": {
@@ -68,7 +67,7 @@ Car pool is an API for a car pooling webapp.
                 "departureTime": 147160196000,
                 "seatsAvailable": 2
               }
-        ]
+        
 
 ### Create a New Listing [POST]
 
@@ -239,7 +238,7 @@ Car pool is an API for a car pooling webapp.
     
 + Response 200 (application/json)
 
-        [
+        
               {
                 "id": 1,
                 "listing": {
@@ -303,7 +302,7 @@ Car pool is an API for a car pooling webapp.
                 }
               }
  
-        ]
+        
 
 ### Create a New Booking [POST]
 
@@ -444,18 +443,18 @@ Car pool is an API for a car pooling webapp.
 ### List All Users [GET]
 
 + Parameters
-    + user_id (number) - ID of the User in the form of an integer
+    + user_id (number, optional) - ID of the User in the form of an integer
 
 + Response 200 (application/json)
 
-        [
+        
               {
                 "id": 1,
                 "name": "Prashant",
                 "email": "prashant@practo.com",
                 "phone": "9565067200"
               }
-        ]
+        
 
 ### Create a New User [POST]
 
@@ -529,7 +528,7 @@ Car pool is an API for a car pooling webapp.
 
 + Response 200 (application/json)
 
-        [
+
               {
                 "id": 1,
                 "capacity": 4,
@@ -542,7 +541,7 @@ Car pool is an API for a car pooling webapp.
                   "phone": "9565067200"
                 }
               }
-        ]
+        
 
 ### Create a New Vehicle [POST]
 
