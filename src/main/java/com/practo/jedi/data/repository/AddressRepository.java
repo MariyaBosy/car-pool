@@ -1,9 +1,15 @@
 package com.practo.jedi.data.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.practo.jedi.data.entity.Address;
 
-public interface AddressRepository extends CrudRepository<Address, Integer> {
+@Repository
+public class AddressRepository extends EntityRepositoryImpl<Address, Integer> {
+
+  @Override
+  public Class<Address> getEntityClass() {
+    return Address.class;
+  }
 
 }

@@ -44,7 +44,7 @@ public class SourceServiceImpl implements SourceService {
     return model;
   }
 
-  public SourceModel create(SourceModel source) {
+  public SourceModel create(SourceModel source) throws EntityNotFoundException {
     Source entity = source.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
@@ -56,7 +56,7 @@ public class SourceServiceImpl implements SourceService {
     return source;
   }
 
-  public SourceModel update(SourceModel source, Integer id) {
+  public SourceModel update(SourceModel source, Integer id) throws EntityNotFoundException {
     source.setId(id);
     Source entity = source.toEntity();
     entity.setModifiedAt(new Date());
@@ -69,11 +69,8 @@ public class SourceServiceImpl implements SourceService {
     return source;
   }
 
-  public void delete(Integer id) {
-    Source entity = repository.findOne(id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
 }

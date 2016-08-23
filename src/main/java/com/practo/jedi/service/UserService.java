@@ -9,10 +9,10 @@ public interface UserService {
 
   public UserModel get(Integer id) throws EntityNotFoundException;
 
-  public UserModel create(UserModel user);
+  public UserModel create(UserModel user) throws EntityNotFoundException;
 
-  public UserModel update(UserModel user, Integer id);
+  public UserModel update(UserModel user, Integer id) throws EntityNotFoundException;
 
-  public void delete(Integer id);
+  public void delete(Integer id) throws EntityNotFoundException;
 
 }

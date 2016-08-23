@@ -40,7 +40,8 @@ public class ListingController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<ListingModel> create(@RequestBody ListingModel listing) {
+  public ResponseEntity<ListingModel> create(@RequestBody ListingModel listing)
+      throws EntityNotFoundException {
     ListingModel m = service.create(listing);
     ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.CREATED);
     return response;
@@ -53,14 +54,14 @@ public class ListingController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<ListingModel> update(@PathVariable("id") int id,
-      @RequestBody ListingModel listing) {
+      @RequestBody ListingModel listing) throws EntityNotFoundException {
     ListingModel m = service.update(listing, id);
     ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

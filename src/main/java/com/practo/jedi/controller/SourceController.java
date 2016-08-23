@@ -26,7 +26,7 @@ public class SourceController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<SourceModel> create(@RequestBody SourceModel source) {
+  public ResponseEntity<SourceModel> create(@RequestBody SourceModel source) throws EntityNotFoundException {
     SourceModel m = service.create(source);
     ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.CREATED);
     return response;
@@ -39,14 +39,14 @@ public class SourceController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<SourceModel> update(@PathVariable("id") int id,
-      @RequestBody SourceModel source) {
+      @RequestBody SourceModel source) throws EntityNotFoundException {
     SourceModel m = service.update(source, id);
     ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

@@ -48,7 +48,7 @@ public class ListingServiceImpl implements ListingService {
     return model;
   }
 
-  public ListingModel create(ListingModel listing) {
+  public ListingModel create(ListingModel listing) throws EntityNotFoundException {
     Listing entity = listing.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
@@ -60,7 +60,7 @@ public class ListingServiceImpl implements ListingService {
     return listing;
   }
 
-  public ListingModel update(ListingModel listing, Integer id) {
+  public ListingModel update(ListingModel listing, Integer id) throws EntityNotFoundException {
     listing.setId(id);
     Listing entity = listing.toEntity();
     entity.setModifiedAt(new Date());
@@ -73,15 +73,13 @@ public class ListingServiceImpl implements ListingService {
     return listing;
   }
 
-  public void delete(Integer id) {
-    Listing entity = repository.findOne(id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
   public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable) {
-    Iterable<Listing> entities = repository.findAll(filters.toPredicate(), pageable);
+    // public Iterable<ListingModel> filter(Pageable pageable) {
+    Iterable<Listing> entities = repository.findAll(filters, pageable);
     ArrayList<ListingModel> models = new ArrayList<ListingModel>();
     for (Listing entity : entities) {
       // Apply destination filter
@@ -103,6 +101,13 @@ public class ListingServiceImpl implements ListingService {
       } catch (EntityNotFoundException e) {
         e.printStackTrace();
       }
+      try {
+        model.fromEntity(entity);
+      } catch (EntityNotFoundException e) {
+        e.printStackTrace();
+      }
+      models.add(model);
+
     }
     return models;
   }

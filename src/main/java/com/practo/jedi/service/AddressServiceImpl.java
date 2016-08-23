@@ -43,7 +43,7 @@ public class AddressServiceImpl implements AddressService {
     return model;
   }
 
-  public AddressModel create(AddressModel address) {
+  public AddressModel create(AddressModel address) throws EntityNotFoundException {
     Address entity = address.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
@@ -55,7 +55,7 @@ public class AddressServiceImpl implements AddressService {
     return address;
   }
 
-  public AddressModel update(AddressModel address, Integer id) {
+  public AddressModel update(AddressModel address, Integer id) throws EntityNotFoundException {
     address.setId(id);
     Address entity = address.toEntity();
     entity.setModifiedAt(new Date());
@@ -68,11 +68,8 @@ public class AddressServiceImpl implements AddressService {
     return address;
   }
 
-  public void delete(Integer id) {
-    Address entity = repository.findOne(id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
 }

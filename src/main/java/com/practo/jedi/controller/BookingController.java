@@ -27,7 +27,7 @@ public class BookingController {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<BookingModel> create(@PathVariable("listing_id") int listing_id,
-      @RequestBody BookingModel booking) {
+      @RequestBody BookingModel booking) throws EntityNotFoundException {
     BookingModel m = service.create(listing_id, booking);
     ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.CREATED);
     return response;
@@ -40,7 +40,7 @@ public class BookingController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<BookingModel> update(@PathVariable("listing_id") int listing_id,
-      @PathVariable("id") int id, @RequestBody BookingModel booking) {
+      @PathVariable("id") int id, @RequestBody BookingModel booking) throws EntityNotFoundException {
     BookingModel m = service.update(listing_id, booking, id);
     ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.OK);
     return response;
@@ -48,7 +48,7 @@ public class BookingController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("listing_id") int listing_id,
-      @PathVariable("id") int id) {
+      @PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(listing_id, id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

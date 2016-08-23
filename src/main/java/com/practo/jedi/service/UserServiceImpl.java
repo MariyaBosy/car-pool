@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     return model;
   }
 
-  public UserModel create(UserModel user) {
+  public UserModel create(UserModel user) throws EntityNotFoundException {
     User entity = user.toEntity();
     entity.setCreatedAt(new Date());
     entity = repository.save(entity);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     return user;
   }
 
-  public UserModel update(UserModel user, Integer id) {
+  public UserModel update(UserModel user, Integer id) throws EntityNotFoundException {
     user.setId(id);
     User entity = user.toEntity();
     entity.setModifiedAt(new Date());
@@ -69,11 +69,8 @@ public class UserServiceImpl implements UserService {
     return user;
   }
 
-  public void delete(Integer id) {
-    User entity = repository.findOne(id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
 }

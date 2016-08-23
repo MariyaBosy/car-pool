@@ -9,10 +9,10 @@ public interface AddressService {
 
   public AddressModel get(Integer id) throws EntityNotFoundException;
 
-  public AddressModel create(AddressModel Address);
+  public AddressModel create(AddressModel Address) throws EntityNotFoundException;
 
-  public AddressModel update(AddressModel Address, Integer id);
+  public AddressModel update(AddressModel Address, Integer id) throws EntityNotFoundException;
 
-  public void delete(Integer id);
+  public void delete(Integer id) throws EntityNotFoundException;
 
 }

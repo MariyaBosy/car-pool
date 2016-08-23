@@ -9,10 +9,10 @@ public interface BookingService {
 
   public BookingModel get(Integer listing_id, Integer id) throws EntityNotFoundException;
 
-  public BookingModel create(Integer listing_id, BookingModel Booking);
+  public BookingModel create(Integer listing_id, BookingModel Booking) throws EntityNotFoundException;
 
-  public BookingModel update(Integer listing_id, BookingModel Booking, Integer id);
+  public BookingModel update(Integer listing_id, BookingModel Booking, Integer id) throws EntityNotFoundException;
 
-  public void delete(Integer listing_id, Integer id);
+  public void delete(Integer listing_id, Integer id) throws EntityNotFoundException;
 
 }

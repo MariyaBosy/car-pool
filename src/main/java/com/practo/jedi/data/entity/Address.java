@@ -18,11 +18,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 /**
  * Addresses
  */
 @Entity
 @Table(name = "addresses")
+@SQLDelete(
+    sql = "UPDATE addresses SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "is_deleted <> true")
 public class Address implements java.io.Serializable {
 
 

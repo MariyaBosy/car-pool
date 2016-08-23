@@ -19,11 +19,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 /**
  * Listings
  */
 @Entity
 @Table(name = "listings")
+@SQLDelete(
+    sql = "UPDATE listings SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "is_deleted <> true")
 public class Listing implements java.io.Serializable {
 
 
@@ -89,7 +95,7 @@ public class Listing implements java.io.Serializable {
     this.id = id;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "destination_address_id", nullable = false)
   public Address getAddress() {
     return this.address;
@@ -99,7 +105,7 @@ public class Listing implements java.io.Serializable {
     this.address = address;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "source_id", nullable = false)
   public Source getSource() {
     return this.source;
@@ -109,7 +115,7 @@ public class Listing implements java.io.Serializable {
     this.source = source;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id", nullable = false)
   public User getUser() {
     return this.user;
@@ -119,7 +125,7 @@ public class Listing implements java.io.Serializable {
     this.user = user;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "car_id", nullable = false)
   public Vehicle getVehicle() {
     return this.vehicle;

@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
     return model;
   }
 
-  public BookingModel create(Integer listing_id, BookingModel booking) {
+  public BookingModel create(Integer listing_id, BookingModel booking) throws EntityNotFoundException {
     ListingModel listing = new ListingModel();
     listing.setId(listing_id);
     booking.setListing(listing);
@@ -60,7 +60,7 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
-  public BookingModel update(Integer listing_id, BookingModel booking, Integer id) {
+  public BookingModel update(Integer listing_id, BookingModel booking, Integer id) throws EntityNotFoundException {
     ListingModel listing = new ListingModel();
     listing.setId(listing_id);
     booking.setListing(listing);
@@ -76,11 +76,8 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
-  public void delete(Integer listing_id, Integer id) {
-    Booking entity = repository.findByListingIdAndId(listing_id, id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer listing_id, Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
 }

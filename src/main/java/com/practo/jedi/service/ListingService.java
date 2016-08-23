@@ -12,12 +12,12 @@ public interface ListingService {
 
   public ListingModel get(Integer id) throws EntityNotFoundException;
 
-  public ListingModel create(ListingModel Listing);
+  public ListingModel create(ListingModel Listing) throws EntityNotFoundException;
 
-  public ListingModel update(ListingModel Listing, Integer id);
+  public ListingModel update(ListingModel Listing, Integer id) throws EntityNotFoundException;
 
-  public void delete(Integer id);
-  
+  public void delete(Integer id) throws EntityNotFoundException;
+
   public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable);
 
 }

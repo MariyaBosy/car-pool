@@ -26,7 +26,7 @@ public class UserController {
   }
   
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<UserModel> create(@RequestBody UserModel user) {
+  public ResponseEntity<UserModel> create(@RequestBody UserModel user) throws EntityNotFoundException {
     UserModel m = service.create(user);
     ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.CREATED);
     return response;
@@ -38,14 +38,14 @@ public class UserController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user) {
+  public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user) throws EntityNotFoundException {
     UserModel m = service.update(user, id);
     ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

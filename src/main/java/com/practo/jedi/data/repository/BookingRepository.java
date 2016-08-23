@@ -1,12 +1,39 @@
+
 package com.practo.jedi.data.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.practo.jedi.data.entity.Booking;
+import com.practo.jedi.exceptions.EntityNotFoundException;
 
-public interface BookingRepository extends CrudRepository<Booking, Integer> {
-  public Iterable<Booking> findByListingId(Integer listing_id);
+@Repository
+public class BookingRepository extends EntityRepositoryImpl<Booking, Integer> {
 
-  public Booking findByListingIdAndId(Integer listing_id, Integer id);
+  @Override
+  public Class<Booking> getEntityClass() {
+    return Booking.class;
+  }
+
+  public Iterable<Booking> findByListingId(Integer listing_id) {
+    return (Iterable<Booking>) template.findByCriteria(
+        DetachedCriteria.forClass(Booking.class).add(Restrictions.eq("listing.id", listing_id)));
+  }
+
+  public Booking findByListingIdAndId(Integer listing_id, Integer id)
+      throws EntityNotFoundException {
+    try {
+      return (Booking) template
+          .findByCriteria(
+              DetachedCriteria.forClass(Booking.class)
+                  .add(Restrictions.eq("listing.id", listing_id)).add(Restrictions.eq("id", id)),
+              0, 1)
+          .get(0);
+    } catch (IndexOutOfBoundsException e) {
+      throw new EntityNotFoundException("No Vehicle found with given Id");
+    }
+  }
+
 
 }

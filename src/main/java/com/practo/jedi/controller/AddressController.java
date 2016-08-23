@@ -26,7 +26,7 @@ public class AddressController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<AddressModel> create(@RequestBody AddressModel address) {
+  public ResponseEntity<AddressModel> create(@RequestBody AddressModel address) throws EntityNotFoundException {
     AddressModel m = service.create(address);
     ResponseEntity<AddressModel> response = new ResponseEntity<AddressModel>(m, HttpStatus.CREATED);
     return response;
@@ -39,14 +39,14 @@ public class AddressController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<AddressModel> update(@PathVariable("id") int id,
-      @RequestBody AddressModel address) {
+      @RequestBody AddressModel address) throws EntityNotFoundException {
     AddressModel m = service.update(address, id);
     ResponseEntity<AddressModel> response = new ResponseEntity<AddressModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

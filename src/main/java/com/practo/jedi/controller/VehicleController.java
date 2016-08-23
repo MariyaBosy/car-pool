@@ -26,7 +26,7 @@ public class VehicleController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<VehicleModel> create(@PathVariable("user_id") int user_id, @RequestBody VehicleModel vehicle) {
+  public ResponseEntity<VehicleModel> create(@PathVariable("user_id") int user_id, @RequestBody VehicleModel vehicle) throws EntityNotFoundException {
     VehicleModel m = service.create(user_id, vehicle);
     ResponseEntity<VehicleModel> response = new ResponseEntity<VehicleModel>(m, HttpStatus.CREATED);
     return response;
@@ -39,14 +39,14 @@ public class VehicleController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<VehicleModel> update(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
-      @RequestBody VehicleModel vehicle) {
+      @RequestBody VehicleModel vehicle) throws EntityNotFoundException {
     VehicleModel m = service.update(user_id, vehicle, id);
     ResponseEntity<VehicleModel> response = new ResponseEntity<VehicleModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("user_id") int user_id, @PathVariable("id") int id) {
+  public ResponseEntity<Boolean> delete(@PathVariable("user_id") int user_id, @PathVariable("id") int id) throws EntityNotFoundException {
     service.delete(user_id, id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

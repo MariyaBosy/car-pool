@@ -45,7 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
     return model;
   }
 
-  public VehicleModel create(Integer user_id, VehicleModel vehicle) {
+  public VehicleModel create(Integer user_id, VehicleModel vehicle) throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
     vehicle.setUser(user);
@@ -60,7 +60,7 @@ public class VehicleServiceImpl implements VehicleService {
     return vehicle;
   }
 
-  public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id) {
+  public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id) throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
     vehicle.setUser(user);
@@ -75,11 +75,8 @@ public class VehicleServiceImpl implements VehicleService {
     }    return vehicle;
   }
 
-  public void delete(Integer user_id, Integer id) {
-    Vehicle entity = repository.findByUserIdAndId(user_id, id);
-    entity.setIsDeleted(true);
-    entity.setDeletedAt(new Date());
-    entity = repository.save(entity);
+  public void delete(Integer user_id, Integer id) throws EntityNotFoundException {
+    repository.delete(id);
   }
 
 }
