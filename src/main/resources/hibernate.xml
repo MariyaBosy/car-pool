@@ -24,7 +24,7 @@
 		</property>
 		<property name="packagesToScan">
 			<list>
-				<value>com.practo.jedi.data.entity</value>
+				<value>com.practo.jedi.carpool.data.entity</value>
 			</list>
 		</property>
 	</bean>
