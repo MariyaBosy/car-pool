@@ -4,9 +4,9 @@ jQuery(document)
 
 					$('#departure-time').timepicker({
 						useSelect : true,
-						timeFormat: 'H:i'
+						timeFormat : 'H:i'
 					});
-					
+
 					var heightdiv = $('.horizontal-one').height();
 
 					$(".vertical-one img").css({
@@ -146,9 +146,9 @@ jQuery(document)
 												var overflowH = height < heightWindow ? imgH
 														- height
 														: imgH - heightWindow; // fix
-																				// height
-																				// on
-																				// overflow
+												// height
+												// on
+												// overflow
 												top = top - overflowH;
 												bottom = bottom + overflowH;
 												// value with linear
