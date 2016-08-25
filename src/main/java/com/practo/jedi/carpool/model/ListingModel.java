@@ -75,6 +75,7 @@ public class ListingModel implements java.io.Serializable {
   }
 
   public void setDepartureTime(Date departureTime) {
+    System.out.println(departureTime);
     this.departureTime = departureTime;
   }
 
@@ -83,7 +84,7 @@ public class ListingModel implements java.io.Serializable {
     return this.seatsAvailable;
   }
 
-  public void setSeatsAvailable(int seatsAvailable) {
+  public void setSeatsAvailable(Integer seatsAvailable) {
     this.seatsAvailable = seatsAvailable;
   }
 

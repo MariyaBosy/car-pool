@@ -109,46 +109,40 @@
 
 					<div class="page-content add-new-ride">
 
-						<form action="" novalidate autocomplete="off"
-							class="idealforms add-ride">
+						<form id="postForm" action="listings" method="POST" novalidate
+							autocomplete="off" class="idealforms add-ride">
 
 							<div class="field">
-								<select id="destination" name="destination">
-									<option value="default">From</option>
-									<option>Sofia</option>
-									<option>Plovdiv</option>
-									<option>Milano</option>
-									<option>Paris</option>
-									<option>Madrid</option>
-									<option>Berlin</option>
+								<select id="source" name="source.id">
+									<c:forEach var="source" items="${sources}">
+										<option value="${ source.getId() }">${ source.getName() }</option>
+									</c:forEach>
 								</select>
 							</div>
 
+
+
 							<div class="field">
-								<select id="destinationd" name="destinationd">
-									<option value="default">To</option>
-									<option>Sofia</option>
-									<option>Plovdiv</option>
-									<option>Hamburg</option>
-									<option>Milano</option>
-									<option>Paris</option>
-									<option>Madrid</option>
-									<option>Berlin</option>
-								</select>
+								<input id="destination-latitude" name="address.latitude"
+									type="hidden"> <input id="destination-longitude"
+									name="address.longitude" type="hidden"> <input
+									id="destination-address" name="address.formattedAddress"
+									type="hidden"> <input name="user.id" value="1"
+									type="hidden"> <input name="vehicle.id" value="1"
+									type="hidden"> <input id="autocomplete"
+									placeholder="Destination" onFocus="geolocate()" type="text">
 							</div>
 
 							<div class="field">
-								<input name="event" type="text" placeholder="Date"
-									class="datepicker">
+								<input id="departure-time"> <input
+									id="departure-datetime" type="hidden" name="departureTime">
 							</div>
 
 							<div class="field">
-								<select id="destination" name="destination">
-									<option value="default">Number of seats</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select>
+								<div class="field">
+									<input name="seatsAvailable" type="number"
+										placeholder="Number of seats">
+								</div>
 							</div>
 
 							<div class="field buttons">
@@ -172,6 +166,97 @@
 	<!-- end .main-content -->
 
 	<%@ include file="includes_foot.jsp"%>
+	<script>
+		var frm = $("#postForm");
+		frm.submit(function (e) {
+	        $.ajax({
+	            type: frm.attr('method'),
+	            url: frm.attr('action'),
+	            data: frm.serialize(),
+	            success: function (data) {
+		                console.log(data);
+	            },
+	            error: function (data) {
+	                console.log(data);
+            }
+	        });
+
+	        e.preventDefault();
+	    });
+		var placeSearch, autocomplete;
+		var componentForm = {
+			street_number : 'short_name',
+			route : 'long_name',
+			neighborhood : 'long_name',
+			sublocality : 'long_name',
+			administrative_area_level_1 : 'short_name',
+			administrative_area_level_2 : 'short_name',
+			country : 'long_name',
+			postal_code : 'short_name'
+		};
+
+		function initAutocomplete() {
+			// Create the autocomplete object, restricting the search to geographical
+			// location types.
+			autocomplete = new google.maps.places.Autocomplete(
+			/** @type {!HTMLInputElement} */
+			(document.getElementById('autocomplete')), {
+				types : [ 'geocode' ]
+			});
+
+			// When the user selects an address from the dropdown, populate the address
+			// fields in the form.
+			autocomplete.addListener('place_changed', fillInAddress);
+		}
+
+		function fillInAddress() {
+			// Get the place details from the autocomplete object.
+			var place = autocomplete.getPlace();
+			$('#destination-latitude')[0].value = place.geometry.location.lat();
+			$('#destination-longitude')[0].value = place.geometry.location
+					.lng();
+			$('#destination-address')[0].value = place.formatted_address;
+			console.log($('#destination-latitude')[0].value);
+			console.log($('#destination-longitude')[0].value);
+			/*         for (var component in componentForm) {
+			 document.getElementById(component).value = '';
+			 document.getElementById(component).disabled = false;
+			 }
+			 */
+			// Get each component of the address from the place details
+			// and fill the corresponding field on the form.
+			for (var i = 0; i < place.address_components.length; i++) {
+				var addressType = place.address_components[i];
+				if (componentForm[addressType]) {
+					var val = place.address_components[i][componentForm[addressType]];
+					/* 					document.getElementById(addressType).value = val;
+					 */console.log(val);
+				}
+				console.log(addressType);
+			}
+		}
+
+		// Bias the autocomplete object to the user's geographical location,
+		// as supplied by the browser's 'navigator.geolocation' object.
+		function geolocate() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var geolocation = {
+						lat : position.coords.latitude,
+						lng : position.coords.longitude
+					};
+					var circle = new google.maps.Circle({
+						center : geolocation,
+						radius : position.coords.accuracy
+					});
+					autocomplete.setBounds(circle.getBounds());
+				});
+			}
+		}
+	</script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUSJkdCeRf3QiJQUNsXBjwff6LOyLNAT8&libraries=places&callback=initAutocomplete"
+		async defer></script>
 
 </body>
 </html>

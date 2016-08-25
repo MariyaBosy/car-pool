@@ -40,9 +40,8 @@ public class ListingController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<ListingModel> create(@RequestBody ListingModel listing)
+  public ResponseEntity<ListingModel> create(ListingModel listing)
       throws EntityNotFoundException {
-    System.out.println(listing);
     ListingModel m = service.create(listing);
     ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.CREATED);
     return response;

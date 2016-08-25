@@ -88,7 +88,7 @@ public class AddressModel implements java.io.Serializable {
 
   @Override
   public String toString() {
-    return formattedAddress;
+    return (formattedAddress == null) ? "" : formattedAddress;
   }
 
 }

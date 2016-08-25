@@ -6,6 +6,10 @@ jQuery(document)
 						useSelect : true,
 						timeFormat : 'H:i'
 					});
+					
+					$('#departure-time').on('change', function(){
+						$('#departure-datetime')[0].value = $('#departure-time').timepicker('getTime');
+					});
 
 					var heightdiv = $('.horizontal-one').height();
 

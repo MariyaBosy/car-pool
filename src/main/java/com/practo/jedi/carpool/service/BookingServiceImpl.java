@@ -1,7 +1,6 @@
 package com.practo.jedi.carpool.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,9 +64,7 @@ public class BookingServiceImpl implements BookingService {
     booking.setListing(listing);
     booking.setId(id);
     Booking entity = booking.toEntity();
-    System.out.println(entity);
     entity = repository.save(entity);
-    System.out.println(entity);
     try {
       booking.fromEntity(entity);
     } catch (EntityNotFoundException e) {
