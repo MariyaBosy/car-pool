@@ -50,7 +50,6 @@ public class BookingServiceImpl implements BookingService {
     listing.setId(listing_id);
     booking.setListing(listing);
     Booking entity = booking.toEntity();
-    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       booking.fromEntity(entity);
@@ -66,8 +65,9 @@ public class BookingServiceImpl implements BookingService {
     booking.setListing(listing);
     booking.setId(id);
     Booking entity = booking.toEntity();
-    entity.setModifiedAt(new Date());
+    System.out.println(entity);
     entity = repository.save(entity);
+    System.out.println(entity);
     try {
       booking.fromEntity(entity);
     } catch (EntityNotFoundException e) {

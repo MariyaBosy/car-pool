@@ -50,7 +50,6 @@ public class ListingServiceImpl implements ListingService {
 
   public ListingModel create(ListingModel listing) throws EntityNotFoundException {
     Listing entity = listing.toEntity();
-    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       listing.fromEntity(entity);
@@ -63,7 +62,6 @@ public class ListingServiceImpl implements ListingService {
   public ListingModel update(ListingModel listing, Integer id) throws EntityNotFoundException {
     listing.setId(id);
     Listing entity = listing.toEntity();
-    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       listing.fromEntity(entity);

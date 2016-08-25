@@ -45,7 +45,6 @@ public class AddressServiceImpl implements AddressService {
 
   public AddressModel create(AddressModel address) throws EntityNotFoundException {
     Address entity = address.toEntity();
-    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       address.fromEntity(entity);
@@ -58,7 +57,6 @@ public class AddressServiceImpl implements AddressService {
   public AddressModel update(AddressModel address, Integer id) throws EntityNotFoundException {
     address.setId(id);
     Address entity = address.toEntity();
-    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       address.fromEntity(entity);

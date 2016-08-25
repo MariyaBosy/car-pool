@@ -34,7 +34,8 @@ public class ApplicationController {
 
   @RequestMapping("/search")
   public String search(ListingFilterDTO filters, Pageable pageable, Model model) {
-    Iterable<ListingModel> listings = listingService.filter(filters, updatePageable(pageable, itemsPerPage));
+    Iterable<ListingModel> listings =
+        listingService.filter(filters, updatePageable(pageable, itemsPerPage));
     model.addAttribute("listings", listings);
     Iterable<SourceModel> sources = sourceService.get();
     model.addAttribute("sources", sources);
@@ -42,7 +43,9 @@ public class ApplicationController {
   }
 
   @RequestMapping("/post")
-  public String post() {
+  public String post(Model model) {
+    Iterable<SourceModel> sources = sourceService.get();
+    model.addAttribute("sources", sources);
     return "post";
   }
 }

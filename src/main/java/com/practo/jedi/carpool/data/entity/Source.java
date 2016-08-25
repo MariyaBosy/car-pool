@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
 /**
@@ -27,6 +28,8 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "sources")
+@SQLUpdate(
+    sql = "UPDATE sources SET address_id=?, deleted_at=?, is_deleted=?, modified_at=CURRENT_TIMESTAMP, name=? where id=? and is_deleted <> true")
 @SQLDelete(
     sql = "UPDATE sources SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "is_deleted <> true")
@@ -102,7 +105,7 @@ public class Source implements java.io.Serializable {
   }
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_at", nullable = false, length = 19)
+  @Column(name = "created_at", nullable = false, length = 19, updatable = false)
   public Date getCreatedAt() {
     return this.createdAt;
   }

@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
 
   public UserModel create(UserModel user) throws EntityNotFoundException {
     User entity = user.toEntity();
-    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       user.fromEntity(entity);
@@ -59,7 +58,6 @@ public class UserServiceImpl implements UserService {
   public UserModel update(UserModel user, Integer id) throws EntityNotFoundException {
     user.setId(id);
     User entity = user.toEntity();
-    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       user.fromEntity(entity);

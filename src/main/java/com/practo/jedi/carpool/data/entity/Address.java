@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
 /**
@@ -26,6 +27,8 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "addresses")
+@SQLUpdate(
+    sql = "UPDATE addresses SET deleted_at=?, formatted_address=?, is_deleted=?, latitude=?, longitude=?, modified_at=CURRENT_TIMESTAMP where id=? and is_deleted <> true")
 @SQLDelete(
     sql = "UPDATE addresses SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "is_deleted <> true")
@@ -39,14 +42,7 @@ public class Address implements java.io.Serializable {
   private Integer id;
   private BigDecimal latitude;
   private BigDecimal longitude;
-  private String streetNumber;
-  private String route;
-  private String neighborhood;
-  private String sublocality;
-  private String administrativeAreaLevel2;
-  private String administrativeAreaLevel1;
-  private String country;
-  private String postalCode;
+  private String formattedAddress;
   private Date createdAt;
   private Date modifiedAt;
   private Date deletedAt;
@@ -66,21 +62,12 @@ public class Address implements java.io.Serializable {
     this.isDeleted = isDeleted;
   }
 
-  public Address(BigDecimal latitude, BigDecimal longitude, String streetNumber, String route,
-      String neighborhood, String sublocality, String administrativeAreaLevel2,
-      String administrativeAreaLevel1, String country, String postalCode, Date createdAt,
+  public Address(BigDecimal latitude, BigDecimal longitude, String formattedAddress, Date createdAt,
       Date modifiedAt, Date deletedAt, boolean isDeleted, Set<Listing> listings,
       Set<Source> sources) {
     this.latitude = latitude;
     this.longitude = longitude;
-    this.streetNumber = streetNumber;
-    this.route = route;
-    this.neighborhood = neighborhood;
-    this.sublocality = sublocality;
-    this.administrativeAreaLevel2 = administrativeAreaLevel2;
-    this.administrativeAreaLevel1 = administrativeAreaLevel1;
-    this.country = country;
-    this.postalCode = postalCode;
+    this.formattedAddress = formattedAddress;
     this.createdAt = createdAt;
     this.modifiedAt = modifiedAt;
     this.deletedAt = deletedAt;
@@ -123,87 +110,18 @@ public class Address implements java.io.Serializable {
   }
 
 
-  @Column(name = "street_number", length = 20)
-  public String getStreetNumber() {
-    return this.streetNumber;
+  @Column(name = "formatted_address", length = 200)
+  public String getFormattedAddress() {
+    return this.formattedAddress;
   }
 
-  public void setStreetNumber(String streetNumber) {
-    this.streetNumber = streetNumber;
+  public void setFormattedAddress(String formattedAddress) {
+    this.formattedAddress = formattedAddress;
   }
 
-
-  @Column(name = "route", length = 45)
-  public String getRoute() {
-    return this.route;
-  }
-
-  public void setRoute(String route) {
-    this.route = route;
-  }
-
-
-  @Column(name = "neighborhood", length = 45)
-  public String getNeighborhood() {
-    return this.neighborhood;
-  }
-
-  public void setNeighborhood(String neighborhood) {
-    this.neighborhood = neighborhood;
-  }
-
-
-  @Column(name = "sublocality", length = 45)
-  public String getSublocality() {
-    return this.sublocality;
-  }
-
-  public void setSublocality(String sublocality) {
-    this.sublocality = sublocality;
-  }
-
-
-  @Column(name = "administrative_area_level_2", length = 45)
-  public String getAdministrativeAreaLevel2() {
-    return this.administrativeAreaLevel2;
-  }
-
-  public void setAdministrativeAreaLevel2(String administrativeAreaLevel2) {
-    this.administrativeAreaLevel2 = administrativeAreaLevel2;
-  }
-
-
-  @Column(name = "administrative_area_level_1", length = 45)
-  public String getAdministrativeAreaLevel1() {
-    return this.administrativeAreaLevel1;
-  }
-
-  public void setAdministrativeAreaLevel1(String administrativeAreaLevel1) {
-    this.administrativeAreaLevel1 = administrativeAreaLevel1;
-  }
-
-
-  @Column(name = "country", length = 45)
-  public String getCountry() {
-    return this.country;
-  }
-
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
-
-  @Column(name = "postal_code", length = 20)
-  public String getPostalCode() {
-    return this.postalCode;
-  }
-
-  public void setPostalCode(String postalCode) {
-    this.postalCode = postalCode;
-  }
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_at", nullable = false, length = 19)
+  @Column(name = "created_at", nullable = false, length = 19, updatable = false)
   public Date getCreatedAt() {
     return this.createdAt;
   }

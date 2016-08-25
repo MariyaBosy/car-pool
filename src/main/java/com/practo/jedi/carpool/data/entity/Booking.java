@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
 /**
@@ -24,6 +25,8 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "bookings")
+@SQLUpdate(
+    sql = "UPDATE bookings SET deleted_at=?, is_deleted=?, listing_id=?, modified_at=CURRENT_TIMESTAMP, user_id=? where id=? and is_deleted <> true")
 @SQLDelete(
     sql = "UPDATE bookings SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "is_deleted <> true")
@@ -97,7 +100,7 @@ public class Booking implements java.io.Serializable {
   }
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_at", nullable = false, length = 19)
+  @Column(name = "created_at", nullable = false, length = 19, updatable = false)
   public Date getCreatedAt() {
     return this.createdAt;
   }
@@ -134,6 +137,14 @@ public class Booking implements java.io.Serializable {
 
   public void setIsDeleted(boolean isDeleted) {
     this.isDeleted = isDeleted;
+  }
+
+
+  @Override
+  public String toString() {
+    return "Booking [id=" + id + ", listing=" + listing + ", user=" + user + ", createdAt="
+        + createdAt + ", modifiedAt=" + modifiedAt + ", deletedAt=" + deletedAt + ", isDeleted="
+        + isDeleted + "]";
   }
 
 }
