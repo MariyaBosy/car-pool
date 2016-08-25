@@ -2,6 +2,7 @@ jQuery(document)
 		.ready(
 				function($) {
 
+
 					$('#departure-time').timepicker({
 						useSelect : true,
 						timeFormat : 'H:i'

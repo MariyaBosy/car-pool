@@ -30,3 +30,46 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+<!-- Google OAuth -->
+
+<script src="https://apis.google.com/js/platform.js?onload=oauthReady"
+	async defer></script>
+<meta name="google-signin-client_id"
+	content="797550632992-634oon8ssbhjnmqj6fcsbj4um8tgnuni.apps.googleusercontent.com">
+	<script type="text/javascript">
+	window.oauthReady = function(){
+      gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+		function login() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signIn({
+				scope : 'https://www.googleapis.com/auth/user.phonenumbers.read'
+			}).then(function(googleUser) {
+				  var profile = googleUser.getBasicProfile();
+				  var name = profile.getName();
+				  var email = profile.getEmail();
+				  var token = googleUser.getAuthResponse().id_token;
+				  $.post('login', {
+					  "name": name,
+					  "email": email,
+					  "token": token
+				  }, function(){
+					  window.location.href = "";
+				  });
+			});
+		}
+		function logout() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function() {
+				console.log('User signed out.');
+				$.post('logout', function(){
+					  window.location.href = "/car-pool";
+				  });
+			});
+		}
+		$('#login').on('click', login);
+		$('#logout').on('click', logout);
+}
+</script>

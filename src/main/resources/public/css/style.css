@@ -1702,6 +1702,11 @@ form.idealforms input:disabled {
 	text-align: center;
 }
 
+.sign-in-content {
+	width: 14em;
+	margin: 12em auto 5em;
+}
+
 /* ===  Responsive  === */
 /* === Widescreen  === */
 @media only screen and (min-width: 1280px) {

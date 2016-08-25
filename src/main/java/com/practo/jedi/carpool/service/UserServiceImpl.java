@@ -1,7 +1,6 @@
 package com.practo.jedi.carpool.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +68,18 @@ public class UserServiceImpl implements UserService {
 
   public void delete(Integer id) throws EntityNotFoundException {
     repository.delete(id);
+  }
+
+  @Override
+  public UserModel findByEmail(String email) {
+    UserModel model = new UserModel();
+    User entity = repository.findByEmail(email);
+    try {
+      model.fromEntity(entity);
+      return model;
+    } catch (EntityNotFoundException e) {
+      return null;
+    }
   }
 
 }

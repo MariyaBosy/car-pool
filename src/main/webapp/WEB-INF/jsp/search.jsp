@@ -55,8 +55,8 @@
 										<nav id="nav" class="main-navigation">
 
 											<ul class="navigation">
-												<li><a href="search">Find a ride</a></li>
 												<li><a href="post">Give a ride</a></li>
+												<li><a href="logout" id="logout">Logout</a></li>
 											</ul>
 
 										</nav>

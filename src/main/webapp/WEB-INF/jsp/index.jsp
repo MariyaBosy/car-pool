@@ -70,6 +70,14 @@
 
 						</section>
 						<!-- end .container -->
+						<div class="col-md-12 col-sm-12 col-xs-12">
+
+							<div class="sign-in-content">
+								<button id="login" type="button" class="btn btn-lg red-color">Sign in with Google</button>
+							</div>
+							<!-- end .search-content -->
+
+						</div>
 
 					</div>
 					<!-- end .second-parallax-content -->

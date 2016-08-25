@@ -15,4 +15,6 @@ public interface UserService {
 
   public void delete(Integer id) throws EntityNotFoundException;
 
+  public UserModel findByEmail(String email);
+
 }

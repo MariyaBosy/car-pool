@@ -55,7 +55,7 @@
 										<nav id="nav" class="main-navigation">
 											<ul class="navigation">
 												<li><a href="search">Find a ride</a></li>
-												<li><a href="post">Give a ride</a></li>
+												<li><a href="logout" id="logout">Logout</a></li>
 											</ul>
 
 										</nav>
@@ -168,21 +168,21 @@
 	<%@ include file="includes_foot.jsp"%>
 	<script>
 		var frm = $("#postForm");
-		frm.submit(function (e) {
-	        $.ajax({
-	            type: frm.attr('method'),
-	            url: frm.attr('action'),
-	            data: frm.serialize(),
-	            success: function (data) {
-		                console.log(data);
-	            },
-	            error: function (data) {
-	                console.log(data);
-            }
-	        });
+		frm.submit(function(e) {
+			$.ajax({
+				type : frm.attr('method'),
+				url : frm.attr('action'),
+				data : frm.serialize(),
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(data) {
+					console.log(data);
+				}
+			});
 
-	        e.preventDefault();
-	    });
+			e.preventDefault();
+		});
 		var placeSearch, autocomplete;
 		var componentForm = {
 			street_number : 'short_name',
