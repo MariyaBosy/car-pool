@@ -1,7 +1,9 @@
 package com.practo.jedi.carpool.data.dto;
 
+import java.util.Calendar;
 import java.util.Date;
 
+import com.practo.jedi.carpool.exceptions.InvalidTimeException;
 import com.practo.jedi.carpool.model.AddressModel;
 import com.practo.jedi.carpool.util.Modifier;
 
@@ -43,8 +45,19 @@ public class ListingFilterDTO {
     return departureTime;
   }
 
-  public void setDepartureTime(Long departureTime) {
-    this.departureTime = new Date(departureTime);
+  public void setDepartureTime(String departureTime) throws InvalidTimeException {
+    this.departureTime = new Date();
+    String[] time = departureTime.split(":");
+    Calendar cal = Calendar.getInstance();
+    try {
+      cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
+      cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
+    } catch (NumberFormatException e) {
+      throw new InvalidTimeException(departureTime + " is not a valid time.");
+    }
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);
+    this.departureTime = cal.getTime();
   }
 
   public Modifier getSeatsAvailableModifier() {

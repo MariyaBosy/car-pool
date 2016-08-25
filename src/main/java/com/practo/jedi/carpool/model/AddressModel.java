@@ -174,17 +174,17 @@ public class AddressModel implements java.io.Serializable {
       this.setAdministrativeAreaLevel2(entity.getAdministrativeAreaLevel2());
       this.setCountry(entity.getCountry());
       this.setPostalCode(entity.getPostalCode());
-    } else {throw new EntityNotFoundException("No address found with given Id");}
+    } else {
+      throw new EntityNotFoundException("No address found with given Id");
+    }
   }
 
 
   @Override
   public String toString() {
-    return "AddressModel [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude
-        + ", streetNumber=" + streetNumber + ", route=" + route + ", neighborhood=" + neighborhood
-        + ", sublocality=" + sublocality + ", administrativeAreaLevel2=" + administrativeAreaLevel2
-        + ", administrativeAreaLevel1=" + administrativeAreaLevel1 + ", country=" + country
-        + ", postalCode=" + postalCode + "]";
+    return streetNumber + ", " + route + ", " + neighborhood + ", " + sublocality + ", "
+        + administrativeAreaLevel2 + ", " + administrativeAreaLevel1 + ", " + country + ", "
+        + postalCode;
   }
 
 }

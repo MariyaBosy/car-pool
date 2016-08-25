@@ -101,12 +101,6 @@ public class ListingServiceImpl implements ListingService {
       } catch (EntityNotFoundException e) {
         e.printStackTrace();
       }
-      try {
-        model.fromEntity(entity);
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
-      }
-      models.add(model);
 
     }
     return models;

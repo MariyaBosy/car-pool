@@ -20,7 +20,7 @@ import com.practo.jedi.carpool.service.ListingService;
 @RequestMapping("/listings")
 public class ListingController {
 
-  private int itemsPerPage = 2;
+  private int itemsPerPage = 10;
 
   @Autowired
   private ListingService service;
