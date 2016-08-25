@@ -25,8 +25,6 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "bookings")
-@SQLUpdate(
-    sql = "UPDATE bookings SET deleted_at=?, is_deleted=?, listing_id=?, modified_at=CURRENT_TIMESTAMP, user_id=? where id=? and is_deleted <> true")
 @SQLDelete(
     sql = "UPDATE bookings SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "is_deleted <> true")

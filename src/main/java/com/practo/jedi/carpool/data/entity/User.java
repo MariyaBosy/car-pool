@@ -27,8 +27,6 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-@SQLUpdate(
-    sql = "UPDATE users SET deleted_at=?, email=?, is_deleted=?, modified_at=CURRENT_TIMESTAMP, name=?, phone=? where id=? and is_deleted <> true")
 @SQLDelete(sql = "UPDATE users SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "is_deleted <> true")
 public class User implements java.io.Serializable {
