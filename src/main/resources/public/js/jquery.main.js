@@ -1,6 +1,28 @@
 jQuery(document)
 		.ready(
 				function($) {
+					
+					$('.bookSeat').click(function(){
+						console.log(this);
+						var userId = $("#user-id")[0].value;
+						var that = this;
+						$.ajax({
+						    type: 'POST',
+						    url: 'users/' + userId + '/bookings',
+						    data: JSON.stringify({
+								"listing": {
+									"id": this.value
+								}
+							}),
+						    success: function(data){
+								$(that).replaceWith('<button class="btn green-color"><i class="fa fa-check" aria-hidden="true"></i> Booked</button>');
+								var num = parseInt($('#listing-' + that.value + '-seats').text());
+								$('#listing-' + that.value + '-seats').text(num-1);
+						    },
+						    contentType: "application/json",
+						    dataType: 'json'
+						});
+					});
 
 
 					$('#departure-time').timepicker({

@@ -5,14 +5,14 @@ import com.practo.jedi.carpool.model.BookingModel;
 
 public interface BookingService {
 
-  public Iterable<BookingModel> get(Integer listing_id);
+  public Iterable<BookingModel> get(Integer user_id);
 
-  public BookingModel get(Integer listing_id, Integer id) throws EntityNotFoundException;
+  public BookingModel get(Integer user_id, Integer id) throws EntityNotFoundException;
 
-  public BookingModel create(Integer listing_id, BookingModel Booking) throws EntityNotFoundException;
+  public BookingModel create(Integer user_id, BookingModel Booking) throws EntityNotFoundException;
 
-  public BookingModel update(Integer listing_id, BookingModel Booking, Integer id) throws EntityNotFoundException;
+  public BookingModel update(Integer user_id, BookingModel Booking, Integer id) throws EntityNotFoundException;
 
-  public void delete(Integer listing_id, Integer id) throws EntityNotFoundException;
+  public void delete(Integer user_id, Integer id) throws EntityNotFoundException;
 
 }

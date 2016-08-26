@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <!--[if IE 7]>                  <html class="ie7 no-js" lang="en">     <![endif]-->
@@ -23,6 +23,7 @@
 
 <body>
 
+	<input id="user-id" type="hidden" value="${ user.getId() }">
 	<header class="header">
 
 		<div class="main-baner">
@@ -245,20 +246,30 @@
 
 										<li class="ride-date"><a href="#" class="tooltip-link"
 											data-original-title="Date" data-toggle="tooltip"> <i
-												class="fa fa-clock-o"></i> 
-												<fmt:formatDate value="${ listing.getDepartureTime() }" pattern="HH:mm" />
-												
+												class="fa fa-clock-o"></i> <fmt:formatDate
+													value="${ listing.getDepartureTime() }" pattern="HH:mm" />
+
 										</a></li>
 										<!-- end .ride-date -->
 
 										<li class="ride-people"><a href="#" class="tooltip-link"
 											data-original-title="Number of seats" data-toggle="tooltip">
-												<i class="fa fa-user"></i> ${ listing.getSeatsAvailable() }
-										</a></li>
+												<i class="fa fa-user"></i> <span id="listing-${ listing.getId()}-seats">${ listing.getSeatsAvailable() }</span></a></li>
 										<!-- end .ride-people -->
 
-										<li><a href="#"> <i class="fa fa-car"></i> Book Seat
-										</a></li>
+										<li><c:choose>
+												<c:when test="${ isBooked.get(listing.getId()) }">
+													<button class="btn green-color">
+														<i class="fa fa-check" aria-hidden="true"></i> Booked
+													</button>
+												</c:when>
+												<c:otherwise>
+													<button value="${ listing.getId()}" class="btn blue-color bookSeat">Book
+														Seat</button>
+
+
+												</c:otherwise>
+											</c:choose></li>
 
 									</ul>
 									<!-- end .ride-meta -->
@@ -350,7 +361,6 @@
 				console.log(addressType);
 			}
 		}
-
 		// Bias the autocomplete object to the user's geographical location,
 		// as supplied by the browser's 'navigator.geolocation' object.
 		function geolocate() {
@@ -372,6 +382,5 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUSJkdCeRf3QiJQUNsXBjwff6LOyLNAT8&libraries=places&callback=initAutocomplete"
 		async defer></script>
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.practo.jedi.carpool.controller;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,70 +15,91 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
+import com.practo.jedi.carpool.model.ListingModel;
+import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.service.BookingService;
+import com.practo.jedi.carpool.service.ListingService;
+import com.practo.jedi.carpool.service.UserService;
+import com.practo.jedi.carpool.util.MailService;
 
 @RestController
-@RequestMapping("/listings/{listing_id}/bookings")
+@RequestMapping("/users/{user_id}/bookings")
 public class BookingController {
+
+  @Autowired
+  private MailService mailSender;
 
   @Autowired
   private BookingService service;
 
+  @Autowired
+  private ListingService listingService;
+
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<BookingModel> list(@PathVariable("listing_id") int listing_id,
-      HttpSession session, HttpServletResponse servletResponse) {
+  public Iterable<BookingModel> list(@PathVariable("user_id") int user_id, HttpSession session,
+      HttpServletResponse servletResponse) {
     if (session.getAttribute("user") == null) {
       servletResponse.setStatus(401);
       return null;
     }
-    return service.get(listing_id);
+    return service.get(user_id);
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<BookingModel> create(@PathVariable("listing_id") int listing_id,
+  public ResponseEntity<BookingModel> create(@PathVariable("user_id") int user_id,
       @RequestBody BookingModel booking, HttpSession session, HttpServletResponse servletResponse)
-      throws EntityNotFoundException {
+      throws EntityNotFoundException, MessagingException {
     if (session.getAttribute("user") == null) {
       servletResponse.setStatus(401);
       return null;
     }
-    BookingModel m = service.create(listing_id, booking);
+    BookingModel m = service.create(user_id, booking);
+    UserModel user = (UserModel)session.getAttribute("user");
+    ListingModel listing = listingService.get(m.getListing().getId());
+    UserModel owner = listing.getUser();
+    mailSender.send(owner.getEmail(), user.getName() + " will pool with you",
+        user.getName() + " will pool with you from " + listing.getSource().getName() + " to "
+            + listing.getAddress() + " at " + listing.getDepartureTime());
+    mailSender.send(user.getEmail(), "You will pool with " + owner.getName(),
+        "You will pool with " + owner.getName() + " from " + listing.getSource().getName() + " to "
+            + listing.getAddress() + " at " + listing.getDepartureTime());
+
     ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public BookingModel get(@PathVariable("listing_id") int listing_id, @PathVariable("id") int id,
+  public BookingModel get(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
       HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException {
     if (session.getAttribute("user") == null) {
       servletResponse.setStatus(401);
       return null;
     }
-    return service.get(listing_id, id);
+    return service.get(user_id, id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<BookingModel> update(@PathVariable("listing_id") int listing_id,
+  public ResponseEntity<BookingModel> update(@PathVariable("user_id") int user_id,
       @PathVariable("id") int id, @RequestBody BookingModel booking, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException {
     if (session.getAttribute("user") == null) {
       servletResponse.setStatus(401);
       return null;
     }
-    BookingModel m = service.update(listing_id, booking, id);
+    BookingModel m = service.update(user_id, booking, id);
     ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("listing_id") int listing_id,
+  public ResponseEntity<Boolean> delete(@PathVariable("user_id") int user_id,
       @PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException {
     if (session.getAttribute("user") == null) {
       servletResponse.setStatus(401);
       return null;
     }
-    service.delete(listing_id, id);
+    service.delete(user_id, id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
   }

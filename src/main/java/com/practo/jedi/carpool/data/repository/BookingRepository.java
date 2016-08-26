@@ -16,22 +16,22 @@ public class BookingRepository extends EntityRepositoryImpl<Booking, Integer> {
     return Booking.class;
   }
 
-  public Iterable<Booking> findByListingId(Integer listing_id) {
+  public Iterable<Booking> findByUserId(Integer user_id) {
     return (Iterable<Booking>) template.findByCriteria(
-        DetachedCriteria.forClass(Booking.class).add(Restrictions.eq("listing.id", listing_id)));
+        DetachedCriteria.forClass(Booking.class).add(Restrictions.eq("user.id", user_id)));
   }
 
-  public Booking findByListingIdAndId(Integer listing_id, Integer id)
+  public Booking findByUserIdAndId(Integer user_id, Integer id)
       throws EntityNotFoundException {
     try {
       return (Booking) template
           .findByCriteria(
               DetachedCriteria.forClass(Booking.class)
-                  .add(Restrictions.eq("listing.id", listing_id)).add(Restrictions.eq("id", id)),
+                  .add(Restrictions.eq("user.id", user_id)).add(Restrictions.eq("id", id)),
               0, 1)
           .get(0);
     } catch (IndexOutOfBoundsException e) {
-      throw new EntityNotFoundException("No Vehicle found with given Id");
+      throw new EntityNotFoundException("No Booking found with given Id");
     }
   }
 

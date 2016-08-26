@@ -1,6 +1,5 @@
 package com.practo.jedi.carpool.data.repository;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -27,7 +26,9 @@ public class ListingRepository extends EntityRepositoryImpl<Listing, Integer> {
 
 
   public Iterable<Listing> findAll(ListingFilterDTO filters, Pageable pageable) {
-    DetachedCriteria criteria = DetachedCriteria.forClass(Listing.class);
+    Date today = new Date();
+    DetachedCriteria criteria =
+        DetachedCriteria.forClass(Listing.class).add(Restrictions.ge("departureTime", today));
     if (filters.getSource() != null) {
       criteria = criteria.add(Restrictions.eq("source.id", filters.getSource()));
     }
@@ -45,29 +46,16 @@ public class ListingRepository extends EntityRepositoryImpl<Listing, Integer> {
       }
     }
     if (filters.getDepartureTime() != null && filters.getDepartureTimeModifier() != null) {
-      Date today = new Date();
-      Calendar cal = Calendar.getInstance();
-      cal.set(Calendar.HOUR_OF_DAY, 0);
-      cal.set(Calendar.MINUTE, 0);
-      cal.set(Calendar.SECOND, 0);
-      cal.set(Calendar.MILLISECOND, 0);
-      today = cal.getTime();
-      System.out.println(today);
       if (filters.getDepartureTimeModifier() == Modifier.EQ) {
-        criteria = criteria.add(Restrictions.ge("departureTime", today))
-            .add(Restrictions.eq("departureTime", filters.getDepartureTime()));
+        criteria = criteria.add(Restrictions.eq("departureTime", filters.getDepartureTime()));
       } else if (filters.getDepartureTimeModifier() == Modifier.GOE) {
-        criteria = criteria.add(Restrictions.ge("departureTime", today))
-            .add(Restrictions.ge("departureTime", filters.getDepartureTime()));
+        criteria = criteria.add(Restrictions.ge("departureTime", filters.getDepartureTime()));
       } else if (filters.getDepartureTimeModifier() == Modifier.LOE) {
-        criteria = criteria.add(Restrictions.ge("departureTime", today))
-            .add(Restrictions.le("departureTime", filters.getDepartureTime()));
+        criteria = criteria.add(Restrictions.le("departureTime", filters.getDepartureTime()));
       } else if (filters.getDepartureTimeModifier() == Modifier.GT) {
-        criteria = criteria.add(Restrictions.ge("departureTime", today))
-            .add(Restrictions.gt("departureTime", filters.getDepartureTime()));
+        criteria = criteria.add(Restrictions.gt("departureTime", filters.getDepartureTime()));
       } else {
-        criteria = criteria.add(Restrictions.ge("departureTime", today))
-            .add(Restrictions.lt("departureTime", filters.getDepartureTime()));
+        criteria = criteria.add(Restrictions.lt("departureTime", filters.getDepartureTime()));
       }
     }
     return (Iterable<Listing>) template.findByCriteria(criteria, pageable.getOffset(),

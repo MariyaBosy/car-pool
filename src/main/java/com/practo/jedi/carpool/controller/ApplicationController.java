@@ -1,5 +1,7 @@
 package com.practo.jedi.carpool.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
+import com.practo.jedi.carpool.model.BookingModel;
 import com.practo.jedi.carpool.model.ListingModel;
 import com.practo.jedi.carpool.model.SourceModel;
 import com.practo.jedi.carpool.model.UserModel;
+import com.practo.jedi.carpool.service.BookingService;
 import com.practo.jedi.carpool.service.ListingService;
 import com.practo.jedi.carpool.service.SourceService;
 import com.practo.jedi.carpool.service.UserService;
@@ -32,6 +36,9 @@ public class ApplicationController {
 
   @Autowired
   private SourceService sourceService;
+  
+  @Autowired
+  private BookingService bookingService;
 
   public static Pageable updatePageable(final Pageable source, final int size) {
     return new PageRequest(source.getPageNumber(), size, source.getSort());
@@ -77,11 +84,25 @@ public class ApplicationController {
       response.setStatus(401);
       return "index";
     }
+    model.addAttribute("user", session.getAttribute("user"));
     Iterable<ListingModel> listings =
         listingService.filter(filters, updatePageable(pageable, itemsPerPage));
     model.addAttribute("listings", listings);
     Iterable<SourceModel> sources = sourceService.get();
     model.addAttribute("sources", sources);
+    UserModel user = (UserModel) session.getAttribute("user");
+    Iterable<BookingModel> bookings = bookingService.get(user.getId());
+    HashMap<Integer, Boolean> isBooked = new HashMap<Integer, Boolean>();
+    for(ListingModel listing:listings) {
+      Boolean value = false;
+      for(BookingModel booking:bookings) {
+        if(booking.getListing().getId() == listing.getId()) {
+          value = true;
+        }
+      }
+      isBooked.put(listing.getId(), value);
+    }
+    model.addAttribute("isBooked", isBooked);
     return "search";
   }
 

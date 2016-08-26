@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.ListingModel;
+import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.service.ListingService;
 
 @RestController
@@ -59,6 +60,8 @@ public class ListingController {
       servletResponse.setStatus(401);
       return null;
     }
+    UserModel user = (UserModel) session.getAttribute("user");
+    listing.setUser(user);
     ListingModel m = service.create(listing);
     ResponseEntity<ListingModel> response = new ResponseEntity<ListingModel>(m, HttpStatus.CREATED);
     return response;

@@ -9,7 +9,7 @@ import com.practo.jedi.carpool.data.entity.Booking;
 import com.practo.jedi.carpool.data.repository.BookingRepository;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
-import com.practo.jedi.carpool.model.ListingModel;
+import com.practo.jedi.carpool.model.UserModel;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -21,8 +21,8 @@ public class BookingServiceImpl implements BookingService {
     return repository;
   }
 
-  public Iterable<BookingModel> get(Integer listing_id) {
-    Iterable<Booking> entities = repository.findByListingId(listing_id);
+  public Iterable<BookingModel> get(Integer user_id) {
+    Iterable<Booking> entities = repository.findByUserId(user_id);
     ArrayList<BookingModel> models = new ArrayList<BookingModel>();
     for (Booking entity : entities) {
       BookingModel model = new BookingModel();
@@ -37,17 +37,17 @@ public class BookingServiceImpl implements BookingService {
     return models;
   }
 
-  public BookingModel get(Integer listing_id, Integer id) throws EntityNotFoundException {
-    Booking entity = repository.findByListingIdAndId(listing_id, id);
+  public BookingModel get(Integer user_id, Integer id) throws EntityNotFoundException {
+    Booking entity = repository.findByUserIdAndId(user_id, id);
     BookingModel model = new BookingModel();
     model.fromEntity(entity);
     return model;
   }
 
-  public BookingModel create(Integer listing_id, BookingModel booking) throws EntityNotFoundException {
-    ListingModel listing = new ListingModel();
-    listing.setId(listing_id);
-    booking.setListing(listing);
+  public BookingModel create(Integer user_id, BookingModel booking) throws EntityNotFoundException {
+    UserModel user = new UserModel();
+    user.setId(user_id);
+    booking.setUser(user);
     Booking entity = booking.toEntity();
     entity = repository.save(entity);
     try {
@@ -58,10 +58,10 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
-  public BookingModel update(Integer listing_id, BookingModel booking, Integer id) throws EntityNotFoundException {
-    ListingModel listing = new ListingModel();
-    listing.setId(listing_id);
-    booking.setListing(listing);
+  public BookingModel update(Integer user_id, BookingModel booking, Integer id) throws EntityNotFoundException {
+    UserModel user = new UserModel();
+    user.setId(user_id);
+    booking.setUser(user);
     booking.setId(id);
     Booking entity = booking.toEntity();
     entity = repository.save(entity);
@@ -73,7 +73,7 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
-  public void delete(Integer listing_id, Integer id) throws EntityNotFoundException {
+  public void delete(Integer user_id, Integer id) throws EntityNotFoundException {
     repository.delete(id);
   }
 
