@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <!--[if IE 7]>                  <html class="ie7 no-js" lang="en">     <![endif]-->
 <!--[if lte IE 8]>              <html class="ie8 no-js" lang="en">     <![endif]-->
@@ -243,7 +245,9 @@
 
 										<li class="ride-date"><a href="#" class="tooltip-link"
 											data-original-title="Date" data-toggle="tooltip"> <i
-												class="fa fa-calendar"></i> ${ listing.getDepartureTime() }
+												class="fa fa-clock-o"></i> 
+												<fmt:formatDate value="${ listing.getDepartureTime() }" pattern="HH:mm" />
+												
 										</a></li>
 										<!-- end .ride-date -->
 
@@ -253,7 +257,7 @@
 										</a></li>
 										<!-- end .ride-people -->
 
-										<li><a href="#"> <i class="fa fa-file"></i> Book Seat
+										<li><a href="#"> <i class="fa fa-car"></i> Book Seat
 										</a></li>
 
 									</ul>

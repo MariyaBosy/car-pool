@@ -53,9 +53,6 @@ public class ApplicationController {
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public String login(String name, String email, String token, HttpSession session) {
-    System.out.println(name);
-    System.out.println(email);
-    System.out.println(token);
     UserModel user = userService.findByEmail(email);
     if (user == null) {
       user = new UserModel();
