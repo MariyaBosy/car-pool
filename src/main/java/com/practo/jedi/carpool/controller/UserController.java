@@ -1,5 +1,8 @@
 package com.practo.jedi.carpool.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,31 +24,56 @@ public class UserController {
   private UserService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<UserModel> list() throws EntityNotFoundException {
+  public Iterable<UserModel> list(HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     return service.get();
   }
-  
+
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<UserModel> create(@RequestBody UserModel user) throws EntityNotFoundException {
+  public ResponseEntity<UserModel> create(@RequestBody UserModel user, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     UserModel m = service.create(user);
     ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public UserModel get(@PathVariable("id") int id) throws EntityNotFoundException {
+  public UserModel get(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user) throws EntityNotFoundException {
+  public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user,
+      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     UserModel m = service.update(user, id);
     ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;

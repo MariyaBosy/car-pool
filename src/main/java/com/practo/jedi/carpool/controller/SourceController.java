@@ -1,5 +1,8 @@
 package com.practo.jedi.carpool.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,32 +24,56 @@ public class SourceController {
   private SourceService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<SourceModel> list() {
+  public Iterable<SourceModel> list(HttpSession session, HttpServletResponse servletResponse) {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<SourceModel> create(@RequestBody SourceModel source) throws EntityNotFoundException {
+  public ResponseEntity<SourceModel> create(@RequestBody SourceModel source, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     SourceModel m = service.create(source);
     ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.CREATED);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public SourceModel get(@PathVariable("id") int id) throws EntityNotFoundException {
+  public SourceModel get(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<SourceModel> update(@PathVariable("id") int id,
-      @RequestBody SourceModel source) throws EntityNotFoundException {
+      @RequestBody SourceModel source, HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     SourceModel m = service.update(source, id);
     ResponseEntity<SourceModel> response = new ResponseEntity<SourceModel>(m, HttpStatus.OK);
     return response;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id) throws EntityNotFoundException {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException {
+    if (session.getAttribute("user") == null) {
+      servletResponse.setStatus(401);
+      return null;
+    }
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return response;
