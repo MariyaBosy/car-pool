@@ -51,6 +51,7 @@
 				  var name = profile.getName();
 				  var email = profile.getEmail();
 				  var token = googleUser.getAuthResponse().id_token;
+				  $.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token, function(data){console.log(data)});
 				  $.post('login', {
 					  "name": name,
 					  "email": email,

@@ -15,14 +15,6 @@ public class VehicleModel implements java.io.Serializable {
 
   public VehicleModel() {}
 
-
-  public VehicleModel(int capacity, String model, String numberPlate) {
-    this.capacity = capacity;
-    this.model = model;
-    this.numberPlate = numberPlate;
-  }
-
-
   public Integer getId() {
     return this.id;
   }
@@ -92,13 +84,6 @@ public class VehicleModel implements java.io.Serializable {
     } else {
       throw new EntityNotFoundException("No vehicle found with given Id");
     }
-  }
-
-
-  @Override
-  public String toString() {
-    return "VehicleModel [id=" + id + ", capacity=" + capacity + ", model=" + model
-        + ", numberPlate=" + numberPlate + ", user=" + user + "]";
   }
 
 }

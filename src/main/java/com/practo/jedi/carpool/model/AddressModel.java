@@ -15,19 +15,6 @@ public class AddressModel implements java.io.Serializable {
 
   public AddressModel() {}
 
-
-  public AddressModel(BigDecimal latitude, BigDecimal longitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-  }
-
-  public AddressModel(BigDecimal latitude, BigDecimal longitude, String formattedAddress) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.formattedAddress = formattedAddress;
-  }
-
-
   public Integer getId() {
     return this.id;
   }

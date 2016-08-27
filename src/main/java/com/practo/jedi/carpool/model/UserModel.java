@@ -14,11 +14,6 @@ public class UserModel implements java.io.Serializable {
   public UserModel() {}
 
 
-  public UserModel(String name, String email, String phone) {
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-  }
 
   public Integer getId() {
     return this.id;
@@ -75,10 +70,5 @@ public class UserModel implements java.io.Serializable {
     } else {throw new EntityNotFoundException("No user found with given Id");}
   }
 
-
-  @Override
-  public String toString() {
-    return "UserModel [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
-  }
 
 }

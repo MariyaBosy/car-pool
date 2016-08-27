@@ -139,7 +139,8 @@
 
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
-												<input id="departure-time" name="departureTime">
+												<input id="departure-time"><input
+									id="departure-datetime" type="hidden" name="departureTime">
 											</div>
 										</div>
 

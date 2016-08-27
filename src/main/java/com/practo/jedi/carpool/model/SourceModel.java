@@ -12,11 +12,6 @@ public class SourceModel implements java.io.Serializable {
   public SourceModel() {}
 
 
-  public SourceModel(AddressModel address, String name) {
-    this.address = address;
-    this.name = name;
-  }
-
 
   public Integer getId() {
     return this.id;
@@ -67,11 +62,6 @@ public class SourceModel implements java.io.Serializable {
     }
   }
 
-
-  @Override
-  public String toString() {
-    return "SourceModel [id=" + id + ", address=" + address + ", name=" + name + "]";
-  }
 
 
 }

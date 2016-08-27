@@ -13,10 +13,6 @@ public class BookingModel implements java.io.Serializable {
   public BookingModel() {}
 
 
-  public BookingModel(ListingModel listing, UserModel user) {
-    this.listing = listing;
-    this.user = user;
-  }
 
   public Integer getId() {
     return this.id;
@@ -70,11 +66,6 @@ public class BookingModel implements java.io.Serializable {
     }
   }
 
-
-  @Override
-  public String toString() {
-    return "BookingModel [id=" + id + ", listing=" + listing + ", user=" + user + "]";
-  }
 
 }
 

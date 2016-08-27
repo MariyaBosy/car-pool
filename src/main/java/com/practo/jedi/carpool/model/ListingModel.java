@@ -19,16 +19,6 @@ public class ListingModel implements java.io.Serializable {
   public ListingModel() {}
 
 
-  public ListingModel(AddressModel address, SourceModel source, UserModel user,
-      VehicleModel vehicle, Date departureTime, int seatsAvailable) {
-    this.address = address;
-    this.source = source;
-    this.user = user;
-    this.vehicle = vehicle;
-    this.departureTime = departureTime;
-    this.seatsAvailable = seatsAvailable;
-  }
-
 
   public Integer getId() {
     return this.id;
@@ -129,14 +119,6 @@ public class ListingModel implements java.io.Serializable {
     } else {
       throw new EntityNotFoundException("No listing found with given Id");
     }
-  }
-
-
-  @Override
-  public String toString() {
-    return "ListingModel [id=" + id + ", address=" + address + ", source=" + source + ", user="
-        + user + ", vehicle=" + vehicle + ", departureTime=" + departureTime + ", seatsAvailable="
-        + seatsAvailable + "]";
   }
 
 
