@@ -75,7 +75,6 @@ public class ListingModel implements java.io.Serializable {
   }
 
   public void setDepartureTime(Date departureTime) {
-    System.out.println(departureTime);
     this.departureTime = departureTime;
   }
 

@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `car_pool`.`listings` ;
 CREATE TABLE IF NOT EXISTS `car_pool`.`listings` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `car_id` INT NOT NULL,
+  `vehicle_id` INT NOT NULL,
   `departure_time` TIMESTAMP NOT NULL,
   `source_id` INT NOT NULL,
   `destination_address_id` INT NOT NULL,

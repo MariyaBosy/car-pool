@@ -127,7 +127,7 @@ public class Listing implements java.io.Serializable {
   }
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "car_id", nullable = false)
+  @JoinColumn(name = "vehicle_id", nullable = false)
   public Vehicle getVehicle() {
     return this.vehicle;
   }
