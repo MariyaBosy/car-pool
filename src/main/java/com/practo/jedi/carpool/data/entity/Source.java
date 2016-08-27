@@ -50,25 +50,6 @@ public class Source implements java.io.Serializable {
   public Source() {}
 
 
-  public Source(Address address, String name, Date createdAt, Date modifiedAt, boolean isDeleted) {
-    this.address = address;
-    this.name = name;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public Source(Address address, String name, Date createdAt, Date modifiedAt, Date deletedAt,
-      boolean isDeleted, Set<Listing> listings) {
-    this.address = address;
-    this.name = name;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-    this.listings = listings;
-  }
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
 

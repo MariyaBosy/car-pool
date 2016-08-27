@@ -51,31 +51,6 @@ public class User implements java.io.Serializable {
   public User() {}
 
 
-  public User(String name, String email, String phone, Date createdAt, Date modifiedAt,
-      boolean isDeleted) {
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public User(String name, String email, String phone, Date createdAt, Date modifiedAt,
-      Date deletedAt, boolean isDeleted, Set<Booking> bookings, Set<Listing> listings,
-      Set<Vehicle> vehicles) {
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-    this.bookings = bookings;
-    this.listings = listings;
-    this.vehicles = vehicles;
-  }
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
 
@@ -181,14 +156,6 @@ public class User implements java.io.Serializable {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   public Set<Vehicle> getVehicles() {
     return this.vehicles;
-  }
-
-  @Override
-  public String toString() {
-    return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone
-        + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", deletedAt=" + deletedAt
-        + ", isDeleted=" + isDeleted + ", bookings=" + bookings + ", listings=" + listings
-        + ", vehicles=" + vehicles + "]";
   }
 
 

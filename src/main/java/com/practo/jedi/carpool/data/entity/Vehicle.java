@@ -52,30 +52,6 @@ public class Vehicle implements java.io.Serializable {
   public Vehicle() {}
 
 
-  public Vehicle(User user, int capacity, String model, String numberPlate, Date createdAt,
-      Date modifiedAt, boolean isDeleted) {
-    this.user = user;
-    this.capacity = capacity;
-    this.model = model;
-    this.numberPlate = numberPlate;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public Vehicle(User user, int capacity, String model, String numberPlate, Date createdAt,
-      Date modifiedAt, Date deletedAt, boolean isDeleted, Set<Listing> listings) {
-    this.user = user;
-    this.capacity = capacity;
-    this.model = model;
-    this.numberPlate = numberPlate;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-    this.listings = listings;
-  }
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
 

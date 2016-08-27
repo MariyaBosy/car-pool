@@ -71,11 +71,4 @@ public class ListingFilterDTO {
     }
   }
 
-  @Override
-  public String toString() {
-    return "ListingFilterDTO [source=" + source + ", seatsAvailable=" + seatsAvailable
-        + ", destination=" + destination + ", departureTime=" + departureTime
-        + ", seatsAvailableModifier=" + seatsAvailableModifier + ", departureTimeModifier="
-        + departureTimeModifier + "]";
-  }
 }

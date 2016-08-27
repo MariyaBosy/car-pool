@@ -46,24 +46,6 @@ public class Booking implements java.io.Serializable {
   public Booking() {}
 
 
-  public Booking(Listing listing, User user, Date createdAt, Date modifiedAt, boolean isDeleted) {
-    this.listing = listing;
-    this.user = user;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public Booking(Listing listing, User user, Date createdAt, Date modifiedAt, Date deletedAt,
-      boolean isDeleted) {
-    this.listing = listing;
-    this.user = user;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-  }
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
 
@@ -135,14 +117,6 @@ public class Booking implements java.io.Serializable {
 
   public void setIsDeleted(boolean isDeleted) {
     this.isDeleted = isDeleted;
-  }
-
-
-  @Override
-  public String toString() {
-    return "Booking [id=" + id + ", listing=" + listing + ", user=" + user + ", createdAt="
-        + createdAt + ", modifiedAt=" + modifiedAt + ", deletedAt=" + deletedAt + ", isDeleted="
-        + isDeleted + "]";
   }
 
 }

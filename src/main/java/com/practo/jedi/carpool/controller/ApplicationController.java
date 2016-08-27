@@ -67,7 +67,6 @@ public class ApplicationController {
       user.setName(name);
       user.setPhone("");
       try {
-        System.out.println(user);
         user = userService.create(user);
       } catch (EntityNotFoundException e) {
         e.printStackTrace();

@@ -54,34 +54,6 @@ public class Listing implements java.io.Serializable {
   public Listing() {}
 
 
-  public Listing(Address address, Source source, User user, Vehicle vehicle, Date departureTime,
-      int seatsAvailable, Date createdAt, Date modifiedAt, boolean isDeleted) {
-    this.address = address;
-    this.source = source;
-    this.user = user;
-    this.vehicle = vehicle;
-    this.departureTime = departureTime;
-    this.seatsAvailable = seatsAvailable;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public Listing(Address address, Source source, User user, Vehicle vehicle, Date departureTime,
-      int seatsAvailable, Date createdAt, Date modifiedAt, Date deletedAt, boolean isDeleted,
-      Set<Booking> bookings) {
-    this.address = address;
-    this.source = source;
-    this.user = user;
-    this.vehicle = vehicle;
-    this.departureTime = departureTime;
-    this.seatsAvailable = seatsAvailable;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-    this.bookings = bookings;
-  }
 
   @Id
   @GeneratedValue(strategy = IDENTITY)

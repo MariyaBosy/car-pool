@@ -50,30 +50,6 @@ public class Address implements java.io.Serializable {
 
   public Address() {}
 
-
-  public Address(BigDecimal latitude, BigDecimal longitude, Date createdAt, Date modifiedAt,
-      boolean isDeleted) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.isDeleted = isDeleted;
-  }
-
-  public Address(BigDecimal latitude, BigDecimal longitude, String formattedAddress, Date createdAt,
-      Date modifiedAt, Date deletedAt, boolean isDeleted, Set<Listing> listings,
-      Set<Source> sources) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.formattedAddress = formattedAddress;
-    this.createdAt = createdAt;
-    this.modifiedAt = modifiedAt;
-    this.deletedAt = deletedAt;
-    this.isDeleted = isDeleted;
-    this.listings = listings;
-    this.sources = sources;
-  }
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
 
