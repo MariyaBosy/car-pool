@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ListingFilterDTO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.carpool.data.dto</a> &gt; <span class="el_source">ListingFilterDTO.java</span></div><h1>ListingFilterDTO.java</h1><pre class="source lang-java linenums">package com.practo.jedi.carpool.data.dto;
+
+import java.util.Date;
+
+import com.practo.jedi.carpool.model.AddressModel;
+import com.practo.jedi.carpool.util.Modifier;
+
+<span class="fc" id="L8">public class ListingFilterDTO {</span>
+
+  Integer source;
+  Integer seatsAvailable;
+  AddressModel destination;
+  Date departureTime;
+
+  Modifier seatsAvailableModifier;
+  Modifier departureTimeModifier;
+
+  public Integer getSource() {
+<span class="fc" id="L19">    return source;</span>
+  }
+
+  public void setSource(int source) {
+<span class="nc" id="L23">    this.source = source;</span>
+<span class="nc" id="L24">  }</span>
+
+  public Integer getSeatsAvailable() {
+<span class="fc" id="L27">    return seatsAvailable;</span>
+  }
+
+  public void setSeatsAvailable(Integer seatsAvailable) {
+<span class="fc" id="L31">    this.seatsAvailable = seatsAvailable;</span>
+<span class="fc" id="L32">  }</span>
+
+  public AddressModel getDestination() {
+<span class="fc" id="L35">    return destination;</span>
+  }
+
+  public void setDestination(AddressModel destination) {
+<span class="fc" id="L39">    this.destination = destination;</span>
+<span class="fc" id="L40">  }</span>
+
+  public Date getDepartureTime() {
+<span class="fc" id="L43">    return departureTime;</span>
+  }
+
+  public void setDepartureTime(Date departureTime) {
+<span class="fc" id="L47">    this.departureTime = departureTime;</span>
+<span class="fc" id="L48">  }</span>
+
+  public Modifier getSeatsAvailableModifier() {
+<span class="fc" id="L51">    return seatsAvailableModifier;</span>
+  }
+
+  public void setSeatsAvailableModifier(String seatsAvailableModifier) {
+    try {
+<span class="fc" id="L56">      this.seatsAvailableModifier = Modifier.valueOf(seatsAvailableModifier);</span>
+<span class="fc" id="L57">    } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L58">      this.seatsAvailableModifier = null;</span>
+<span class="fc" id="L59">    }</span>
+<span class="fc" id="L60">  }</span>
+
+  public Modifier getDepartureTimeModifier() {
+<span class="fc" id="L63">    return departureTimeModifier;</span>
+  }
+
+  public void setDepartureTimeModifier(String departureTimeModifier) {
+    try {
+<span class="fc" id="L68">      this.departureTimeModifier = Modifier.valueOf(departureTimeModifier);</span>
+<span class="nc" id="L69">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L70">      this.departureTimeModifier = null;</span>
+<span class="fc" id="L71">    }</span>
+<span class="fc" id="L72">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

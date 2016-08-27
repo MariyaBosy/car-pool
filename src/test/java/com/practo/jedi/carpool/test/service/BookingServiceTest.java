@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
 import com.practo.jedi.carpool.model.ListingModel;
-import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.run.Application;
 import com.practo.jedi.carpool.service.BookingService;
 
@@ -26,6 +27,10 @@ public class BookingServiceTest {
 
   @Test
   public void testGet() throws EntityNotFoundException {
+    ArrayList<BookingModel> bookings = (ArrayList<BookingModel>) service.get(2);
+    assertEquals(1, bookings.size());
+    assertEquals(new Integer(2), bookings.get(0).getId());
+    
     BookingModel booking = service.get(1, 1);
     assertNotNull(booking);
     assertEquals(new Integer(1), booking.getUser().getId());
@@ -44,14 +49,14 @@ public class BookingServiceTest {
     assertNotNull(dbBooking);
     assertEquals(new Integer(2), dbBooking.getUser().getId());
     assertEquals(new Integer(1), dbBooking.getListing().getId());
-    }
+  }
 
   @Test
   public void testUpdate() throws EntityNotFoundException {
     BookingModel booking = service.get(2, 2);
     ListingModel listing = new ListingModel();
     listing.setId(1);
-    booking.setListing(listing );
+    booking.setListing(listing);
     service.update(booking.getUser().getId(), booking, 2);
 
     BookingModel dbBooking = service.get(2, 2);

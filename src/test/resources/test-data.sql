@@ -16,7 +16,7 @@ INSERT INTO sources(id, name, address_id, created_at, modified_at, deleted_at, i
 
 INSERT INTO listings(id, user_id, vehicle_id, departure_time, source_id, destination_address_id, seats_available, created_at, modified_at, deleted_at, is_deleted) VALUES(1, 1, 1, '2016-08-18 14:56:55', 1, 2, 1, '2016-08-18 14:56:55', null, null, 0);
 INSERT INTO listings(id, user_id, vehicle_id, departure_time, source_id, destination_address_id, seats_available, created_at, modified_at, deleted_at, is_deleted) VALUES(2, 2, 2, '2016-08-18 14:56:55', 2, 1, 2, '2016-08-18 14:56:55', null, null, 0);
-INSERT INTO listings(id, user_id, vehicle_id, departure_time, source_id, destination_address_id, seats_available, created_at, modified_at, deleted_at, is_deleted) VALUES(3, 3, 3, '2016-08-18 14:56:55', 3, 1, 2, '2016-08-18 14:56:55', null, null, 0);
+INSERT INTO listings(id, user_id, vehicle_id, departure_time, source_id, destination_address_id, seats_available, created_at, modified_at, deleted_at, is_deleted) VALUES(3, 3, 3, '2016-08-18 14:56:55', 3, 1, 1, '2016-08-18 14:56:55', null, null, 0);
 
 INSERT INTO bookings(id, user_id, listing_id, created_at, modified_at, deleted_at, is_deleted) VALUES(1, 1, 1, '2016-08-18 14:56:55', null, null, 0);
 INSERT INTO bookings(id, user_id, listing_id, created_at, modified_at, deleted_at, is_deleted) VALUES(2, 2, 1, '2016-08-18 14:56:55', null, null, 0);

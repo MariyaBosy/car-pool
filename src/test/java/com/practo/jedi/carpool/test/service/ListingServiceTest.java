@@ -5,14 +5,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.AddressModel;
 import com.practo.jedi.carpool.model.ListingModel;
@@ -31,6 +34,10 @@ public class ListingServiceTest {
 
   @Test
   public void testGet() throws EntityNotFoundException {
+    PageRequest pageable = new PageRequest(0, 2);
+    ArrayList<ListingModel> listings = (ArrayList<ListingModel>) service.get(pageable);
+    assertEquals(2, listings.size());
+    
     ListingModel listing = service.get(1);
     assertNotNull(listing);
     assertEquals(new Integer(1), listing.getUser().getId());
@@ -38,6 +45,22 @@ public class ListingServiceTest {
     assertEquals(new Integer(1), listing.getSource().getId());
     assertEquals(new Integer(2), listing.getAddress().getId());
     assertEquals(1, listing.getSeatsAvailable());
+  }
+
+  @Test
+  public void testFilter() {
+
+    ListingFilterDTO filter2 = new ListingFilterDTO();
+    filter2.setSeatsAvailable(4);
+    filter2.setSeatsAvailableModifier("LE");
+    AddressModel destination = new AddressModel();
+    destination.setLatitude(new BigDecimal("1.11000000"));
+    destination.setLongitude(new BigDecimal("2.22000000"));
+    filter2.setDestination(destination);
+    PageRequest pageable2 = new PageRequest(0, 5);
+    ArrayList<ListingModel> listings2 = (ArrayList<ListingModel>) service.filter(filter2, pageable2);
+    assertEquals(1, listings2.size());
+    assertEquals(new Integer(2), listings2.get(0).getSource().getId());
   }
 
   @Test
