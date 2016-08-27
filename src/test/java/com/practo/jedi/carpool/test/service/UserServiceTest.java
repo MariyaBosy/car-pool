@@ -28,9 +28,10 @@ public class UserServiceTest {
   public void testGet() throws EntityNotFoundException {
     // Get All
     ArrayList<UserModel> users = (ArrayList<UserModel>) service.get();
-    assertEquals(users.size(), 2);
+    assertEquals(3, users.size());
     assertEquals("Obi-wan Kenobi", users.get(0).getName());
     assertEquals("Anakin Skywalker", users.get(1).getName());
+    assertEquals("Rey", users.get(2).getName());
   
     // Get One
     UserModel user = service.get(1);
@@ -55,7 +56,7 @@ public class UserServiceTest {
     user.setEmail("luke@rebellion.org");
     user.setPhone("1234567890");
     user = service.create(user);
-    UserModel dbUser = service.get(3);
+    UserModel dbUser = service.get(4);
     assertNotNull(dbUser);
     assertEquals("Luke", dbUser.getName());
     assertEquals("luke@rebellion.org", dbUser.getEmail());
@@ -78,8 +79,8 @@ public class UserServiceTest {
 
   @Test(expected = EntityNotFoundException.class)
   public void testDelete() throws EntityNotFoundException {
-    service.delete(1);
-    UserModel user = service.get(1);
+    service.delete(3);
+    UserModel user = service.get(3);
     assertNull(user);
   }
 }
