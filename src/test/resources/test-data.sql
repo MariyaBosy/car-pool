@@ -1,0 +1,2 @@
+INSERT INTO users(id, name, email, phone, created_at, modified_at, deleted_at, is_deleted) VALUES (1, 'Obi-wan Kenobi', 'ben@jedi.org', '1111111111', '2016-08-18 14:56:55', '2016-08-18 14:56:55', null, 0);
+INSERT INTO users(id, name, email, phone, created_at, modified_at, deleted_at, is_deleted) VALUES (2, 'Anakin Skywalker', 'uber_podracer@tatooine.com', '1233211236', '2016-08-18 14:56:55', '2016-08-18 14:56:55', null, 0);
