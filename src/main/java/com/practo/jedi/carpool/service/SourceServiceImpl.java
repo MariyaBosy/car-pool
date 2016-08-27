@@ -44,8 +44,10 @@ public class SourceServiceImpl implements SourceService {
     return model;
   }
 
+
   public SourceModel create(SourceModel source) throws EntityNotFoundException {
     Source entity = source.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       source.fromEntity(entity);
@@ -58,6 +60,7 @@ public class SourceServiceImpl implements SourceService {
   public SourceModel update(SourceModel source, Integer id) throws EntityNotFoundException {
     source.setId(id);
     Source entity = source.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       source.fromEntity(entity);

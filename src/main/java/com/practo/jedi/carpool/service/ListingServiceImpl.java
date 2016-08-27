@@ -1,6 +1,7 @@
 package com.practo.jedi.carpool.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -65,14 +66,17 @@ public class ListingServiceImpl implements ListingService {
       addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),
           addressEntity.getLongitude());
     } catch (EntityNotFoundException e) {
+      addressEntity.setCreatedAt(new Date());
       addressEntity = addressRepository.save(entity.getAddress());
     }
     entity.setAddress(addressEntity);
     if (entity.getVehicle().getId() == null) {
       Vehicle vehicleEntity = entity.getVehicle();
+      vehicleEntity.setCreatedAt(new Date());
       vehicleEntity = vehicleRepository.save(vehicleEntity);
       entity.setVehicle(vehicleEntity);
     }
+    entity.setCreatedAt(new Date());
     entity = listingRepository.save(entity);
     try {
       listing.fromEntity(entity);
@@ -90,14 +94,17 @@ public class ListingServiceImpl implements ListingService {
       addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),
           addressEntity.getLongitude());
     } catch (EntityNotFoundException e) {
+      addressEntity.setCreatedAt(new Date());
       addressEntity = addressRepository.save(entity.getAddress());
     }
     entity.setAddress(addressEntity);
     if (entity.getVehicle().getId() == null) {
       Vehicle vehicleEntity = entity.getVehicle();
+      vehicleEntity.setCreatedAt(new Date());
       vehicleEntity = vehicleRepository.save(vehicleEntity);
       entity.setVehicle(vehicleEntity);
     }
+    entity.setModifiedAt(new Date());
     entity = listingRepository.save(entity);
     try {
       listing.fromEntity(entity);

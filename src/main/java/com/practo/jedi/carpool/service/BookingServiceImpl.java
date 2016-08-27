@@ -1,6 +1,7 @@
 package com.practo.jedi.carpool.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import com.practo.jedi.carpool.data.entity.Booking;
 import com.practo.jedi.carpool.data.repository.BookingRepository;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
-import com.practo.jedi.carpool.model.UserModel;
+import com.practo.jedi.carpool.model.ListingModel;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -44,11 +45,13 @@ public class BookingServiceImpl implements BookingService {
     return model;
   }
 
-  public BookingModel create(Integer user_id, BookingModel booking) throws EntityNotFoundException {
-    UserModel user = new UserModel();
-    user.setId(user_id);
-    booking.setUser(user);
+
+  public BookingModel create(Integer listing_id, BookingModel booking) throws EntityNotFoundException {
+    ListingModel listing = new ListingModel();
+    listing.setId(listing_id);
+    booking.setListing(listing);
     Booking entity = booking.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       booking.fromEntity(entity);
@@ -58,12 +61,13 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
-  public BookingModel update(Integer user_id, BookingModel booking, Integer id) throws EntityNotFoundException {
-    UserModel user = new UserModel();
-    user.setId(user_id);
-    booking.setUser(user);
+  public BookingModel update(Integer listing_id, BookingModel booking, Integer id) throws EntityNotFoundException {
+    ListingModel listing = new ListingModel();
+    listing.setId(listing_id);
+    booking.setListing(listing);
     booking.setId(id);
     Booking entity = booking.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       booking.fromEntity(entity);

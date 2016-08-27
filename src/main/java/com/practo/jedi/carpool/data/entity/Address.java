@@ -129,7 +129,7 @@ public class Address implements java.io.Serializable {
   }
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "modified_at", nullable = false, length = 19)
+  @Column(name = "modified_at", length = 19)
   public Date getModifiedAt() {
     return this.modifiedAt;
   }

@@ -50,6 +50,7 @@ public class VehicleServiceImpl implements VehicleService {
     user.setId(user_id);
     vehicle.setUser(user);
     Vehicle entity = vehicle.toEntity();
+    entity.setCreatedAt(new Date());
     entity = repository.save(entity);
     try {
       vehicle.fromEntity(entity);
@@ -65,6 +66,7 @@ public class VehicleServiceImpl implements VehicleService {
     vehicle.setUser(user);
     vehicle.setId(id);
     Vehicle entity = vehicle.toEntity();
+    entity.setModifiedAt(new Date());
     entity = repository.save(entity);
     try {
       vehicle.fromEntity(entity);
