@@ -20,29 +20,15 @@ Car pool is an API for a car pooling webapp.
                   "id": 2,
                   "latitude": 1.121,
                   "longitude": -11.121,
-                  "streetNumber": "12",
-                  "route": "15 Main",
-                  "neighborhood": "JP Nagar",
-                  "sublocality": "Phase 2",
-                  "administrativeAreaLevel2": "Bengaluru",
-                  "administrativeAreaLevel1": "Karnataka",
-                  "country": "India",
-                  "postalCode": "560076"
+                  "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                 },
                 "source": {
                   "id": 2,
                   "address": {
                       "id": 2,
                       "latitude": 1.121,
-                      "longitude": -11.121,
-                      "streetNumber": "12",
-                      "route": "15 Main",
-                      "neighborhood": "JP Nagar",
-                      "sublocality": "Phase 2",
-                      "administrativeAreaLevel2": "Bengaluru",
-                      "administrativeAreaLevel1": "Karnataka",
-                      "country": "India",
-                      "postalCode": "560076"
+                      "longitude": -11.121
+                      "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                   },
                   "name": "practo"
                 },
@@ -104,14 +90,7 @@ Car pool is an API for a car pooling webapp.
                                     "id": 1,
                                     "latitude": null,
                                     "longitude": null,
-                                    "streetNumber": null,
-                                    "route": null,
-                                    "neighborhood": null,
-                                    "sublocality": null,
-                                    "administrativeAreaLevel2": null,
-                                    "administrativeAreaLevel1": null,
-                                    "country": null,
-                                    "postalCode": null
+                                    "formatted_address": null
                         },
                         "source": {
                                     "id": 2,
@@ -174,14 +153,7 @@ Car pool is an API for a car pooling webapp.
                   "id": 2,
                   "latitude": 1.121,
                   "longitude": -11.121,
-                  "streetNumber": "12",
-                  "route": "15 Main",
-                  "neighborhood": "JP Nagar",
-                  "sublocality": "Phase 2",
-                  "administrativeAreaLevel2": "Bengaluru",
-                  "administrativeAreaLevel1": "Karnataka",
-                  "country": "India",
-                  "postalCode": "560076"
+                  "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                 },
                 "source": {
                   "id": 1,
@@ -189,14 +161,7 @@ Car pool is an API for a car pooling webapp.
                       "id": 2,
                       "latitude": 1.121,
                       "longitude": -11.121,
-                      "streetNumber": "12",
-                      "route": "15 Main",
-                      "neighborhood": "JP Nagar",
-                      "sublocality": "Phase 2",
-                      "administrativeAreaLevel2": "Bengaluru",
-                      "administrativeAreaLevel1": "Karnataka",
-                      "country": "India",
-                      "postalCode": "560076"
+                      "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                   },
                   "name": "practo"
                 },
@@ -228,12 +193,12 @@ Car pool is an API for a car pooling webapp.
 
 
 
-## Bookings Collection [/listings/{listing_id}/bookings/{booking_id}]
+## Bookings Collection [/users/{user_id}/bookings/{booking_id}]
 
 ### List All Bookings [GET]
 
 + Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
+    + user_id (number) - ID of the User in the form of an integer
     + booking_id (number, optional) - ID of the Booking in the form of an integer
     
 + Response 200 (application/json)
@@ -247,14 +212,7 @@ Car pool is an API for a car pooling webapp.
                     "id": 2,
                     "latitude": 1.121,
                     "longitude": -11.121,
-                    "streetNumber": "12",
-                    "route": "qwrwq",
-                    "neighborhood": "afasdA",
-                    "sublocality": "safasfsaF",
-                    "administrativeAreaLevel2": null,
-                    "administrativeAreaLevel1": null,
-                    "country": "sdfsdfsf",
-                    "postalCode": "dsfsdfs"
+                    "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                   },
                   "source": {
                     "id": 2,
@@ -262,14 +220,7 @@ Car pool is an API for a car pooling webapp.
                       "id": 2,
                       "latitude": 1.121,
                       "longitude": -11.121,
-                      "streetNumber": "12",
-                      "route": "qwrwq",
-                      "neighborhood": "afasdA",
-                      "sublocality": "safasfsaF",
-                      "administrativeAreaLevel2": null,
-                      "administrativeAreaLevel1": null,
-                      "country": "sdfsdfsf",
-                      "postalCode": "dsfsdfs"
+                      "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                     },
                     "name": "practo"
                   },
@@ -307,12 +258,12 @@ Car pool is an API for a car pooling webapp.
 ### Create a New Booking [POST]
 
 + Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
+    + user_id (number) - ID of the User in the form of an integer
 
 + Request (application/json)
 
             {
-                "user": {
+                "listing": {
                     "id": 5
                 }
             }
@@ -321,7 +272,7 @@ Car pool is an API for a car pooling webapp.
 
     + Headers
 
-            Location: /listings/2/bookings/4
+            Location: /users/2/bookings/4
 
     + Body
 
@@ -348,13 +299,13 @@ Car pool is an API for a car pooling webapp.
 ### Update a Booking [PUT]
 
 + Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
+    + user_id (number) - ID of the User in the form of an integer
     + booking_id (number, optional) - ID of the Booking in the form of an integer
     
 + Request (application/json)
 
             {
-                "user": {
+                "listing": {
                     "id": 1
                 }
             }
@@ -363,7 +314,7 @@ Car pool is an API for a car pooling webapp.
 
     + Headers
 
-            Location: /listings/2/bookings/4
+            Location: /users/2/bookings/4
 
     + Body
 
@@ -375,14 +326,7 @@ Car pool is an API for a car pooling webapp.
                       "id": 2,
                       "latitude": 1.121,
                       "longitude": -11.121,
-                      "streetNumber": "12",
-                      "route": "qwrwq",
-                      "neighborhood": "afasdA",
-                      "sublocality": "safasfsaF",
-                      "administrativeAreaLevel2": null,
-                      "administrativeAreaLevel1": null,
-                      "country": "sdfsdfsf",
-                      "postalCode": "dsfsdfs"
+                      "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                     },
                     "source": {
                       "id": 2,
@@ -390,14 +334,7 @@ Car pool is an API for a car pooling webapp.
                         "id": 2,
                         "latitude": 1.121,
                         "longitude": -11.121,
-                        "streetNumber": "12",
-                        "route": "qwrwq",
-                        "neighborhood": "afasdA",
-                        "sublocality": "safasfsaF",
-                        "administrativeAreaLevel2": null,
-                        "administrativeAreaLevel1": null,
-                        "country": "sdfsdfsf",
-                        "postalCode": "dsfsdfs"
+                        "formatted_address": "12th Cross, 11th Main, JP Nagar Phase 5, Bangalore"
                       },
                       "name": "practo"
                     },
@@ -433,7 +370,7 @@ Car pool is an API for a car pooling webapp.
 ### Delete a Booking [DELETE]
 
 + Parameters
-    + listing_id (number) - ID of the Listing in the form of an integer
+    + user_id (number) - ID of the User in the form of an integer
     + booking_id (number, optional) - ID of the Booking in the form of an integer
 
 + Response 204
