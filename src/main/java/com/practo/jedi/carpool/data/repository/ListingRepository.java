@@ -58,7 +58,11 @@ public class ListingRepository extends EntityRepositoryImpl<Listing, Integer> {
         criteria = criteria.add(Restrictions.lt("departureTime", filters.getDepartureTime()));
       }
     }
-    return (Iterable<Listing>) template.findByCriteria(criteria, pageable.getOffset(),
-        pageable.getPageSize());
+    if (pageable == null) {
+      return (Iterable<Listing>) template.findByCriteria(criteria);
+    } else {
+      return (Iterable<Listing>) template.findByCriteria(criteria, pageable.getOffset(),
+          pageable.getPageSize());
+    }
   }
 }

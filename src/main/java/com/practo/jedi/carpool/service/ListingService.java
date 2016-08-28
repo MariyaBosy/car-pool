@@ -19,5 +19,5 @@ public interface ListingService {
   public void delete(Integer id) throws EntityNotFoundException;
 
   public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable);
-
+  
 }
