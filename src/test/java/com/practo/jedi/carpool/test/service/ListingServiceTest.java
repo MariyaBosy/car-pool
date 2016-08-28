@@ -47,8 +47,17 @@ public class ListingServiceTest {
     assertEquals(new Integer(1), listing.getSeatsAvailable());
   }
 
+
   @Test
   public void testFilter() {
+    ListingFilterDto filter1 = new ListingFilterDto();
+    filter1.setSeatsAvailable(2);
+    filter1.setDepartureTime(new Date());
+    filter1.setDepartureTimeModifier("GOE");
+    PageRequest pageable = new PageRequest(0, 5);
+    ArrayList<ListingModel> listings = (ArrayList<ListingModel>) service.filter(filter1, pageable);
+    assertEquals(1, listings.size());
+    assertEquals(new Integer(2), listings.get(0).getSource().getId());
 
     ListingFilterDto filter2 = new ListingFilterDto();
     filter2.setSeatsAvailable(4);
