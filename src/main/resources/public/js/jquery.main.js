@@ -3,9 +3,10 @@ jQuery(document)
 				function($) {
 					
 					$('.bookSeat').click(function(){
-						console.log(this);
 						var userId = $("#user-id")[0].value;
 						var that = this;
+						var bookingLoad = $('<button class="btn yellow-color"><i class="fa fa-spinner" aria-hidden="true"></i> Booking...</button>');
+						$(this).replaceWith(bookingLoad);
 						$.ajax({
 						    type: 'POST',
 						    url: 'users/' + userId + '/bookings',
@@ -15,10 +16,13 @@ jQuery(document)
 								}
 							}),
 						    success: function(data){
-								$(that).replaceWith('<button class="btn green-color"><i class="fa fa-check" aria-hidden="true"></i> Booked</button>');
+								$(bookingLoad).replaceWith('<button class="btn green-color"><i class="fa fa-check" aria-hidden="true"></i> Booked</button>');
 								var num = parseInt($('#listing-' + that.value + '-seats').text());
 								$('#listing-' + that.value + '-seats').text(num-1);
 						    },
+						    error : function(data) {
+						    	$(bookingLoad).replaceWith(that);
+							},
 						    contentType: "application/json",
 						    dataType: 'json'
 						});

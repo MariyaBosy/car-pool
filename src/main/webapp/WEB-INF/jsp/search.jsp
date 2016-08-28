@@ -279,8 +279,6 @@
 												<c:otherwise>
 													<button value="${ listing.getId()}"
 														class="btn blue-color bookSeat">Book Seat</button>
-
-
 												</c:otherwise>
 											</c:choose></li>
 

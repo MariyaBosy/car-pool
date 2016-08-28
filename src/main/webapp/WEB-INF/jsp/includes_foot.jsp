@@ -17,8 +17,6 @@
 	<script type="text/javascript"
 		src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 	<script type="text/javascript" src="js/jquery.counterup.min.js"></script>
-	<!-- Rating  -->
-	<script type="text/javascript" src="js/bootstrap-rating-input.min.js"></script>
 	<!-- Slicknav  -->
 	<script type="text/javascript" src="js/jquery.slicknav.min.js"></script>
 	<!-- Timepicker  -->
