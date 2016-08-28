@@ -1,5 +1,7 @@
 package com.practo.jedi.carpool.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -25,9 +27,9 @@ public class VehicleController {
 
   @RequestMapping(method = RequestMethod.GET)
   public Iterable<VehicleModel> list(@PathVariable("user_id") int user_id, HttpSession session,
-      HttpServletResponse servletResponse) {
+      HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     return service.get(user_id);
@@ -36,9 +38,9 @@ public class VehicleController {
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<VehicleModel> create(@PathVariable("user_id") int user_id,
       @RequestBody VehicleModel vehicle, HttpSession session, HttpServletResponse servletResponse)
-      throws EntityNotFoundException {
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     VehicleModel m = service.create(user_id, vehicle);
@@ -48,9 +50,9 @@ public class VehicleController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public VehicleModel get(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
-      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     return service.get(user_id, id);
@@ -59,9 +61,9 @@ public class VehicleController {
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<VehicleModel> update(@PathVariable("user_id") int user_id,
       @PathVariable("id") int id, @RequestBody VehicleModel vehicle, HttpSession session,
-      HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     VehicleModel m = service.update(user_id, vehicle, id);
@@ -72,9 +74,9 @@ public class VehicleController {
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("user_id") int user_id,
       @PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse)
-      throws EntityNotFoundException {
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     service.delete(user_id, id);

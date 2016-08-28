@@ -9,7 +9,7 @@
 
 <!-- Basic Page Needs -->
 <meta charset="utf-8">
-<title>My ride - Add ride</title>
+<title>Jedi Car Pool - Add ride</title>
 <meta name="description" content="">
 <meta name="author" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

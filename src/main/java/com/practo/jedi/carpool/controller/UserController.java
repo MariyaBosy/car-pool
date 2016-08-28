@@ -1,5 +1,7 @@
 package com.practo.jedi.carpool.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -25,19 +27,20 @@ public class UserController {
 
   @RequestMapping(method = RequestMethod.GET)
   public Iterable<UserModel> list(HttpSession session, HttpServletResponse servletResponse)
-      throws EntityNotFoundException {
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
+
     }
     return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<UserModel> create(@RequestBody UserModel user, HttpSession session,
-      HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
     }
     UserModel m = service.create(user);
@@ -47,20 +50,23 @@ public class UserController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public UserModel get(@PathVariable("id") int id, HttpSession session,
-      HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
+
     }
     return service.get(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<UserModel> update(@PathVariable("id") int id, @RequestBody UserModel user,
-      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
+
     }
     UserModel m = service.update(user, id);
     ResponseEntity<UserModel> response = new ResponseEntity<UserModel>(m, HttpStatus.OK);
@@ -69,10 +75,11 @@ public class UserController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
-      HttpServletResponse servletResponse) throws EntityNotFoundException {
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.setStatus(401);
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
       return null;
+
     }
     service.delete(id);
     ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);

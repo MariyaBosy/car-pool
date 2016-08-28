@@ -12,7 +12,7 @@
 
 <!-- Basic Page Needs -->
 <meta charset="utf-8">
-<title>Jedi Car Pool</title>
+<title>Jedi Car Pool - Find ride</title>
 <meta name="description" content="">
 <meta name="author" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

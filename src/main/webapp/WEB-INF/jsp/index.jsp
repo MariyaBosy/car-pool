@@ -73,7 +73,8 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 
 							<div class="sign-in-content">
-								<button id="login" type="button" class="btn btn-lg red-color">Sign in with Google</button>
+								<button id="login" type="button" class="btn btn-lg red-color">Sign
+									in with Google</button>
 							</div>
 							<!-- end .search-content -->
 
@@ -106,7 +107,7 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 
 							<div class="page-sub-title textcenter">
-								<h2>Services</h2>
+								<h2>Why car pool?</h2>
 								<div class="line"></div>
 							</div>
 							<!-- end .page-sub-title -->
@@ -121,9 +122,9 @@
 								<i class="fa fa-car"></i>
 
 								<h3>Share your ride</h3>
-								<p>Are you getting sick of traveling alone and spent so much
-									money on gas? Share your ride today,and forget about this
-									problems.</p>
+								<p>Are you getting sick of crowded public transport or
+									traveling alone and spending so much money on commuting? Share
+									your ride today, and forget about these problems.</p>
 
 
 							</article>
@@ -138,10 +139,9 @@
 
 								<i class="fa fa-users"></i>
 
-								<h3>Find new friends</h3>
-								<p>Finding new friends is easier than ever,nothing makes
-									better friendship than spending few hours casually chatting
-									with some interesting people.</p>
+								<h3>Meet new people</h3>
+								<p>Carpooling is a wonderful way to meet interesting people.
+									Get to know the people you work with and make new friends!</p>
 
 							</article>
 							<!-- end .service -->
@@ -153,11 +153,12 @@
 
 							<article class="service">
 
-								<i class="fa fa-map-marker"></i>
+								<i class="fa fa-globe"></i>
 
-								<h3>Go to new places</h3>
-								<p>Find some new favourite place to chill out,you have no
-									longer got excuse for not travelling and discovering.</p>
+								<h3>Save the environment</h3>
+								<p>Car pooling cuts down on the number of cars and vehicles
+									on the road. Fewer cars means less pollution and less pollution
+									means a cleaner, healthier environment.</p>
 
 							</article>
 							<!-- end .service -->
@@ -167,55 +168,6 @@
 
 					</div>
 					<!-- end .services -->
-
-					<div class="clearfix"></div>
-
-					<div class="col-md-12 col-sm-12 col-xs-12">
-
-						<div class="background parallax"
-							style="background-image: url('img/XWBIL5.jpg');"
-							data-img-width="1600" data-img-height="1064">
-
-							<div class="main-parallax-content">
-
-								<div class="second-parallax-content">
-
-									<div class="parallax-content clearfix">
-
-										<div class="col-md-4 col-sm-4 col-xs-12">
-											<div class="site-stat">
-												<span class="counter">5,000</span> <span>Happy users</span>
-											</div>
-										</div>
-
-										<div class="col-md-4 col-sm-4 col-xs-12">
-											<div class="site-stat">
-												<span class="counter">7,000</span> <span>Successful
-													rides</span>
-											</div>
-										</div>
-
-										<div class="col-md-4 col-sm-4 col-xs-12">
-											<div class="site-stat">
-												<span class="counter">600,000</span> <span>Miles
-													traveled in a good company</span>
-											</div>
-										</div>
-
-									</div>
-									<!-- end .parallax-content -->
-
-								</div>
-								<!-- end .main-parallax-content -->
-
-							</div>
-							<!-- end .paralax -->
-
-						</div>
-						<!-- end .fullscreen .background .parallax -->
-
-					</div>
-					<!-- end .col-md-12 -->
 
 				</div>
 				<!-- end .page-content -->
