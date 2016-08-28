@@ -11,7 +11,8 @@ public interface VehicleService {
 
   public VehicleModel create(Integer user_id, VehicleModel Vehicle) throws EntityNotFoundException;
 
-  public VehicleModel update(Integer user_id, VehicleModel Vehicle, Integer id) throws EntityNotFoundException;
+  public VehicleModel update(Integer user_id, VehicleModel Vehicle, Integer id)
+      throws EntityNotFoundException;
 
   public void delete(Integer user_id, Integer id) throws EntityNotFoundException;
 

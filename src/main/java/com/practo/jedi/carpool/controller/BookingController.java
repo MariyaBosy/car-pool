@@ -21,7 +21,6 @@ import com.practo.jedi.carpool.model.ListingModel;
 import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.service.BookingService;
 import com.practo.jedi.carpool.service.ListingService;
-import com.practo.jedi.carpool.service.UserService;
 import com.practo.jedi.carpool.util.MailService;
 
 @RestController
@@ -41,7 +40,8 @@ public class BookingController {
   public Iterable<BookingModel> list(@PathVariable("user_id") int user_id, HttpSession session,
       HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(user_id);
@@ -52,11 +52,12 @@ public class BookingController {
       @RequestBody BookingModel booking, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, MessagingException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     BookingModel m = service.create(user_id, booking);
-    UserModel user = (UserModel)session.getAttribute("user");
+    UserModel user = (UserModel) session.getAttribute("user");
     ListingModel listing = listingService.get(m.getListing().getId());
     UserModel owner = listing.getUser();
     mailSender.send(owner.getEmail(), user.getName() + " will pool with you",
@@ -72,9 +73,11 @@ public class BookingController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public BookingModel get(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
-      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+      HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(user_id, id);
@@ -85,7 +88,8 @@ public class BookingController {
       @PathVariable("id") int id, @RequestBody BookingModel booking, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     BookingModel m = service.update(user_id, booking, id);
@@ -98,7 +102,8 @@ public class BookingController {
       @PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     service.delete(user_id, id);

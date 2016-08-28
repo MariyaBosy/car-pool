@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
         model.fromEntity(entity);
         models.add(model);
 
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
     }
     return models;
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
     entity = repository.save(entity);
     try {
       user.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return user;
   }
@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
     entity = repository.save(entity);
     try {
       user.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return user;
   }
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     try {
       model.fromEntity(entity);
       return model;
-    } catch (EntityNotFoundException e) {
+    } catch (EntityNotFoundException err) {
       return null;
     }
   }

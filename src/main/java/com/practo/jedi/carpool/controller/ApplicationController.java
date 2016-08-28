@@ -69,8 +69,8 @@ public class ApplicationController {
       user.setPhone("");
       try {
         user = userService.create(user);
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
     }
     session.setAttribute("user", user);

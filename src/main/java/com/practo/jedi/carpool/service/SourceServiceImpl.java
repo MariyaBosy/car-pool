@@ -30,8 +30,8 @@ public class SourceServiceImpl implements SourceService {
         model.fromEntity(entity);
         models.add(model);
 
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
     }
     return models;
@@ -51,8 +51,8 @@ public class SourceServiceImpl implements SourceService {
     entity = repository.save(entity);
     try {
       source.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return source;
   }
@@ -64,8 +64,8 @@ public class SourceServiceImpl implements SourceService {
     entity = repository.save(entity);
     try {
       source.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return source;
   }

@@ -40,7 +40,8 @@ public class ListingController {
   public Iterable<ListingModel> list(Pageable pageable, HttpSession session,
       HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(updatePageable(pageable, itemsPerPage));
@@ -50,7 +51,8 @@ public class ListingController {
   public Iterable<ListingModel> search(ListingFilterDto filters, Pageable pageable,
       HttpSession session, HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.filter(filters, updatePageable(pageable, itemsPerPage));
@@ -60,7 +62,8 @@ public class ListingController {
   public ResponseEntity<ListingModel> create(@Valid ListingModel listing, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     UserModel user = (UserModel) session.getAttribute("user");
@@ -74,7 +77,8 @@ public class ListingController {
   public ListingModel get(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(id);
@@ -85,7 +89,8 @@ public class ListingController {
       @RequestBody ListingModel listing, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     ListingModel m = service.update(listing, id);
@@ -97,7 +102,8 @@ public class ListingController {
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     service.delete(id);

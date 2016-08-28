@@ -30,8 +30,8 @@ public class BookingServiceImpl implements BookingService {
       try {
         model.fromEntity(entity);
         models.add(model);
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
 
     }
@@ -55,13 +55,14 @@ public class BookingServiceImpl implements BookingService {
     entity = repository.save(entity);
     try {
       booking.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return booking;
   }
 
-  public BookingModel update(Integer user_id, BookingModel booking, Integer id) throws EntityNotFoundException {
+  public BookingModel update(Integer user_id, BookingModel booking, Integer id)
+      throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
     booking.setUser(user);
@@ -71,8 +72,8 @@ public class BookingServiceImpl implements BookingService {
     entity = repository.save(entity);
     try {
       booking.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return booking;
   }

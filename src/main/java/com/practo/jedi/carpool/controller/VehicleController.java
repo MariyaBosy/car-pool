@@ -29,7 +29,8 @@ public class VehicleController {
   public Iterable<VehicleModel> list(@PathVariable("user_id") int user_id, HttpSession session,
       HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(user_id);
@@ -40,7 +41,8 @@ public class VehicleController {
       @RequestBody VehicleModel vehicle, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     VehicleModel m = service.create(user_id, vehicle);
@@ -50,9 +52,11 @@ public class VehicleController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public VehicleModel get(@PathVariable("user_id") int user_id, @PathVariable("id") int id,
-      HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+      HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(user_id, id);
@@ -63,7 +67,8 @@ public class VehicleController {
       @PathVariable("id") int id, @RequestBody VehicleModel vehicle, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     VehicleModel m = service.update(user_id, vehicle, id);
@@ -76,7 +81,8 @@ public class VehicleController {
       @PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     service.delete(user_id, id);

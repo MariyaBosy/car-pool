@@ -30,8 +30,8 @@ public class VehicleServiceImpl implements VehicleService {
       try {
         model.fromEntity(entity);
         models.add(model);
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
 
     }
@@ -54,13 +54,14 @@ public class VehicleServiceImpl implements VehicleService {
     entity = repository.save(entity);
     try {
       vehicle.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return vehicle;
   }
 
-  public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id) throws EntityNotFoundException {
+  public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id)
+      throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
     vehicle.setUser(user);
@@ -70,9 +71,10 @@ public class VehicleServiceImpl implements VehicleService {
     entity = repository.save(entity);
     try {
       vehicle.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
-    }    return vehicle;
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
+    }
+    return vehicle;
   }
 
   public void delete(Integer user_id, Integer id) throws EntityNotFoundException {

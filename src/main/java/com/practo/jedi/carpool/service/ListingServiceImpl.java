@@ -45,8 +45,8 @@ public class ListingServiceImpl implements ListingService {
       try {
         model.fromEntity(entity);
         models.add(model);
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
 
     }
@@ -66,7 +66,7 @@ public class ListingServiceImpl implements ListingService {
     try {
       addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),
           addressEntity.getLongitude());
-    } catch (EntityNotFoundException e) {
+    } catch (EntityNotFoundException err) {
       addressEntity.setCreatedAt(new Date());
       addressEntity = addressRepository.save(entity.getAddress());
     }
@@ -81,8 +81,8 @@ public class ListingServiceImpl implements ListingService {
     entity = listingRepository.save(entity);
     try {
       listing.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return listing;
   }
@@ -94,7 +94,7 @@ public class ListingServiceImpl implements ListingService {
     try {
       addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),
           addressEntity.getLongitude());
-    } catch (EntityNotFoundException e) {
+    } catch (EntityNotFoundException err) {
       addressEntity.setCreatedAt(new Date());
       addressEntity = addressRepository.save(entity.getAddress());
     }
@@ -109,8 +109,8 @@ public class ListingServiceImpl implements ListingService {
     entity = listingRepository.save(entity);
     try {
       listing.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return listing;
   }
@@ -139,8 +139,8 @@ public class ListingServiceImpl implements ListingService {
         } else {
           models.add(model);
         }
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
 
     }

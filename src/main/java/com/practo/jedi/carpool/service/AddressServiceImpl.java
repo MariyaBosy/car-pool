@@ -30,8 +30,8 @@ public class AddressServiceImpl implements AddressService {
         model.fromEntity(entity);
         models.add(model);
 
-      } catch (EntityNotFoundException e) {
-        e.printStackTrace();
+      } catch (EntityNotFoundException err) {
+        err.printStackTrace();
       }
     }
     return models;
@@ -51,8 +51,8 @@ public class AddressServiceImpl implements AddressService {
     entity = repository.save(entity);
     try {
       address.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return address;
   }
@@ -64,8 +64,8 @@ public class AddressServiceImpl implements AddressService {
     entity = repository.save(entity);
     try {
       address.fromEntity(entity);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+    } catch (EntityNotFoundException err) {
+      err.printStackTrace();
     }
     return address;
   }

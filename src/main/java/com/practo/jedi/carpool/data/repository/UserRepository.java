@@ -21,7 +21,7 @@ public class UserRepository extends EntityRepositoryImpl<User, Integer> {
         .findByCriteria(DetachedCriteria.forClass(User.class).add(Restrictions.eq("email", email)));
     try {
       return users.get(0);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException err) {
       return null;
     }
   }

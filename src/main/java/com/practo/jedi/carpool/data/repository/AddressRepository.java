@@ -23,7 +23,7 @@ public class AddressRepository extends EntityRepositoryImpl<Address, Integer> {
       return (Address) template.findByCriteria(DetachedCriteria.forClass(Address.class)
           .add(Restrictions.eq("latitude", latitude)).add(Restrictions.eq("longitude", longitude)),
           0, 1).get(0);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException err) {
       throw new EntityNotFoundException("No Address found with given Id");
     }
   }

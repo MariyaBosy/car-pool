@@ -66,7 +66,6 @@ public class ListingServiceTest {
 
   @Test
   public void testCreate() throws EntityNotFoundException {
-    ListingModel listing = new ListingModel();
     UserModel user = new UserModel();
     user.setId(1);
     VehicleModel vehicle = new VehicleModel();
@@ -77,6 +76,7 @@ public class ListingServiceTest {
     address.setId(1);
     address.setLatitude(new BigDecimal("1.11000000"));
     address.setLongitude(new BigDecimal("2.22000000"));
+    ListingModel listing = new ListingModel();
     listing.setUser(user);
     listing.setVehicle(vehicle);
     listing.setSource(source);

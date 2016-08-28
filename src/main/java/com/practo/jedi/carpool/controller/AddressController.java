@@ -26,18 +26,22 @@ public class AddressController {
   private AddressService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<AddressModel> list(HttpSession session, HttpServletResponse servletResponse) throws IOException {
+  public Iterable<AddressModel> list(HttpSession session, HttpServletResponse servletResponse)
+      throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get();
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<AddressModel> create(@RequestBody AddressModel address, HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+  public ResponseEntity<AddressModel> create(@RequestBody AddressModel address, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     AddressModel m = service.create(address);
@@ -46,9 +50,11 @@ public class AddressController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public AddressModel get(@PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+  public AddressModel get(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(id);
@@ -56,9 +62,11 @@ public class AddressController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<AddressModel> update(@PathVariable("id") int id,
-      @RequestBody AddressModel address, HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+      @RequestBody AddressModel address, HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     AddressModel m = service.update(address, id);
@@ -67,9 +75,11 @@ public class AddressController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session, HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     service.delete(id);

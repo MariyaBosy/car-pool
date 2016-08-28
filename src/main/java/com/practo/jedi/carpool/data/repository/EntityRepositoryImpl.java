@@ -29,7 +29,7 @@ public abstract class EntityRepositoryImpl<E, I extends Serializable>
           .findByCriteria(
               DetachedCriteria.forClass(getEntityClass()).add(Restrictions.eq("id", id)), 0, 1)
           .get(0);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException err) {
       throw new EntityNotFoundException(
           "No " + getEntityClass().getSimpleName() + " found with given Id");
     }
@@ -40,7 +40,7 @@ public abstract class EntityRepositoryImpl<E, I extends Serializable>
     try {
       template.saveOrUpdate(entity);
       return entity;
-    } catch (DataAccessException e) {
+    } catch (DataAccessException err) {
       throw new EntityNotFoundException(
           "No " + getEntityClass().getSimpleName() + " found with given Id");
     }

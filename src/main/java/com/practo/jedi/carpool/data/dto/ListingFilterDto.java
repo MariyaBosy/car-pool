@@ -54,7 +54,7 @@ public class ListingFilterDto {
   public void setSeatsAvailableModifier(String seatsAvailableModifier) {
     try {
       this.seatsAvailableModifier = Modifier.valueOf(seatsAvailableModifier);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException err) {
       this.seatsAvailableModifier = null;
     }
   }
@@ -66,7 +66,7 @@ public class ListingFilterDto {
   public void setDepartureTimeModifier(String departureTimeModifier) {
     try {
       this.departureTimeModifier = Modifier.valueOf(departureTimeModifier);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException err) {
       this.departureTimeModifier = null;
     }
   }

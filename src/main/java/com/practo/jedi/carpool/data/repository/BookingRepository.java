@@ -30,7 +30,7 @@ public class BookingRepository extends EntityRepositoryImpl<Booking, Integer> {
                   .add(Restrictions.eq("user.id", user_id)).add(Restrictions.eq("id", id)),
               0, 1)
           .get(0);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException err) {
       throw new EntityNotFoundException("No Booking found with given Id");
     }
   }

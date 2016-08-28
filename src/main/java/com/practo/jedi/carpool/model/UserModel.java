@@ -67,7 +67,9 @@ public class UserModel implements java.io.Serializable {
       this.setName(entity.getName());
       this.setEmail(entity.getEmail());
       this.setPhone(entity.getPhone());
-    } else {throw new EntityNotFoundException("No user found with given Id");}
+    } else {
+      throw new EntityNotFoundException("No user found with given Id");
+    }
   }
 
 

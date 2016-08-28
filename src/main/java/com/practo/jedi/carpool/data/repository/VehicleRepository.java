@@ -27,7 +27,7 @@ public class VehicleRepository extends EntityRepositoryImpl<Vehicle, Integer> {
           .findByCriteria(DetachedCriteria.forClass(Vehicle.class)
               .add(Restrictions.eq("user.id", user_id)).add(Restrictions.eq("id", id)), 0, 1)
           .get(0);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException err) {
       throw new EntityNotFoundException("No Vehicle found with given Id");
     }
   }

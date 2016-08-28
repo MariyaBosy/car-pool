@@ -26,9 +26,11 @@ public class SourceController {
   private SourceService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public Iterable<SourceModel> list(HttpSession session, HttpServletResponse servletResponse) throws IOException {
+  public Iterable<SourceModel> list(HttpSession session, HttpServletResponse servletResponse)
+      throws IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get();
@@ -38,7 +40,8 @@ public class SourceController {
   public ResponseEntity<SourceModel> create(@RequestBody SourceModel source, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     SourceModel m = service.create(source);
@@ -50,7 +53,8 @@ public class SourceController {
   public SourceModel get(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     return service.get(id);
@@ -61,7 +65,8 @@ public class SourceController {
       @RequestBody SourceModel source, HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     SourceModel m = service.update(source, id);
@@ -73,7 +78,8 @@ public class SourceController {
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     service.delete(id);

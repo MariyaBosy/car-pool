@@ -11,7 +11,8 @@ public interface BookingService {
 
   public BookingModel create(Integer user_id, BookingModel Booking) throws EntityNotFoundException;
 
-  public BookingModel update(Integer user_id, BookingModel Booking, Integer id) throws EntityNotFoundException;
+  public BookingModel update(Integer user_id, BookingModel Booking, Integer id)
+      throws EntityNotFoundException;
 
   public void delete(Integer user_id, Integer id) throws EntityNotFoundException;
 

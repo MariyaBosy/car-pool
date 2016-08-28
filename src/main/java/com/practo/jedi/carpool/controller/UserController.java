@@ -29,7 +29,8 @@ public class UserController {
   public Iterable<UserModel> list(HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
 
     }
@@ -40,7 +41,8 @@ public class UserController {
   public ResponseEntity<UserModel> create(@RequestBody UserModel user, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
     }
     UserModel m = service.create(user);
@@ -52,7 +54,8 @@ public class UserController {
   public UserModel get(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
 
     }
@@ -64,7 +67,8 @@ public class UserController {
       HttpSession session, HttpServletResponse servletResponse)
       throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
 
     }
@@ -77,7 +81,8 @@ public class UserController {
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
-      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
+      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
+          "You must login to access this page.");
       return null;
 
     }
