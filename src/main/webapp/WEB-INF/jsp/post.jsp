@@ -146,7 +146,9 @@
 							</div>
 
 							<div class="field buttons">
-								<button type="submit" class="btn btn-lg green-color">Submit</button>
+								<button type="submit" class="btn btn-lg green-color"><a data-toggle="modal" data-target="#infoModal">
+								Submit</a></button>
+						
 							</div>
 
 						</form>
@@ -165,35 +167,47 @@
 	</section>
 	<!-- end .main-content -->
 
+	<div class="modal fade" id="infoModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+
+				<div id="modal-info" class="modal-body"></div>
+				<!-- end .modal-body -->
+
+			</div>
+			<!-- end .modal-content -->
+		</div>
+		<!-- end .modal-dialog -->
+	</div>
+	<!-- end .modal -->
+
 	<%@ include file="includes_foot.jsp"%>
 	<script>
 		var frm = $("#postForm");
 		frm.submit(function(e) {
+			$('#modal-info').text("Saving your ride...")
+			$('#infoModal').modal('show');
 			$.ajax({
 				type : frm.attr('method'),
 				url : frm.attr('action'),
 				data : frm.serialize(),
 				success : function(data) {
-					console.log(data);
+					$('#modal-info').text("Ride successfully submitted!")
 				},
 				error : function(data) {
-					console.log(data);
+					$('#modal-info').text("We're sorry but we couldn't save this ride right now. Please try again later.")
 				}
 			});
 
 			e.preventDefault();
 		});
 		var placeSearch, autocomplete;
-		var componentForm = {
-			street_number : 'short_name',
-			route : 'long_name',
-			neighborhood : 'long_name',
-			sublocality : 'long_name',
-			administrative_area_level_1 : 'short_name',
-			administrative_area_level_2 : 'short_name',
-			country : 'long_name',
-			postal_code : 'short_name'
-		};
 
 		function initAutocomplete() {
 			// Create the autocomplete object, restricting the search to geographical
@@ -216,26 +230,7 @@
 			$('#destination-longitude')[0].value = place.geometry.location
 					.lng();
 			$('#destination-address')[0].value = place.formatted_address;
-			console.log($('#destination-latitude')[0].value);
-			console.log($('#destination-longitude')[0].value);
-			/*         for (var component in componentForm) {
-			 document.getElementById(component).value = '';
-			 document.getElementById(component).disabled = false;
-			 }
-			 */
-			// Get each component of the address from the place details
-			// and fill the corresponding field on the form.
-			for (var i = 0; i < place.address_components.length; i++) {
-				var addressType = place.address_components[i];
-				if (componentForm[addressType]) {
-					var val = place.address_components[i][componentForm[addressType]];
-					/* 					document.getElementById(addressType).value = val;
-					 */console.log(val);
-				}
-				console.log(addressType);
-			}
 		}
-
 		// Bias the autocomplete object to the user's geographical location,
 		// as supplied by the browser's 'navigator.geolocation' object.
 		function geolocate() {

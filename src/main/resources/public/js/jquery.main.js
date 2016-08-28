@@ -24,7 +24,7 @@ jQuery(document)
 						});
 					});
 
-					var defaultTime = new Date(parseInt($('#defaultTime')[0].value)/1000);
+					var defaultTime = ($('#defaultTime')[0]!=undefined)?new Date(parseInt($('#defaultTime')[0].value)/1000):new Date();
 					$('#departure-time').timepicker({
 						useSelect : true,
 						timeFormat : 'H:i',

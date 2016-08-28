@@ -228,26 +228,6 @@
 	</section>
 	<!-- end .main-content -->
 
-	<div class="modal fade" id="regModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-				</div>
-
-				<div class="modal-body">Log in to continue</div>
-				<!-- end .modal-body -->
-
-			</div>
-			<!-- end .modal-content -->
-		</div>
-		<!-- end .modal-dialog -->
-	</div>
-	<!-- end .modal -->
-
 	<%@ include file="includes_foot.jsp"%>
 
 </body>
