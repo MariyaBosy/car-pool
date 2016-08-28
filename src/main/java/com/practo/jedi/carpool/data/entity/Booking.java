@@ -17,12 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
-/**
- * Bookings
- */
+
 @Entity
 @Table(name = "bookings")
 @SQLDelete(
@@ -31,9 +28,6 @@ import org.hibernate.annotations.Where;
 public class Booking implements java.io.Serializable {
 
 
-  /**
-  * 
-  */
   private static final long serialVersionUID = -270236333892130177L;
   private Integer id;
   private Listing listing;

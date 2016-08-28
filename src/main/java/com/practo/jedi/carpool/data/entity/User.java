@@ -19,12 +19,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
-/**
- * Users
- */
+
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @SQLDelete(sql = "UPDATE users SET is_deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
@@ -32,9 +29,7 @@ import org.hibernate.annotations.Where;
 public class User implements java.io.Serializable {
 
 
-  /**
-   * 
-   */
+
   private static final long serialVersionUID = 3483837657919043932L;
   private Integer id;
   private String name;

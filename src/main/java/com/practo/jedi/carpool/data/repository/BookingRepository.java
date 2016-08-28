@@ -16,11 +16,23 @@ public class BookingRepository extends EntityRepositoryImpl<Booking, Integer> {
     return Booking.class;
   }
 
+  /**
+   * Find all bookings of a user.
+   * @param user_id Id of user
+   * @return All bookings of the user
+   */
   public Iterable<Booking> findByUserId(Integer user_id) {
     return (Iterable<Booking>) template.findByCriteria(
         DetachedCriteria.forClass(Booking.class).add(Restrictions.eq("user.id", user_id)));
   }
 
+  /**
+   * Find a booking by its id and the user's id.
+   * @param user_id Id of the user
+   * @param id Id of the booking
+   * @return Booking
+   * @throws EntityNotFoundException if booking does not exist.
+   */
   public Booking findByUserIdAndId(Integer user_id, Integer id)
       throws EntityNotFoundException {
     try {

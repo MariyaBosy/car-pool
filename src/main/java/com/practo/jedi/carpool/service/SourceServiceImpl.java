@@ -17,10 +17,8 @@ public class SourceServiceImpl implements SourceService {
   @Autowired
   private SourceRepository repository;
 
-  public SourceRepository getRepository() {
-    return repository;
-  }
 
+  @Override
   public Iterable<SourceModel> get() {
     Iterable<Source> entities = repository.findAll();
     ArrayList<SourceModel> models = new ArrayList<SourceModel>();
@@ -37,6 +35,8 @@ public class SourceServiceImpl implements SourceService {
     return models;
   }
 
+
+  @Override
   public SourceModel get(Integer id) throws EntityNotFoundException {
     Source entity = repository.findOne(id);
     SourceModel model = new SourceModel();
@@ -45,6 +45,8 @@ public class SourceServiceImpl implements SourceService {
   }
 
 
+
+  @Override
   public SourceModel create(SourceModel source) throws EntityNotFoundException {
     Source entity = source.toEntity();
     entity.setCreatedAt(new Date());
@@ -57,6 +59,8 @@ public class SourceServiceImpl implements SourceService {
     return source;
   }
 
+
+  @Override
   public SourceModel update(SourceModel source, Integer id) throws EntityNotFoundException {
     source.setId(id);
     Source entity = source.toEntity();

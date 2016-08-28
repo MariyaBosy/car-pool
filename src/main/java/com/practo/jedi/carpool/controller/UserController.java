@@ -18,6 +18,11 @@ import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.service.UserService;
 
+/**
+ * Controller for the userss resource.
+ * @author prashant
+ *
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {

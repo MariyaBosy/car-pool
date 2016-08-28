@@ -17,10 +17,7 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private UserRepository repository;
 
-  public UserRepository getRepository() {
-    return repository;
-  }
-
+  @Override
   public Iterable<UserModel> get() {
     Iterable<User> entities = repository.findAll();
     ArrayList<UserModel> models = new ArrayList<UserModel>();
@@ -37,6 +34,8 @@ public class UserServiceImpl implements UserService {
     return models;
   }
 
+
+  @Override
   public UserModel get(Integer id) throws EntityNotFoundException {
     User entity = repository.findOne(id);
     UserModel model = new UserModel();
@@ -45,6 +44,7 @@ public class UserServiceImpl implements UserService {
   }
 
 
+  @Override
   public UserModel create(UserModel user) throws EntityNotFoundException {
     User entity = user.toEntity();
     entity.setCreatedAt(new Date());
@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
     return user;
   }
 
+  @Override
   public UserModel update(UserModel user, Integer id) throws EntityNotFoundException {
     user.setId(id);
     User entity = user.toEntity();
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
     return user;
   }
 
-
+  @Override
   public void delete(Integer id) throws EntityNotFoundException {
     repository.delete(id);
   }

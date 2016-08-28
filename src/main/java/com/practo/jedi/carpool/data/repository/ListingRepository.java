@@ -25,6 +25,12 @@ public class ListingRepository extends EntityRepositoryImpl<Listing, Integer> {
   }
 
 
+  /**
+   * Find listings matching the filters and pagination.
+   * @param filters Filters to be applied
+   * @param pageable Pagination details
+   * @return Paginated Listings matching the filters
+   */
   public Iterable<Listing> findAll(ListingFilterDto filters, Pageable pageable) {
     Date today = new Date();
     DetachedCriteria criteria =

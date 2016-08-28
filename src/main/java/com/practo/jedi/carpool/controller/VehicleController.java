@@ -18,6 +18,11 @@ import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.VehicleModel;
 import com.practo.jedi.carpool.service.VehicleService;
 
+/**
+ * Controller for the vehicles resource.
+ * @author prashant
+ *
+ */
 @RestController
 @RequestMapping("users/{user_id}/vehicles")
 public class VehicleController {

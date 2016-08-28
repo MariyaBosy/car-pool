@@ -15,12 +15,24 @@ public class VehicleRepository extends EntityRepositoryImpl<Vehicle, Integer> {
   public Class<Vehicle> getEntityClass() {
     return Vehicle.class;
   }
-
+  
+  /**
+   * Find all vehicles of a user.
+   * @param user_id Id of user
+   * @return All vehicles of the user
+   */
   public Iterable<Vehicle> findByUserId(Integer user_id) {
     return (Iterable<Vehicle>) template.findByCriteria(
         DetachedCriteria.forClass(Vehicle.class).add(Restrictions.eq("user.id", user_id)));
   }
 
+  /**
+   * Find a vehicle by its id and the user's id.
+   * @param user_id Id of the user
+   * @param id Id of the vehicle
+   * @return Vehicle
+   * @throws EntityNotFoundException if vehicle does not exist.
+   */
   public Vehicle findByUserIdAndId(Integer user_id, Integer id) throws EntityNotFoundException {
     try {
       return (Vehicle) template

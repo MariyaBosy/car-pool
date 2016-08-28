@@ -5,6 +5,11 @@ import java.util.Date;
 import com.practo.jedi.carpool.model.AddressModel;
 import com.practo.jedi.carpool.util.Modifier;
 
+/**
+ * DTO for the listings filters.
+ * @author prashant
+ *
+ */
 public class ListingFilterDto {
 
   Integer source;
@@ -51,6 +56,10 @@ public class ListingFilterDto {
     return seatsAvailableModifier;
   }
 
+  /**
+   * Set seats available modifier.
+   * @param seatsAvailableModifier The modifier to be set
+   */
   public void setSeatsAvailableModifier(String seatsAvailableModifier) {
     try {
       this.seatsAvailableModifier = Modifier.valueOf(seatsAvailableModifier);
@@ -63,6 +72,10 @@ public class ListingFilterDto {
     return departureTimeModifier;
   }
 
+  /**
+   * Set departure time modifier.
+   * @param departureTimeModifier The modifier to be set
+   */
   public void setDepartureTimeModifier(String departureTimeModifier) {
     try {
       this.departureTimeModifier = Modifier.valueOf(departureTimeModifier);

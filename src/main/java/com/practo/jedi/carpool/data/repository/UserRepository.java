@@ -16,6 +16,11 @@ public class UserRepository extends EntityRepositoryImpl<User, Integer> {
     return User.class;
   }
 
+  /**
+   * Find a user by email.
+   * @param email Email of user to be found
+   * @return User
+   */
   public User findByEmail(String email) {
     ArrayList<User> users =  (ArrayList<User>) template
         .findByCriteria(DetachedCriteria.forClass(User.class).add(Restrictions.eq("email", email)));

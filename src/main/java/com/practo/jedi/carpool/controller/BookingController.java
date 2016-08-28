@@ -23,6 +23,11 @@ import com.practo.jedi.carpool.service.BookingService;
 import com.practo.jedi.carpool.service.ListingService;
 import com.practo.jedi.carpool.util.MailService;
 
+/**
+ * Controller for the bookings resource.
+ * @author prashant
+ *
+ */
 @RestController
 @RequestMapping("/users/{user_id}/bookings")
 public class BookingController {

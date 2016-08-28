@@ -20,12 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
-/**
- * Vehicles
- */
+
 @Entity
 @Table(name = "vehicles")
 @SQLDelete(
@@ -34,9 +31,6 @@ import org.hibernate.annotations.Where;
 public class Vehicle implements java.io.Serializable {
 
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 2642296086463840850L;
   private Integer id;
   private User user;

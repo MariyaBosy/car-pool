@@ -18,6 +18,11 @@ import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.SourceModel;
 import com.practo.jedi.carpool.service.SourceService;
 
+/**
+ * Controller for the sources resource.
+ * @author prashant
+ *
+ */
 @RestController
 @RequestMapping("/sources")
 public class SourceController {

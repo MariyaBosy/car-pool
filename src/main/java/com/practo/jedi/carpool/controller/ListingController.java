@@ -23,6 +23,11 @@ import com.practo.jedi.carpool.model.ListingModel;
 import com.practo.jedi.carpool.model.UserModel;
 import com.practo.jedi.carpool.service.ListingService;
 
+/**
+ * Controller for the listings resource.
+ * @author prashant
+ *
+ */
 @RestController
 @RequestMapping("/listings")
 public class ListingController {

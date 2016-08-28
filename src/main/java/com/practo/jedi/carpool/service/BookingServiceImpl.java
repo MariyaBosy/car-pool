@@ -18,10 +18,8 @@ public class BookingServiceImpl implements BookingService {
   @Autowired
   private BookingRepository repository;
 
-  public BookingRepository getRepository() {
-    return repository;
-  }
 
+  @Override
   public Iterable<BookingModel> get(Integer user_id) {
     Iterable<Booking> entities = repository.findByUserId(user_id);
     ArrayList<BookingModel> models = new ArrayList<BookingModel>();
@@ -38,6 +36,8 @@ public class BookingServiceImpl implements BookingService {
     return models;
   }
 
+
+  @Override
   public BookingModel get(Integer user_id, Integer id) throws EntityNotFoundException {
     Booking entity = repository.findByUserIdAndId(user_id, id);
     BookingModel model = new BookingModel();
@@ -46,6 +46,8 @@ public class BookingServiceImpl implements BookingService {
   }
 
 
+
+  @Override
   public BookingModel create(Integer user_id, BookingModel booking) throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
@@ -61,6 +63,8 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
+
+  @Override
   public BookingModel update(Integer user_id, BookingModel booking, Integer id)
       throws EntityNotFoundException {
     UserModel user = new UserModel();
@@ -78,6 +82,8 @@ public class BookingServiceImpl implements BookingService {
     return booking;
   }
 
+
+  @Override
   public void delete(Integer user_id, Integer id) throws EntityNotFoundException {
     repository.delete(id);
   }

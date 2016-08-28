@@ -5,6 +5,11 @@ import java.math.BigDecimal;
 import com.practo.jedi.carpool.data.entity.Address;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 
+/**
+ * Model for the address entity.
+ * @author prashant
+ *
+ */
 public class AddressModel implements java.io.Serializable {
 
   private static final long serialVersionUID = 1074652890790783712L;
@@ -50,6 +55,11 @@ public class AddressModel implements java.io.Serializable {
     this.formattedAddress = formattedAddress;
   }
 
+  /**
+   * Get entity from model.
+   * 
+   * @return Entity
+   */
   public Address toEntity() {
     Address address = new Address();
     if (this.getId() != null) {
@@ -61,6 +71,12 @@ public class AddressModel implements java.io.Serializable {
     return address;
   }
 
+  /**
+   * Get model from entity.
+   * 
+   * @param entity Entity to get model from.
+   * @throws EntityNotFoundException If entity does not exist.
+   */
   public void fromEntity(Address entity) throws EntityNotFoundException {
     if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());

@@ -3,6 +3,11 @@ package com.practo.jedi.carpool.model;
 import com.practo.jedi.carpool.data.entity.User;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 
+/**
+ * Model for the user entity.
+ * @author prashant
+ *
+ */
 public class UserModel implements java.io.Serializable {
 
   private static final long serialVersionUID = 3483837657919043932L;
@@ -50,6 +55,10 @@ public class UserModel implements java.io.Serializable {
     this.phone = phone;
   }
 
+  /**
+   * Get entity from model.
+   * @return Entity
+   */
   public User toEntity() {
     User user = new User();
     if (this.getId() != null) {
@@ -61,6 +70,11 @@ public class UserModel implements java.io.Serializable {
     return user;
   }
 
+  /**
+   * Get model from entity.
+   * @param entity Entity to get model from.
+   * @throws EntityNotFoundException If entity does not exist.
+   */
   public void fromEntity(User entity) throws EntityNotFoundException {
     if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());

@@ -9,28 +9,33 @@ import javax.validation.constraints.NotNull;
 import com.practo.jedi.carpool.data.entity.Listing;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 
+/**
+ * Model for the listing entity.
+ * @author prashant
+ *
+ */
 public class ListingModel implements java.io.Serializable {
 
   private static final long serialVersionUID = 132705768230565793L;
   private Integer id;
-  
-  @NotNull(message="The destination address is required")
+
+  @NotNull(message = "The destination address is required")
   private AddressModel address;
 
-  @NotNull(message="The source address is required")
+  @NotNull(message = "The source address is required")
   private SourceModel source;
 
   private UserModel user;
- 
-  @NotNull(message="A vehicle is required")
+
+  @NotNull(message = "A vehicle is required")
   private VehicleModel vehicle;
-  
-  @NotNull(message="The departure time is required")
-  @Future(message="The departure time must be in the future")
+
+  @NotNull(message = "The departure time is required")
+  @Future(message = "The departure time must be in the future")
   private Date departureTime;
-  
-  @NotNull(message="The number of available seats is required")
-  @Min(value=1, message="There must be at least one available seat")
+
+  @NotNull(message = "The number of available seats is required")
+  @Min(value = 1, message = "There must be at least one available seat")
   private Integer seatsAvailable;
 
   public ListingModel() {}
@@ -94,6 +99,11 @@ public class ListingModel implements java.io.Serializable {
     this.seatsAvailable = seatsAvailable;
   }
 
+  /**
+   * Get entity from model.
+   * 
+   * @return Entity
+   */
   public Listing toEntity() {
     Listing listing = new Listing();
     if (this.getId() != null) {
@@ -116,6 +126,12 @@ public class ListingModel implements java.io.Serializable {
     return listing;
   }
 
+  /**
+   * Get model from entity.
+   * 
+   * @param entity Entity to get model from.
+   * @throws EntityNotFoundException If entity does not exist.
+   */
   public void fromEntity(Listing entity) throws EntityNotFoundException {
     if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());

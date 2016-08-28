@@ -17,6 +17,13 @@ public class AddressRepository extends EntityRepositoryImpl<Address, Integer> {
     return Address.class;
   }
 
+  /**
+   * Find an address by its latitude and longitude.
+   * @param latitude Latitude of the address
+   * @param longitude Longitude of the address
+   * @return Address
+   * @throws EntityNotFoundException If address not found
+   */
   public Address findByLatitudeAndLongitude(BigDecimal latitude, BigDecimal longitude)
       throws EntityNotFoundException {
     try {

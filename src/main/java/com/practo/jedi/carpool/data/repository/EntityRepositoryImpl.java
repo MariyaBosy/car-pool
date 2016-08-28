@@ -2,13 +2,12 @@ package com.practo.jedi.carpool.data.repository;
 
 import java.io.Serializable;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 
@@ -19,10 +18,12 @@ public abstract class EntityRepositoryImpl<E, I extends Serializable>
   protected HibernateTemplate template;
 
 
+  @Override
   public Iterable<E> findAll() {
     return template.loadAll(getEntityClass());
   }
 
+  @Override
   public E findOne(I id) throws EntityNotFoundException {
     try {
       return (E) template
@@ -35,6 +36,7 @@ public abstract class EntityRepositoryImpl<E, I extends Serializable>
     }
   }
 
+  @Override
   @Transactional
   public E save(E entity) throws EntityNotFoundException {
     try {
@@ -46,6 +48,7 @@ public abstract class EntityRepositoryImpl<E, I extends Serializable>
     }
   }
 
+  @Override
   @Transactional
   public void delete(I id) throws EntityNotFoundException {
     template.delete(findOne(id));

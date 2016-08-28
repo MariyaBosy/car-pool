@@ -3,6 +3,11 @@ package com.practo.jedi.carpool.model;
 import com.practo.jedi.carpool.data.entity.Booking;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 
+/**
+ * Model for the booking entity.
+ * @author prashant
+ *
+ */
 public class BookingModel implements java.io.Serializable {
 
   private static final long serialVersionUID = -270236333892130177L;
@@ -38,6 +43,11 @@ public class BookingModel implements java.io.Serializable {
     this.user = users;
   }
 
+  /**
+   * Get entity from model.
+   * 
+   * @return Entity
+   */
   public Booking toEntity() {
     Booking booking = new Booking();
     if (this.getId() != null) {
@@ -52,6 +62,12 @@ public class BookingModel implements java.io.Serializable {
     return booking;
   }
 
+  /**
+   * Get model from entity.
+   * 
+   * @param entity Entity to get model from.
+   * @throws EntityNotFoundException If entity does not exist.
+   */
   public void fromEntity(Booking entity) throws EntityNotFoundException {
     if (entity != null && entity.getIsDeleted() != true) {
       this.setId(entity.getId());
@@ -61,7 +77,7 @@ public class BookingModel implements java.io.Serializable {
       ListingModel listing = new ListingModel();
       listing.fromEntity(entity.getListing());
       this.setListing(listing);
-    }else {
+    } else {
       throw new EntityNotFoundException("No booking found with given Id");
     }
   }

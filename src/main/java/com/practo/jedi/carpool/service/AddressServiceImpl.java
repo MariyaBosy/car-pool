@@ -17,10 +17,8 @@ public class AddressServiceImpl implements AddressService {
   @Autowired
   private AddressRepository repository;
 
-  public AddressRepository getRepository() {
-    return repository;
-  }
 
+  @Override
   public Iterable<AddressModel> get() {
     Iterable<Address> entities = repository.findAll();
     ArrayList<AddressModel> models = new ArrayList<AddressModel>();
@@ -37,6 +35,8 @@ public class AddressServiceImpl implements AddressService {
     return models;
   }
 
+
+  @Override
   public AddressModel get(Integer id) throws EntityNotFoundException {
     Address entity = repository.findOne(id);
     AddressModel model = new AddressModel();
@@ -45,6 +45,8 @@ public class AddressServiceImpl implements AddressService {
   }
 
 
+
+  @Override
   public AddressModel create(AddressModel address) throws EntityNotFoundException {
     Address entity = address.toEntity();
     entity.setCreatedAt(new Date());
@@ -57,6 +59,8 @@ public class AddressServiceImpl implements AddressService {
     return address;
   }
 
+
+  @Override
   public AddressModel update(AddressModel address, Integer id) throws EntityNotFoundException {
     address.setId(id);
     Address entity = address.toEntity();

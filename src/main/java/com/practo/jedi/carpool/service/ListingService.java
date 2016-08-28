@@ -12,9 +12,9 @@ public interface ListingService {
 
   public ListingModel get(Integer id) throws EntityNotFoundException;
 
-  public ListingModel create(ListingModel Listing) throws EntityNotFoundException;
+  public ListingModel create(ListingModel listing) throws EntityNotFoundException;
 
-  public ListingModel update(ListingModel Listing, Integer id) throws EntityNotFoundException;
+  public ListingModel update(ListingModel listing, Integer id) throws EntityNotFoundException;
 
   public void delete(Integer id) throws EntityNotFoundException;
 

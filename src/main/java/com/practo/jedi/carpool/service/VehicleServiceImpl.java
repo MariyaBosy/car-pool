@@ -18,10 +18,7 @@ public class VehicleServiceImpl implements VehicleService {
   @Autowired
   private VehicleRepository repository;
 
-  public VehicleRepository getRepository() {
-    return repository;
-  }
-
+  @Override
   public Iterable<VehicleModel> get(Integer user_id) {
     Iterable<Vehicle> entities = repository.findByUserId(user_id);
     ArrayList<VehicleModel> models = new ArrayList<VehicleModel>();
@@ -38,6 +35,7 @@ public class VehicleServiceImpl implements VehicleService {
     return models;
   }
 
+  @Override
   public VehicleModel get(Integer user_id, Integer id) throws EntityNotFoundException {
     Vehicle entity = repository.findByUserIdAndId(user_id, id);
     VehicleModel model = new VehicleModel();
@@ -45,6 +43,7 @@ public class VehicleServiceImpl implements VehicleService {
     return model;
   }
 
+  @Override
   public VehicleModel create(Integer user_id, VehicleModel vehicle) throws EntityNotFoundException {
     UserModel user = new UserModel();
     user.setId(user_id);
@@ -60,6 +59,7 @@ public class VehicleServiceImpl implements VehicleService {
     return vehicle;
   }
 
+  @Override
   public VehicleModel update(Integer user_id, VehicleModel vehicle, Integer id)
       throws EntityNotFoundException {
     UserModel user = new UserModel();
@@ -77,6 +77,7 @@ public class VehicleServiceImpl implements VehicleService {
     return vehicle;
   }
 
+  @Override
   public void delete(Integer user_id, Integer id) throws EntityNotFoundException {
     repository.delete(id);
   }

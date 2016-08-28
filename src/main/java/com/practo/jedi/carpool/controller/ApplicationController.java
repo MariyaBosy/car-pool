@@ -37,7 +37,7 @@ public class ApplicationController {
 
   @Autowired
   private SourceService sourceService;
-  
+
   @Autowired
   private BookingService bookingService;
 
@@ -45,6 +45,12 @@ public class ApplicationController {
     return new PageRequest(source.getPageNumber(), size, source.getSort());
   }
 
+  /**
+   * Home page of the web app.
+   * 
+   * @param session HttpSession for the request. Required to check that the user is authenticated.
+   * @return Index page.
+   */
   @RequestMapping("/")
   public String index(HttpSession session) {
     if (session.getAttribute("user") != null) {
@@ -59,6 +65,15 @@ public class ApplicationController {
     return "redirect:/";
   }
 
+  /**
+   * Register/Login a user.
+   * 
+   * @param name User's name
+   * @param email User's email
+   * @param token Google OAuth id_token
+   * @param session HttpSession for the request. Required to check that the user is authenticated.
+   * @return Redirect to search page after login.
+   */
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public String login(String name, String email, String token, HttpSession session) {
     UserModel user = userService.findByEmail(email);
@@ -77,6 +92,16 @@ public class ApplicationController {
     return "redirect:search";
   }
 
+  /**
+   * Search for listings
+   * 
+   * @param filters Filters to apply for the search
+   * @param pageable Pagination object
+   * @param model Used to send attributes to the view
+   * @param session HttpSession for the request. Required to check that the user is authenticated.
+   * @param response Required to set 401 status code
+   * @return Search page
+   */
   @RequestMapping("/search")
   public String search(ListingFilterDto filters, Pageable pageable, Model model,
       HttpSession session, HttpServletResponse response) {
@@ -87,7 +112,7 @@ public class ApplicationController {
     model.addAttribute("user", session.getAttribute("user"));
     Iterable<ListingModel> listings =
         listingService.filter(filters, updatePageable(pageable, itemsPerPage));
-    Integer listingCount = ((ArrayList<ListingModel>)listingService.filter(filters, null)).size();
+    Integer listingCount = ((ArrayList<ListingModel>) listingService.filter(filters, null)).size();
     model.addAttribute("listings", listings);
     model.addAttribute("listingCount", listingCount);
     model.addAttribute("pageable", pageable);
@@ -97,10 +122,10 @@ public class ApplicationController {
     UserModel user = (UserModel) session.getAttribute("user");
     Iterable<BookingModel> bookings = bookingService.get(user.getId());
     HashMap<Integer, Boolean> isBooked = new HashMap<Integer, Boolean>();
-    for(ListingModel listing:listings) {
+    for (ListingModel listing : listings) {
       Boolean value = false;
-      for(BookingModel booking:bookings) {
-        if(booking.getListing().getId() == listing.getId()) {
+      for (BookingModel booking : bookings) {
+        if (booking.getListing().getId() == listing.getId()) {
           value = true;
         }
       }
@@ -110,6 +135,13 @@ public class ApplicationController {
     return "search";
   }
 
+  /**
+   * Form to post a new listing
+   * @param model Used to send attributes to the view
+   * @param session HttpSession for the request. Required to check that the user is authenticated.
+   * @param response Required to set 401 status code
+   * @return Posting page
+   */
   @RequestMapping("/post")
   public String post(Model model, HttpSession session, HttpServletResponse response) {
     if (session.getAttribute("user") == null) {

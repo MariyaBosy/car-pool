@@ -9,9 +9,9 @@ public interface SourceService {
 
   public SourceModel get(Integer id) throws EntityNotFoundException;
 
-  public SourceModel create(SourceModel Source) throws EntityNotFoundException;
+  public SourceModel create(SourceModel source) throws EntityNotFoundException;
 
-  public SourceModel update(SourceModel Source, Integer id) throws EntityNotFoundException;
+  public SourceModel update(SourceModel source, Integer id) throws EntityNotFoundException;
 
   public void delete(Integer id) throws EntityNotFoundException;
 

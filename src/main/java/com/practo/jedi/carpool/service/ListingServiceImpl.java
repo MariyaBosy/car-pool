@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +32,7 @@ public class ListingServiceImpl implements ListingService {
   private VehicleRepository vehicleRepository;
 
 
-  public ListingRepository getRepository() {
-    return listingRepository;
-  }
-
+  @Override
   public Iterable<ListingModel> get(Pageable pageable) {
     Iterable<Listing> entities = listingRepository.findAll(pageable);
     ArrayList<ListingModel> models = new ArrayList<ListingModel>();
@@ -53,6 +49,8 @@ public class ListingServiceImpl implements ListingService {
     return models;
   }
 
+
+  @Override
   public ListingModel get(Integer id) throws EntityNotFoundException {
     Listing entity = listingRepository.findOne(id);
     ListingModel model = new ListingModel();
@@ -60,6 +58,8 @@ public class ListingServiceImpl implements ListingService {
     return model;
   }
 
+
+  @Override
   public ListingModel create(ListingModel listing) throws EntityNotFoundException {
     Listing entity = listing.toEntity();
     Address addressEntity = entity.getAddress();
@@ -87,6 +87,8 @@ public class ListingServiceImpl implements ListingService {
     return listing;
   }
 
+
+  @Override
   public ListingModel update(ListingModel listing, Integer id) throws EntityNotFoundException {
     listing.setId(id);
     Listing entity = listing.toEntity();
@@ -115,10 +117,13 @@ public class ListingServiceImpl implements ListingService {
     return listing;
   }
 
+  @Override
   public void delete(Integer id) throws EntityNotFoundException {
     listingRepository.delete(id);
   }
 
+
+  @Override
   public Iterable<ListingModel> filter(ListingFilterDto filters, Pageable pageable) {
     Iterable<Listing> entities = listingRepository.findAll(filters, pageable);
     ArrayList<ListingModel> models = new ArrayList<ListingModel>();

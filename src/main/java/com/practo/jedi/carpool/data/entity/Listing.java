@@ -20,12 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLUpdate;
 import org.hibernate.annotations.Where;
 
-/**
- * Listings
- */
+
 @Entity
 @Table(name = "listings")
 @SQLDelete(
@@ -34,9 +31,6 @@ import org.hibernate.annotations.Where;
 public class Listing implements java.io.Serializable {
 
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 132705768230565793L;
   private Integer id;
   private Address address;
