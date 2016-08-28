@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.dto.ListingFilterDto;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.AddressModel;
 import com.practo.jedi.carpool.model.ListingModel;
@@ -37,20 +37,20 @@ public class ListingServiceTest {
     PageRequest pageable = new PageRequest(0, 2);
     ArrayList<ListingModel> listings = (ArrayList<ListingModel>) service.get(pageable);
     assertEquals(2, listings.size());
-    
+
     ListingModel listing = service.get(1);
     assertNotNull(listing);
     assertEquals(new Integer(1), listing.getUser().getId());
     assertEquals(new Integer(1), listing.getVehicle().getId());
     assertEquals(new Integer(1), listing.getSource().getId());
     assertEquals(new Integer(2), listing.getAddress().getId());
-    assertEquals(1, listing.getSeatsAvailable());
+    assertEquals(new Integer(1), listing.getSeatsAvailable());
   }
 
   @Test
   public void testFilter() {
 
-    ListingFilterDTO filter2 = new ListingFilterDTO();
+    ListingFilterDto filter2 = new ListingFilterDto();
     filter2.setSeatsAvailable(4);
     filter2.setSeatsAvailableModifier("LE");
     AddressModel destination = new AddressModel();
@@ -58,7 +58,8 @@ public class ListingServiceTest {
     destination.setLongitude(new BigDecimal("2.22000000"));
     filter2.setDestination(destination);
     PageRequest pageable2 = new PageRequest(0, 5);
-    ArrayList<ListingModel> listings2 = (ArrayList<ListingModel>) service.filter(filter2, pageable2);
+    ArrayList<ListingModel> listings2 =
+        (ArrayList<ListingModel>) service.filter(filter2, pageable2);
     assertEquals(1, listings2.size());
     assertEquals(new Integer(2), listings2.get(0).getSource().getId());
   }
@@ -92,7 +93,7 @@ public class ListingServiceTest {
     assertEquals(new Integer(1), listing.getVehicle().getId());
     assertEquals(new Integer(2), listing.getSource().getId());
     assertEquals(new Integer(1), listing.getAddress().getId());
-    assertEquals(1, listing.getSeatsAvailable());
+    assertEquals(new Integer(1), listing.getSeatsAvailable());
     assertEquals(now, listing.getDepartureTime());
   }
 
@@ -105,7 +106,7 @@ public class ListingServiceTest {
 
     ListingModel dbListing = service.get(2);
     assertNotNull(dbListing);
-    assertEquals(4, dbListing.getSeatsAvailable());
+    assertEquals(new Integer(4), dbListing.getSeatsAvailable());
   }
 
   @Test(expected = EntityNotFoundException.class)

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.dto.ListingFilterDto;
 import com.practo.jedi.carpool.data.entity.Address;
 import com.practo.jedi.carpool.data.entity.Listing;
 import com.practo.jedi.carpool.data.entity.Vehicle;
@@ -119,7 +119,7 @@ public class ListingServiceImpl implements ListingService {
     listingRepository.delete(id);
   }
 
-  public Iterable<ListingModel> filter(ListingFilterDTO filters, Pageable pageable) {
+  public Iterable<ListingModel> filter(ListingFilterDto filters, Pageable pageable) {
     Iterable<Listing> entities = listingRepository.findAll(filters, pageable);
     ArrayList<ListingModel> models = new ArrayList<ListingModel>();
     for (Listing entity : entities) {

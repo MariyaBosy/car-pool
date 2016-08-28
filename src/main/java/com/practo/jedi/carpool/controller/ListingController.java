@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.dto.ListingFilterDto;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.ListingModel;
 import com.practo.jedi.carpool.model.UserModel;
@@ -47,7 +47,7 @@ public class ListingController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.GET)
-  public Iterable<ListingModel> search(ListingFilterDTO filters, Pageable pageable,
+  public Iterable<ListingModel> search(ListingFilterDto filters, Pageable pageable,
       HttpSession session, HttpServletResponse servletResponse) throws IOException {
     if (session.getAttribute("user") == null) {
       servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");

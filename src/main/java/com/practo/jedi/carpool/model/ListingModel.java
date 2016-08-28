@@ -86,7 +86,7 @@ public class ListingModel implements java.io.Serializable {
   }
 
 
-  public int getSeatsAvailable() {
+  public Integer getSeatsAvailable() {
     return this.seatsAvailable;
   }
 

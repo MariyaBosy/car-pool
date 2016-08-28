@@ -5,7 +5,7 @@ import java.util.Date;
 import com.practo.jedi.carpool.model.AddressModel;
 import com.practo.jedi.carpool.util.Modifier;
 
-public class ListingFilterDTO {
+public class ListingFilterDto {
 
   Integer source;
   Integer seatsAvailable;

@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.dto.ListingFilterDto;
 import com.practo.jedi.carpool.data.entity.Listing;
 import com.practo.jedi.carpool.util.Modifier;
 
@@ -25,7 +25,7 @@ public class ListingRepository extends EntityRepositoryImpl<Listing, Integer> {
   }
 
 
-  public Iterable<Listing> findAll(ListingFilterDTO filters, Pageable pageable) {
+  public Iterable<Listing> findAll(ListingFilterDto filters, Pageable pageable) {
     Date today = new Date();
     DetachedCriteria criteria =
         DetachedCriteria.forClass(Listing.class).add(Restrictions.ge("departureTime", today));

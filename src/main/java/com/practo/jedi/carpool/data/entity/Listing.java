@@ -44,7 +44,7 @@ public class Listing implements java.io.Serializable {
   private User user;
   private Vehicle vehicle;
   private Date departureTime;
-  private int seatsAvailable;
+  private Integer seatsAvailable;
   private Date createdAt;
   private Date modifiedAt;
   private Date deletedAt;
@@ -120,11 +120,11 @@ public class Listing implements java.io.Serializable {
 
 
   @Column(name = "seats_available", nullable = false)
-  public int getSeatsAvailable() {
+  public Integer getSeatsAvailable() {
     return this.seatsAvailable;
   }
 
-  public void setSeatsAvailable(int seatsAvailable) {
+  public void setSeatsAvailable(Integer seatsAvailable) {
     this.seatsAvailable = seatsAvailable;
   }
 

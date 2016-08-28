@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.dto.ListingFilterDto;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
 import com.practo.jedi.carpool.model.ListingModel;
@@ -78,7 +78,7 @@ public class ApplicationController {
   }
 
   @RequestMapping("/search")
-  public String search(ListingFilterDTO filters, Pageable pageable, Model model,
+  public String search(ListingFilterDto filters, Pageable pageable, Model model,
       HttpSession session, HttpServletResponse response) {
     if (session.getAttribute("user") == null) {
       response.setStatus(401);
