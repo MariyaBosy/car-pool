@@ -2,7 +2,45 @@
 
 # car-pool
 
-A webapp for making it easier to car pool. Built with Spring boot.
+A webapp for making it easier to car pool.
+Users can post vacant seats in their cars travelling to a particular location.
+Users can also search and filter listings and book seats in cars.
+
+## Information
+
+### Project Plans
+
+The project plan can be found [here](https://docs.google.com/a/practo.com/spreadsheets/d/1ZWKIENGZQZYOi_ZfI0HVAXg2QmgcdGLZjFezdxuLZCA/).
+
+### Requirements
+
+The requirements for the application can be found [in the wiki, here](https://github.com/pbaisla/car-pool/wiki/Requirements)
+
+### API Documentation
+
+The API documentation can be found [here on Apiary](http://docs.jedicarpool.apiary.io).
+
+### ER Diagram
+
+![ER Diagram](https://github.com/pbaisla/car-pool/blob/master/docs/car_pool_er_diag.png?raw=true)
+
+### Tools and Tech
+
+1. Java 8
+2. Maven
+3. Spring Boot
+4. MySQL (Production DB)
+5. Hibernate
+6. HSQLdb (Test DB)
+7. [Sentry](https://app.getsentry.com/practo-52/jedi-car-pool/)
+8. [New Relic](https://rpm.newrelic.com/accounts/1410232/applications/31693240)
+9. [Travis CI](https://travis-ci.org/pbaisla/car-pool)
+10. [AWS EC2](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/)
+11. [JaCoCo](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/jacoco/index.html)
+12. JavaDoc
+13. [Apiary](http://docs.jedicarpool.apiary.io/)
+14. Checkstyle
+15. Codeformatter
 
 ## Usage
 
@@ -17,15 +55,5 @@ A webapp for making it easier to car pool. Built with Spring boot.
 1. Fill in your database details and other credentials in `application.properties`
 2. Run `mvn clean install` to create a WAR
 3. Place the created WAR file in tomcat's webapps directory
-
-## Information
-
-### API Documentation
-
-The API documentation can be found [here on Apiary](http://docs.jedicarpool.apiary.io).
-
-### ER Diagram
-
-![ER Diagram](https://github.com/pbaisla/car-pool/blob/master/docs/car_pool_er_diag.png?raw=true)
 
 For more information see [the wiki](https://github.com/pbaisla/car-pool/wiki).
