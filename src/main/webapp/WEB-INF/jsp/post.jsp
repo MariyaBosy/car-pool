@@ -127,7 +127,7 @@
 									type="hidden"> <input id="destination-longitude"
 									name="address.longitude" type="hidden"> <input
 									id="destination-address" name="address.formattedAddress"
-									type="hidden"> <input name="user.id" value="1"
+									type="hidden"> <input name="user.id"
 									type="hidden"> <input name="vehicle.id" value="1"
 									type="hidden"> <input id="autocomplete"
 									placeholder="Destination" onFocus="geolocate()" type="text">
@@ -201,7 +201,12 @@
 					$('#modal-info').text("Ride successfully submitted!")
 				},
 				error : function(data) {
-					$('#modal-info').text("We're sorry but we couldn't save this ride right now. Please try again later.")
+					$('#modal-info').text("Looks like there are some errors in the form. Please fix the following problems to post your ride:");
+					$('#modal-info').append("<ol></ol>");
+					for(var i=0; i < data.responseJSON.errors.length; i++) {
+						var err = data.responseJSON.errors[i];
+						$('#modal-info ol').append('<li>' + err.defaultMessage + '</li>')
+					}
 				}
 			});
 

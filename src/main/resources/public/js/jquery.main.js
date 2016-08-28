@@ -35,6 +35,8 @@ jQuery(document)
 						defaultValue: defaultTime.getHours() + ':' + defaultTime.getMinutes()
 					});
 					
+					$('#departure-datetime')[0].value = $('#departure-time').timepicker('getTime');
+					
 					$('#departure-time').on('change', function(){
 						$('#departure-datetime')[0].value = $('#departure-time').timepicker('getTime');
 					});

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -56,7 +57,7 @@ public class ListingController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<ListingModel> create(ListingModel listing, HttpSession session,
+  public ResponseEntity<ListingModel> create(@Valid ListingModel listing, HttpSession session,
       HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
     if (session.getAttribute("user") == null) {
       servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "You must login to access this page.");
