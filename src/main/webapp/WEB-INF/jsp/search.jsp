@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.practo.jedi.carpool.util.Modifier" %>
 
 <!DOCTYPE html>
 <!--[if IE 7]>                  <html class="ie7 no-js" lang="en">     <![endif]-->
@@ -96,7 +97,8 @@
 											<div class="field">
 												<select id="source" name="source">
 													<c:forEach var="source" items="${sources}">
-														<option value="${ source.getId() }">${ source.getName() }</option>
+														<option value="${ source.getId() }"
+															<c:if test="${ filters.getSource() == source.getId() }">${ selected="selected" }</c:if>>${ source.getName() }</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -112,11 +114,18 @@
 
 											<div class="field">
 												<input id="destination-latitude" name="destination.latitude"
-													type="hidden"> <input id="destination-longitude"
-													name="destination.longitude" type="hidden"> <input
-													id="address" type="hidden"> <input
+													type="hidden"
+													value=${ (filters.getDestination() != null)?filters.getDestination().getLatitude():' '}>
+												<input id="destination-longitude"
+													name="destination.longitude" type="hidden"
+													value=${ (filters.getDestination() != null)?filters.getDestination().getLongitude():' '}>
+												<input id="address" type="hidden"> <input
 													id="autocomplete" placeholder="Destination"
-													onFocus="geolocate()" type="text">
+													value="${ (filters.getDestination() != null)?filters.getDestination().getFormattedAddress():' '}"
+													onFocus="geolocate()" type="text"><input
+													id="destination-address"
+													value="${ (filters.getDestination() != null)?filters.getDestination().getFormattedAddress():' '}"
+													name="destination.formattedAddress" type="hidden">
 											</div>
 
 										</div>
@@ -131,8 +140,8 @@
 											<div class="field">
 												<select id="departureTimeModifier"
 													name="departureTimeModifier">
-													<option value="LOE">before</option>
-													<option value="GOE">after</option>
+													<option value="LOE" <c:if test="${ filters.getDepartureTimeModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>before</option>
+													<option value="GOE" <c:if test="${ filters.getDepartureTimeModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>after</option>
 												</select>
 											</div>
 										</div>
@@ -140,7 +149,10 @@
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
 												<input id="departure-time"><input
-									id="departure-datetime" type="hidden" name="departureTime">
+													id="departure-datetime" type="hidden" name="departureTime">
+													
+									 <input
+									id="defaultTime" type="hidden" value="${ (filters.getDepartureTime() != null)? filters.getDepartureTime().getTime():'now'}">
 											</div>
 										</div>
 
@@ -153,11 +165,9 @@
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
 												<select id="seatsModifier" name="seatsAvailableModifier">
-													<option value="EQ">exactly</option>
-													<option value="LOE">at most</option>
-													<option value="GOE">at least</option>
-													<option value="GT">more than</option>
-													<option value="LT">less than</option>
+													<option value="EQ"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.EQ }">${ selected="selected" }</c:if>>exactly</option>
+													<option value="LOE"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>at most</option>
+													<option value="GOE"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>at least</option>
 												</select>
 											</div>
 										</div>
@@ -165,7 +175,7 @@
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
 												<input name="seatsAvailable" type="number"
-													placeholder="Number of seats">
+													placeholder="Number of seats" value="${ filters.getSeatsAvailable()}">
 											</div>
 										</div>
 
@@ -255,7 +265,9 @@
 
 										<li class="ride-people"><a href="#" class="tooltip-link"
 											data-original-title="Number of seats" data-toggle="tooltip">
-												<i class="fa fa-user"></i> <span id="listing-${ listing.getId()}-seats">${ listing.getSeatsAvailable() }</span></a></li>
+												<i class="fa fa-user"></i> <span
+												id="listing-${ listing.getId()}-seats">${ listing.getSeatsAvailable() }</span>
+										</a></li>
 										<!-- end .ride-people -->
 
 										<li><c:choose>
@@ -265,8 +277,8 @@
 													</button>
 												</c:when>
 												<c:otherwise>
-													<button value="${ listing.getId()}" class="btn blue-color bookSeat">Book
-														Seat</button>
+													<button value="${ listing.getId()}"
+														class="btn blue-color bookSeat">Book Seat</button>
 
 
 												</c:otherwise>
@@ -312,17 +324,6 @@
 
 	<script>
 		var placeSearch, autocomplete;
-		var componentForm = {
-			street_number : 'short_name',
-			route : 'long_name',
-			neighborhood : 'long_name',
-			sublocality : 'long_name',
-			administrative_area_level_1 : 'short_name',
-			administrative_area_level_2 : 'short_name',
-			country : 'long_name',
-			postal_code : 'short_name'
-		};
-
 		function initAutocomplete() {
 			// Create the autocomplete object, restricting the search to geographical
 			// location types.
@@ -341,26 +342,9 @@
 			// Get the place details from the autocomplete object.
 			var place = autocomplete.getPlace();
 			$('#destination-latitude')[0].value = place.geometry.location.lat();
-			$('#destination-longitude')[0].value = place.geometry.location
-					.lng();
-			console.log($('#destination-latitude')[0].value);
-			console.log($('#destination-longitude')[0].value);
-			/*         for (var component in componentForm) {
-			 document.getElementById(component).value = '';
-			 document.getElementById(component).disabled = false;
-			 }
-			 */
-			// Get each component of the address from the place details
-			// and fill the corresponding field on the form.
-			for (var i = 0; i < place.address_components.length; i++) {
-				var addressType = place.address_components[i];
-				if (componentForm[addressType]) {
-					var val = place.address_components[i][componentForm[addressType]];
-					/* 					document.getElementById(addressType).value = val;
-					 */console.log(val);
-				}
-				console.log(addressType);
-			}
+			$('#destination-longitude')[0].value = place.geometry.location.lng();
+			$('#destination-address')[0].value = place.formatted_address;
+
 		}
 		// Bias the autocomplete object to the user's geographical location,
 		// as supplied by the browser's 'navigator.geolocation' object.

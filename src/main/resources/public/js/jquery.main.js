@@ -24,10 +24,11 @@ jQuery(document)
 						});
 					});
 
-
+					var defaultTime = new Date(parseInt($('#defaultTime')[0].value)/1000);
 					$('#departure-time').timepicker({
 						useSelect : true,
-						timeFormat : 'H:i'
+						timeFormat : 'H:i',
+						defaultValue: defaultTime.getHours() + ':' + defaultTime.getMinutes()
 					});
 					
 					$('#departure-time').on('change', function(){

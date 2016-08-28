@@ -1,5 +1,6 @@
 package com.practo.jedi.carpool.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +87,11 @@ public class ApplicationController {
     model.addAttribute("user", session.getAttribute("user"));
     Iterable<ListingModel> listings =
         listingService.filter(filters, updatePageable(pageable, itemsPerPage));
+    Integer listingCount = ((ArrayList<ListingModel>)listingService.filter(filters, null)).size();
     model.addAttribute("listings", listings);
+    model.addAttribute("listingCount", listingCount);
+    model.addAttribute("pageable", pageable);
+    model.addAttribute("filters", filters);
     Iterable<SourceModel> sources = sourceService.get();
     model.addAttribute("sources", sources);
     UserModel user = (UserModel) session.getAttribute("user");
