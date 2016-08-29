@@ -25,6 +25,7 @@ import com.practo.jedi.carpool.util.MailService;
 
 /**
  * Controller for the bookings resource.
+ * 
  * @author prashant
  *
  */
@@ -67,10 +68,12 @@ public class BookingController {
     UserModel owner = listing.getUser();
     mailSender.send(owner.getEmail(), user.getName() + " will pool with you",
         user.getName() + " will pool with you from " + listing.getSource().getName() + " to "
-            + listing.getAddress() + " at " + listing.getDepartureTime());
+            + listing.getAddress() + " at " + listing.getDepartureTime()
+            + ".<br>You may contact them at " + user.getEmail() + ".");
     mailSender.send(user.getEmail(), "You will pool with " + owner.getName(),
         "You will pool with " + owner.getName() + " from " + listing.getSource().getName() + " to "
-            + listing.getAddress() + " at " + listing.getDepartureTime());
+            + listing.getAddress() + " at " + listing.getDepartureTime()
+            + ".<br>You may contact them at " + owner.getEmail() + ".");
 
     ResponseEntity<BookingModel> response = new ResponseEntity<BookingModel>(m, HttpStatus.CREATED);
     return response;
