@@ -8,21 +8,21 @@ Users can also search and filter listings and book seats in cars.
 
 ## Information
 
-### Project Plans
-
-The project plan can be found [here](https://docs.google.com/a/practo.com/spreadsheets/d/1ZWKIENGZQZYOi_ZfI0HVAXg2QmgcdGLZjFezdxuLZCA/).
-
 ### Requirements
 
 The requirements for the application can be found [in the wiki, here](https://github.com/pbaisla/car-pool/wiki/Requirements)
 
-### API Documentation
+### Project Plans
 
-The API documentation can be found [here on Apiary](http://docs.jedicarpool.apiary.io).
+The project plan can be found [here](https://docs.google.com/a/practo.com/spreadsheets/d/1ZWKIENGZQZYOi_ZfI0HVAXg2QmgcdGLZjFezdxuLZCA/).
 
 ### ER Diagram
 
 ![ER Diagram](https://github.com/pbaisla/car-pool/blob/master/docs/car_pool_er_diag.png?raw=true)
+
+### API Documentation
+
+The API documentation can be found [here on Apiary](http://docs.jedicarpool.apiary.io).
 
 ### Tools and Tech
 
