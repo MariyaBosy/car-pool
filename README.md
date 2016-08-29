@@ -28,19 +28,18 @@ The API documentation can be found [here on Apiary](http://docs.jedicarpool.apia
 
 1. Java 8
 2. Maven
-3. Spring Boot
+3. Spring Boot MVC Framework
 4. MySQL (Production DB)
 5. Hibernate
 6. HSQLdb (Test DB)
-7. [Sentry](https://app.getsentry.com/practo-52/jedi-car-pool/)
-8. [New Relic](https://rpm.newrelic.com/accounts/1410232/applications/31693240)
-9. [Travis CI](https://travis-ci.org/pbaisla/car-pool)
-10. [AWS EC2](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/)
-11. [JaCoCo](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/jacoco/index.html)
-12. JavaDoc
-13. [Apiary](http://docs.jedicarpool.apiary.io/)
-14. Checkstyle
-15. Codeformatter
+7. [New Relic](https://rpm.newrelic.com/accounts/1410232/applications/31693240)
+8. [Travis CI](https://travis-ci.org/pbaisla/car-pool)
+9. [AWS EC2](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/)
+10. [JaCoCo](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/jacoco/index.html) For code average analysis
+11. [JavaDoc](http://ec2-52-66-60-159.ap-south-1.compute.amazonaws.com/car-pool/doc/index.html) Code documentation
+12. [Apiary](http://docs.jedicarpool.apiary.io/)
+13. Checkstyle
+14. Codeformatter
 
 ## Usage
 
