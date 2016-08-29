@@ -3,9 +3,11 @@ package com.practo.jedi.carpool.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,8 @@ import com.practo.jedi.carpool.service.UserService;
 public class ApplicationController {
   private int itemsPerPage = 10;
 
+  private static final Logger LOG = Logger.getLogger(ApplicationController.class);
+
   @Autowired
   private UserService userService;
 
@@ -42,7 +46,7 @@ public class ApplicationController {
   private BookingService bookingService;
 
   public static Pageable updatePageable(final Pageable source, final int size) {
-    return new PageRequest(source.getPageNumber(), size, source.getSort());
+    return new PageRequest(source.getPageNumber(), (size > 10) ? 10 : size, source.getSort());
   }
 
   /**
@@ -85,7 +89,7 @@ public class ApplicationController {
       try {
         user = userService.create(user);
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
     }
     session.setAttribute("user", user);
@@ -104,14 +108,14 @@ public class ApplicationController {
    */
   @RequestMapping("/search")
   public String search(ListingFilterDto filters, Pageable pageable, Model model,
-      HttpSession session, HttpServletResponse response) {
+      HttpSession session, HttpServletRequest request, HttpServletResponse response) {
     if (session.getAttribute("user") == null) {
       response.setStatus(401);
       return "index";
     }
+    pageable = updatePageable(pageable, itemsPerPage);
     model.addAttribute("user", session.getAttribute("user"));
-    Iterable<ListingModel> listings =
-        listingService.filter(filters, updatePageable(pageable, itemsPerPage));
+    Iterable<ListingModel> listings = listingService.filter(filters, pageable);
     Integer listingCount = ((ArrayList<ListingModel>) listingService.filter(filters, null)).size();
     model.addAttribute("listings", listings);
     model.addAttribute("listingCount", listingCount);
@@ -132,11 +136,24 @@ public class ApplicationController {
       isBooked.put(listing.getId(), value);
     }
     model.addAttribute("isBooked", isBooked);
+    String url = request.getRequestURL().toString() + "?"
+        + (request.getQueryString() == null ? "" : request.getQueryString());
+    String next =
+        (request.getParameter("page") == null) ? url + "page=" + (pageable.getPageNumber() + 1)
+            : url.replaceFirst("page=" + pageable.getPageNumber(),
+                "page=" + (pageable.getPageNumber() + 1));
+    model.addAttribute("next", next);
+    String previous =
+        (request.getParameter("page") == null) ? url + "page=" + (pageable.getPageNumber() - 1)
+            : url.replaceFirst("page=" + pageable.getPageNumber(),
+                "page=" + (pageable.getPageNumber() - 1));
+    model.addAttribute("previous", previous);
     return "search";
   }
 
   /**
    * Form to post a new listing
+   * 
    * @param model Used to send attributes to the view
    * @param session HttpSession for the request. Required to check that the user is authenticated.
    * @param response Required to set 401 status code

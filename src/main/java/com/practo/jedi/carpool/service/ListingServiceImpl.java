@@ -3,6 +3,7 @@ package com.practo.jedi.carpool.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import com.practo.jedi.carpool.util.Haversine;
 
 @Service
 public class ListingServiceImpl implements ListingService {
+  private static final Logger LOG = Logger.getLogger(ListingServiceImpl.class);
 
   @Autowired
   private ListingRepository listingRepository;
@@ -42,7 +44,7 @@ public class ListingServiceImpl implements ListingService {
         model.fromEntity(entity);
         models.add(model);
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
 
     }
@@ -82,7 +84,7 @@ public class ListingServiceImpl implements ListingService {
     try {
       listing.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return listing;
   }
@@ -112,7 +114,7 @@ public class ListingServiceImpl implements ListingService {
     try {
       listing.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return listing;
   }
@@ -145,7 +147,7 @@ public class ListingServiceImpl implements ListingService {
           models.add(model);
         }
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
 
     }

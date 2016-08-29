@@ -44,7 +44,6 @@ public class ListingServiceTest {
     assertEquals(new Integer(1), listing.getVehicle().getId());
     assertEquals(new Integer(1), listing.getSource().getId());
     assertEquals(new Integer(2), listing.getAddress().getId());
-    assertEquals(new Integer(1), listing.getSeatsAvailable());
   }
 
 

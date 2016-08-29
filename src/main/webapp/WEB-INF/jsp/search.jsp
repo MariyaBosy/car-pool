@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.practo.jedi.carpool.util.Modifier" %>
+<%@ page import="com.practo.jedi.carpool.util.Modifier"%>
 
 <!DOCTYPE html>
 <!--[if IE 7]>                  <html class="ie7 no-js" lang="en">     <![endif]-->
@@ -140,8 +140,10 @@
 											<div class="field">
 												<select id="departureTimeModifier"
 													name="departureTimeModifier">
-													<option value="GOE" <c:if test="${ filters.getDepartureTimeModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>before</option>
-													<option value="LOE" <c:if test="${ filters.getDepartureTimeModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>after</option>
+													<option value="GOE"
+														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>before</option>
+													<option value="LOE"
+														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>after</option>
 												</select>
 											</div>
 										</div>
@@ -150,9 +152,9 @@
 											<div class="field">
 												<input id="departure-time"><input
 													id="departure-datetime" type="hidden" name="departureTime">
-													
-									 <input
-									id="defaultTime" type="hidden" value="${ (filters.getDepartureTime() != null)? filters.getDepartureTime().getTime():'now'}">
+
+												<input id="defaultTime" type="hidden"
+													value="${ (filters.getDepartureTime() != null)? filters.getDepartureTime().getTime():'now'}">
 											</div>
 										</div>
 
@@ -165,9 +167,14 @@
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
 												<select id="seatsModifier" name="seatsAvailableModifier">
-													<option value="EQ"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.EQ }">${ selected="selected" }</c:if>>exactly</option>
-													<option value="LOE"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>at most</option>
-													<option value="GOE"<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>at least</option>
+													<option value="EQ"
+														<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.EQ }">${ selected="selected" }</c:if>>exactly</option>
+													<option value="LOE"
+														<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>at
+														most</option>
+													<option value="GOE"
+														<c:if test="${ filters.getSeatsAvailableModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>at
+														least</option>
 												</select>
 											</div>
 										</div>
@@ -175,7 +182,8 @@
 										<div class="col-md-3 col-sm-3 col-xs-12">
 											<div class="field">
 												<input name="seatsAvailable" type="number"
-													placeholder="Number of seats" value="${ filters.getSeatsAvailable()}">
+													placeholder="Number of seats"
+													value="${ filters.getSeatsAvailable()}">
 											</div>
 										</div>
 
@@ -292,15 +300,27 @@
 							<div class="clearfix"></div>
 
 							<div class="post-pagination pagination-margin clearfix">
-
-								<div class="next pull-right">
-									<a href="#"> Next <i class="fa fa-chevron-right"></i>
-									</a>
-								</div>
-
+								<c:if test="${pageable.getPageNumber() > 0}">
+									<div class="next pull-left">
+										<a href="${previous }"> <i class="fa fa-chevron-left"></i> Previous
+										</a>
+									</div>
+								</c:if>
+								<c:if test="${listingCount == 0 }">
+									<div class="next text-center">
+										<a href="#"> No rides found that match your requirements.</i>
+										</a>
+									</div>
+								</c:if>								<c:if
+									test="${ (listingCount - (pageable.getPageNumber() * pageable.getPageSize())) > pageable.getPageSize()}">
+									<div class="next pull-right">
+										<a href="${next }"> Next <i class="fa fa-chevron-right"></i>
+										</a>
+									</div>
+								</c:if>
 							</div>
+							
 							<!-- end .post-pagination -->
-
 						</div>
 						<!-- end .events-list -->
 
@@ -340,7 +360,8 @@
 			// Get the place details from the autocomplete object.
 			var place = autocomplete.getPlace();
 			$('#destination-latitude')[0].value = place.geometry.location.lat();
-			$('#destination-longitude')[0].value = place.geometry.location.lng();
+			$('#destination-longitude')[0].value = place.geometry.location
+					.lng();
 			$('#destination-address')[0].value = place.formatted_address;
 
 		}

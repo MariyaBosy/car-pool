@@ -3,6 +3,7 @@ package com.practo.jedi.carpool.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ import com.practo.jedi.carpool.model.UserModel;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+  private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
+
 
   @Autowired
   private UserRepository repository;
@@ -28,7 +32,7 @@ public class UserServiceImpl implements UserService {
         models.add(model);
 
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
     }
     return models;
@@ -52,7 +56,7 @@ public class UserServiceImpl implements UserService {
     try {
       user.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return user;
   }
@@ -66,7 +70,7 @@ public class UserServiceImpl implements UserService {
     try {
       user.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return user;
   }

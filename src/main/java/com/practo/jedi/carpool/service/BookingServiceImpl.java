@@ -3,20 +3,27 @@ package com.practo.jedi.carpool.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practo.jedi.carpool.data.entity.Booking;
+import com.practo.jedi.carpool.data.entity.Listing;
 import com.practo.jedi.carpool.data.repository.BookingRepository;
+import com.practo.jedi.carpool.data.repository.ListingRepository;
 import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
 import com.practo.jedi.carpool.model.BookingModel;
 import com.practo.jedi.carpool.model.UserModel;
 
 @Service
 public class BookingServiceImpl implements BookingService {
+  private static final Logger LOG = Logger.getLogger(BookingServiceImpl.class);
 
   @Autowired
   private BookingRepository repository;
+
+  @Autowired
+  private ListingRepository listingRepository;
 
 
   @Override
@@ -29,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
         model.fromEntity(entity);
         models.add(model);
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
 
     }
@@ -52,15 +59,24 @@ public class BookingServiceImpl implements BookingService {
     UserModel user = new UserModel();
     user.setId(user_id);
     booking.setUser(user);
-    Booking entity = booking.toEntity();
-    entity.setCreatedAt(new Date());
-    entity = repository.save(entity);
-    try {
-      booking.fromEntity(entity);
-    } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+    Listing listing = listingRepository.findOne(booking.getListing().getId());
+    int seats = listing.getSeatsAvailable();
+    if (seats > 0) {
+      listing.setSeatsAvailable(seats - 1);
+      listing.setModifiedAt(new Date());
+      listingRepository.save(listing);
+      Booking entity = booking.toEntity();
+      entity.setCreatedAt(new Date());
+      entity = repository.save(entity);
+      try {
+        booking.fromEntity(entity);
+      } catch (EntityNotFoundException err) {
+        LOG.error(err);
+      }
+      return booking;
     }
-    return booking;
+    LOG.error("Tried to book with 0 seats available");
+    return null;
   }
 
 
@@ -77,7 +93,7 @@ public class BookingServiceImpl implements BookingService {
     try {
       booking.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return booking;
   }

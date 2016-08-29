@@ -3,6 +3,7 @@ package com.practo.jedi.carpool.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.practo.jedi.carpool.model.AddressModel;
 
 @Service
 public class AddressServiceImpl implements AddressService {
+  private static final Logger LOG = Logger.getLogger(AddressServiceImpl.class);
 
   @Autowired
   private AddressRepository repository;
@@ -29,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
         models.add(model);
 
       } catch (EntityNotFoundException err) {
-        err.printStackTrace();
+        LOG.error(err);
       }
     }
     return models;
@@ -54,7 +56,7 @@ public class AddressServiceImpl implements AddressService {
     try {
       address.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return address;
   }
@@ -69,7 +71,7 @@ public class AddressServiceImpl implements AddressService {
     try {
       address.fromEntity(entity);
     } catch (EntityNotFoundException err) {
-      err.printStackTrace();
+      LOG.error(err);
     }
     return address;
   }
