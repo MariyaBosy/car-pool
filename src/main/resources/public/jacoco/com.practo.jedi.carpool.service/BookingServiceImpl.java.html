@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BookingServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.carpool.service</a> &gt; <span class="el_source">BookingServiceImpl.java</span></div><h1>BookingServiceImpl.java</h1><pre class="source lang-java linenums">package com.practo.jedi.carpool.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.practo.jedi.carpool.data.entity.Booking;
+import com.practo.jedi.carpool.data.repository.BookingRepository;
+import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
+import com.practo.jedi.carpool.model.BookingModel;
+import com.practo.jedi.carpool.model.UserModel;
+
+@Service
+<span class="fc" id="L16">public class BookingServiceImpl implements BookingService {</span>
+
+  @Autowired
+  private BookingRepository repository;
+
+  public BookingRepository getRepository() {
+<span class="nc" id="L22">    return repository;</span>
+  }
+
+  public Iterable&lt;BookingModel&gt; get(Integer user_id) {
+<span class="fc" id="L26">    Iterable&lt;Booking&gt; entities = repository.findByUserId(user_id);</span>
+<span class="fc" id="L27">    ArrayList&lt;BookingModel&gt; models = new ArrayList&lt;BookingModel&gt;();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">    for (Booking entity : entities) {</span>
+<span class="fc" id="L29">      BookingModel model = new BookingModel();</span>
+      try {
+<span class="fc" id="L31">        model.fromEntity(entity);</span>
+<span class="fc" id="L32">        models.add(model);</span>
+<span class="nc" id="L33">      } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L34">        err.printStackTrace();</span>
+<span class="fc" id="L35">      }</span>
+
+<span class="fc" id="L37">    }</span>
+<span class="fc" id="L38">    return models;</span>
+  }
+
+  public BookingModel get(Integer user_id, Integer id) throws EntityNotFoundException {
+<span class="fc" id="L42">    Booking entity = repository.findByUserIdAndId(user_id, id);</span>
+<span class="fc" id="L43">    BookingModel model = new BookingModel();</span>
+<span class="fc" id="L44">    model.fromEntity(entity);</span>
+<span class="fc" id="L45">    return model;</span>
+  }
+
+
+  public BookingModel create(Integer user_id, BookingModel booking) throws EntityNotFoundException {
+<span class="fc" id="L50">    UserModel user = new UserModel();</span>
+<span class="fc" id="L51">    user.setId(user_id);</span>
+<span class="fc" id="L52">    booking.setUser(user);</span>
+<span class="fc" id="L53">    Booking entity = booking.toEntity();</span>
+<span class="fc" id="L54">    entity.setCreatedAt(new Date());</span>
+<span class="fc" id="L55">    entity = repository.save(entity);</span>
+    try {
+<span class="nc" id="L57">      booking.fromEntity(entity);</span>
+<span class="fc" id="L58">    } catch (EntityNotFoundException err) {</span>
+<span class="fc" id="L59">      err.printStackTrace();</span>
+<span class="nc" id="L60">    }</span>
+<span class="fc" id="L61">    return booking;</span>
+  }
+
+  public BookingModel update(Integer user_id, BookingModel booking, Integer id) throws EntityNotFoundException {
+<span class="fc" id="L65">    UserModel user = new UserModel();</span>
+<span class="fc" id="L66">    user.setId(user_id);</span>
+<span class="fc" id="L67">    booking.setUser(user);</span>
+<span class="fc" id="L68">    booking.setId(id);</span>
+<span class="fc" id="L69">    Booking entity = booking.toEntity();</span>
+<span class="fc" id="L70">    entity.setModifiedAt(new Date());</span>
+<span class="fc" id="L71">    entity = repository.save(entity);</span>
+    try {
+<span class="nc" id="L73">      booking.fromEntity(entity);</span>
+<span class="fc" id="L74">    } catch (EntityNotFoundException err) {</span>
+<span class="fc" id="L75">      err.printStackTrace();</span>
+<span class="nc" id="L76">    }</span>
+<span class="fc" id="L77">    return booking;</span>
+  }
+
+  public void delete(Integer user_id, Integer id) throws EntityNotFoundException {
+<span class="fc" id="L81">    repository.delete(id);</span>
+<span class="fc" id="L82">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

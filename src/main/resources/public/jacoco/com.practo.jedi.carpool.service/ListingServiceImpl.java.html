@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ListingServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.carpool.service</a> &gt; <span class="el_source">ListingServiceImpl.java</span></div><h1>ListingServiceImpl.java</h1><pre class="source lang-java linenums">package com.practo.jedi.carpool.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.practo.jedi.carpool.data.dto.ListingFilterDTO;
+import com.practo.jedi.carpool.data.entity.Address;
+import com.practo.jedi.carpool.data.entity.Listing;
+import com.practo.jedi.carpool.data.entity.Vehicle;
+import com.practo.jedi.carpool.data.repository.AddressRepository;
+import com.practo.jedi.carpool.data.repository.ListingRepository;
+import com.practo.jedi.carpool.data.repository.VehicleRepository;
+import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
+import com.practo.jedi.carpool.model.AddressModel;
+import com.practo.jedi.carpool.model.ListingModel;
+import com.practo.jedi.carpool.util.Haversine;
+
+@Service
+<span class="fc" id="L24">public class ListingServiceImpl implements ListingService {</span>
+
+  @Autowired
+  private ListingRepository listingRepository;
+
+  @Autowired
+  private AddressRepository addressRepository;
+
+  @Autowired
+  private VehicleRepository vehicleRepository;
+
+
+  public ListingRepository getRepository() {
+<span class="nc" id="L37">    return listingRepository;</span>
+  }
+
+  public Iterable&lt;ListingModel&gt; get(Pageable pageable) {
+<span class="fc" id="L41">    Iterable&lt;Listing&gt; entities = listingRepository.findAll(pageable);</span>
+<span class="fc" id="L42">    ArrayList&lt;ListingModel&gt; models = new ArrayList&lt;ListingModel&gt;();</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">    for (Listing entity : entities) {</span>
+<span class="fc" id="L44">      ListingModel model = new ListingModel();</span>
+      try {
+<span class="fc" id="L46">        model.fromEntity(entity);</span>
+<span class="fc" id="L47">        models.add(model);</span>
+<span class="nc" id="L48">      } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L49">        err.printStackTrace();</span>
+<span class="fc" id="L50">      }</span>
+
+<span class="fc" id="L52">    }</span>
+<span class="fc" id="L53">    return models;</span>
+  }
+
+  public ListingModel get(Integer id) throws EntityNotFoundException {
+<span class="fc" id="L57">    Listing entity = listingRepository.findOne(id);</span>
+<span class="fc" id="L58">    ListingModel model = new ListingModel();</span>
+<span class="fc" id="L59">    model.fromEntity(entity);</span>
+<span class="fc" id="L60">    return model;</span>
+  }
+
+  public ListingModel create(ListingModel listing) throws EntityNotFoundException {
+<span class="fc" id="L64">    Listing entity = listing.toEntity();</span>
+<span class="fc" id="L65">    Address addressEntity = entity.getAddress();</span>
+    try {
+<span class="fc" id="L67">      addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),</span>
+<span class="fc" id="L68">          addressEntity.getLongitude());</span>
+<span class="nc" id="L69">    } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L70">      addressEntity.setCreatedAt(new Date());</span>
+<span class="nc" id="L71">      addressEntity = addressRepository.save(entity.getAddress());</span>
+<span class="fc" id="L72">    }</span>
+<span class="fc" id="L73">    entity.setAddress(addressEntity);</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">    if (entity.getVehicle().getId() == null) {</span>
+<span class="nc" id="L75">      Vehicle vehicleEntity = entity.getVehicle();</span>
+<span class="nc" id="L76">      vehicleEntity.setCreatedAt(new Date());</span>
+<span class="nc" id="L77">      vehicleEntity = vehicleRepository.save(vehicleEntity);</span>
+<span class="nc" id="L78">      entity.setVehicle(vehicleEntity);</span>
+    }
+<span class="fc" id="L80">    entity.setCreatedAt(new Date());</span>
+<span class="fc" id="L81">    entity = listingRepository.save(entity);</span>
+    try {
+<span class="nc" id="L83">      listing.fromEntity(entity);</span>
+<span class="fc" id="L84">    } catch (EntityNotFoundException err) {</span>
+<span class="fc" id="L85">      err.printStackTrace();</span>
+<span class="nc" id="L86">    }</span>
+<span class="fc" id="L87">    return listing;</span>
+  }
+
+  public ListingModel update(ListingModel listing, Integer id) throws EntityNotFoundException {
+<span class="fc" id="L91">    listing.setId(id);</span>
+<span class="fc" id="L92">    Listing entity = listing.toEntity();</span>
+<span class="fc" id="L93">    Address addressEntity = entity.getAddress();</span>
+    try {
+<span class="fc" id="L95">      addressEntity = addressRepository.findByLatitudeAndLongitude(addressEntity.getLatitude(),</span>
+<span class="fc" id="L96">          addressEntity.getLongitude());</span>
+<span class="nc" id="L97">    } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L98">      addressEntity.setCreatedAt(new Date());</span>
+<span class="nc" id="L99">      addressEntity = addressRepository.save(entity.getAddress());</span>
+<span class="fc" id="L100">    }</span>
+<span class="fc" id="L101">    entity.setAddress(addressEntity);</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">    if (entity.getVehicle().getId() == null) {</span>
+<span class="nc" id="L103">      Vehicle vehicleEntity = entity.getVehicle();</span>
+<span class="nc" id="L104">      vehicleEntity.setCreatedAt(new Date());</span>
+<span class="nc" id="L105">      vehicleEntity = vehicleRepository.save(vehicleEntity);</span>
+<span class="nc" id="L106">      entity.setVehicle(vehicleEntity);</span>
+    }
+<span class="fc" id="L108">    entity.setModifiedAt(new Date());</span>
+<span class="fc" id="L109">    entity = listingRepository.save(entity);</span>
+    try {
+<span class="fc" id="L111">      listing.fromEntity(entity);</span>
+<span class="nc" id="L112">    } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L113">      err.printStackTrace();</span>
+<span class="fc" id="L114">    }</span>
+<span class="fc" id="L115">    return listing;</span>
+  }
+
+  public void delete(Integer id) throws EntityNotFoundException {
+<span class="fc" id="L119">    listingRepository.delete(id);</span>
+<span class="fc" id="L120">  }</span>
+
+  public Iterable&lt;ListingModel&gt; filter(ListingFilterDTO filters, Pageable pageable) {
+<span class="fc" id="L123">    Iterable&lt;Listing&gt; entities = listingRepository.findAll(filters, pageable);</span>
+<span class="fc" id="L124">    ArrayList&lt;ListingModel&gt; models = new ArrayList&lt;ListingModel&gt;();</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">    for (Listing entity : entities) {</span>
+      // Apply destination filter
+<span class="fc" id="L127">      AddressModel destination = filters.getDestination();</span>
+<span class="fc" id="L128">      ListingModel model = new ListingModel();</span>
+      try {
+<span class="fc" id="L130">        model.fromEntity(entity);</span>
+
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">        if (destination != null) {</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">          if (Haversine.haversine(destination.getLatitude().doubleValue(),</span>
+<span class="fc" id="L134">              destination.getLongitude().doubleValue(),</span>
+<span class="fc" id="L135">              model.getAddress().getLatitude().doubleValue(),</span>
+<span class="fc" id="L136">              model.getAddress().getLongitude().doubleValue()) &lt; 1) {</span>
+<span class="fc" id="L137">            models.add(model);</span>
+          }
+        } else {
+<span class="nc" id="L140">          models.add(model);</span>
+        }
+<span class="nc" id="L142">      } catch (EntityNotFoundException err) {</span>
+<span class="nc" id="L143">        err.printStackTrace();</span>
+<span class="fc" id="L144">      }</span>
+
+<span class="fc" id="L146">    }</span>
+<span class="fc" id="L147">    return models;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

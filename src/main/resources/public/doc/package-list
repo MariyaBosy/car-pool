@@ -1,0 +1,10 @@
+com.practo.jedi.carpool.controller
+com.practo.jedi.carpool.data.dto
+com.practo.jedi.carpool.data.entity
+com.practo.jedi.carpool.data.repository
+com.practo.jedi.carpool.exceptions
+com.practo.jedi.carpool.model
+com.practo.jedi.carpool.run
+com.practo.jedi.carpool.service
+com.practo.jedi.carpool.test.service
+com.practo.jedi.carpool.util

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.carpool.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.practo.jedi.carpool.controller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.practo.jedi.carpool.exceptions.EntityNotFoundException;
+import com.practo.jedi.carpool.model.UserModel;
+import com.practo.jedi.carpool.service.UserService;
+
+@RestController
+@RequestMapping(&quot;/users&quot;)
+<span class="fc" id="L23">public class UserController {</span>
+
+  @Autowired
+  private UserService service;
+
+  @RequestMapping(method = RequestMethod.GET)
+  public Iterable&lt;UserModel&gt; list(HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">    if (session.getAttribute(&quot;user&quot;) == null) {</span>
+<span class="nc" id="L32">      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), &quot;You must login to access this page.&quot;);</span>
+<span class="nc" id="L33">      return null;</span>
+
+    }
+<span class="nc" id="L36">    return service.get();</span>
+  }
+
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity&lt;UserModel&gt; create(@RequestBody UserModel user, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    if (session.getAttribute(&quot;user&quot;) == null) {</span>
+<span class="nc" id="L43">      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), &quot;You must login to access this page.&quot;);</span>
+<span class="nc" id="L44">      return null;</span>
+    }
+<span class="nc" id="L46">    UserModel m = service.create(user);</span>
+<span class="nc" id="L47">    ResponseEntity&lt;UserModel&gt; response = new ResponseEntity&lt;UserModel&gt;(m, HttpStatus.CREATED);</span>
+<span class="nc" id="L48">    return response;</span>
+  }
+
+  @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
+  public UserModel get(@PathVariable(&quot;id&quot;) int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (session.getAttribute(&quot;user&quot;) == null) {</span>
+<span class="nc" id="L55">      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), &quot;You must login to access this page.&quot;);</span>
+<span class="nc" id="L56">      return null;</span>
+
+    }
+<span class="nc" id="L59">    return service.get(id);</span>
+  }
+
+  @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.PUT)
+  public ResponseEntity&lt;UserModel&gt; update(@PathVariable(&quot;id&quot;) int id, @RequestBody UserModel user,
+      HttpSession session, HttpServletResponse servletResponse)
+      throws EntityNotFoundException, IOException {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (session.getAttribute(&quot;user&quot;) == null) {</span>
+<span class="nc" id="L67">      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), &quot;You must login to access this page.&quot;);</span>
+<span class="nc" id="L68">      return null;</span>
+
+    }
+<span class="nc" id="L71">    UserModel m = service.update(user, id);</span>
+<span class="nc" id="L72">    ResponseEntity&lt;UserModel&gt; response = new ResponseEntity&lt;UserModel&gt;(m, HttpStatus.OK);</span>
+<span class="nc" id="L73">    return response;</span>
+  }
+
+  @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
+  public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpSession session,
+      HttpServletResponse servletResponse) throws EntityNotFoundException, IOException {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    if (session.getAttribute(&quot;user&quot;) == null) {</span>
+<span class="nc" id="L80">      servletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), &quot;You must login to access this page.&quot;);</span>
+<span class="nc" id="L81">      return null;</span>
+
+    }
+<span class="nc" id="L84">    service.delete(id);</span>
+<span class="nc" id="L85">    ResponseEntity&lt;Boolean&gt; response = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L86">    return response;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
