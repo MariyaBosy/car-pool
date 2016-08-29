@@ -56,10 +56,13 @@ public class ApplicationController {
    * @return Index page.
    */
   @RequestMapping("/")
-  public String index(HttpSession session) {
+  public String index(HttpSession session, Model model) {
+    Boolean loggedIn = false;
     if (session.getAttribute("user") != null) {
+      loggedIn = true;
       return "redirect:search";
     }
+    model.addAttribute("loggedIn", loggedIn);
     return "index";
   }
 

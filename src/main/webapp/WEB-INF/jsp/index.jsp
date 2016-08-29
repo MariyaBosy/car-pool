@@ -52,8 +52,8 @@
 
 										<nav id="nav" class="main-navigation">
 											<ul class="navigation">
-												<li><a href="search">Find a ride</a></li>
-												<li><a href="post">Give a ride</a></li>
+												<li><a data-toggle="modal" data-target="#loginModal">Find a ride</a></li>
+												<li><a data-toggle="modal" data-target="#loginModal">Give a ride</a></li>
 											</ul>
 
 										</nav>
@@ -71,11 +71,22 @@
 						</section>
 						<!-- end .container -->
 						<div class="col-md-12 col-sm-12 col-xs-12">
+							<c:choose>
+								<c:when test="${loggedIn}">
+									<div class="sign-in-content">
+										<button id="login" type="button"
+											class="btn btn-lg green-color">Successfully signed
+											in!</button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="sign-in-content">
+										<button id="login" type="button" class="btn btn-lg red-color">Sign
+											in with Google</button>
+									</div>
+								</c:otherwise>
+							</c:choose>
 
-							<div class="sign-in-content">
-								<button id="login" type="button" class="btn btn-lg red-color">Sign
-									in with Google</button>
-							</div>
 							<!-- end .search-content -->
 
 						</div>
@@ -179,7 +190,25 @@
 
 	</section>
 	<!-- end .main-content -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
 
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+
+				<div id="modal-info" class="modal-body">Please sign in to access the rest of the website.</div>
+				<!-- end .modal-body -->
+
+			</div>
+			<!-- end .modal-content -->
+		</div>
+		<!-- end .modal-dialog -->
+	</div>
+	<!-- end .modal -->
 	<%@ include file="includes_foot.jsp"%>
 
 </body>
