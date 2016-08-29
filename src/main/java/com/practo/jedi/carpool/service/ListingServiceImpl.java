@@ -136,7 +136,8 @@ public class ListingServiceImpl implements ListingService {
       try {
         model.fromEntity(entity);
 
-        if (destination != null) {
+        if (destination != null && destination.getLatitude() != null
+            && destination.getLongitude() != null) {
           if (Haversine.haversine(destination.getLatitude().doubleValue(),
               destination.getLongitude().doubleValue(),
               model.getAddress().getLatitude().doubleValue(),

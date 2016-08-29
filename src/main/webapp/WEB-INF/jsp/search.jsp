@@ -141,9 +141,9 @@
 												<select id="departureTimeModifier"
 													name="departureTimeModifier">
 													<option value="GOE"
-														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>before</option>
+														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.GOE }">${ selected="selected" }</c:if>>after</option>
 													<option value="LOE"
-														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>after</option>
+														<c:if test="${ filters.getDepartureTimeModifier() == Modifier.LOE }">${ selected="selected" }</c:if>>before</option>
 												</select>
 											</div>
 										</div>
